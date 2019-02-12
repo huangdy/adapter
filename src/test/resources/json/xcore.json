@@ -1,0 +1,1567 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -76.8021,
+          39.06395
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Maryland",
+        "ActivityStatus": "Maryland",
+        "AssociatedGroupIdentifier": "IG-03a3d214-50e4-4675-8993-7445ab8222ea",
+        "Checksum": "Tue Dec 11 15:42:26 UTC 2018:1:2:4255837489",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:27+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:27+00:00",
+        "LastUpdated": "2018-12-11T15:42:27+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 1,
+        "SABER Member": " Active",
+        "State": " Maryland",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-51c56a26-93af-48c4-bc44-64894ace991a"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -86.25828,
+          39.84943
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Indiana",
+        "ActivityStatus": "Indiana",
+        "AssociatedGroupIdentifier": "IG-1c3100f0-24d5-4d85-a031-572242e553ab",
+        "Checksum": "Tue Dec 11 15:42:45 UTC 2018:1:2:718397468",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:46+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:46+00:00",
+        "LastUpdated": "2018-12-11T15:42:46+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 2,
+        "SABER Member": " Active",
+        "State": " Indiana",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-d72d92c0-8eaa-45db-ab9b-7a8862252452"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -75.50714,
+          39.31852
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Delaware",
+        "ActivityStatus": "Delaware",
+        "AssociatedGroupIdentifier": "IG-6c89fdfc-45dc-4d08-b2b8-30d41de4cb66",
+        "Checksum": "Tue Dec 11 15:43:09 UTC 2018:1:2:1452874979",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:09+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:09+00:00",
+        "LastUpdated": "2018-12-11T15:43:09+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 3,
+        "SABER Member": " Pending",
+        "State": " Delaware",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-1522f8f7-c52f-4222-b909-0c0fc193b7b9"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -95.3946,
+          39.0494
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-USA",
+        "ActivityStatus": "USA",
+        "AssociatedGroupIdentifier": "IG-934c00e3-da15-41cd-afb1-63e1d4a73b21",
+        "Checksum": "Tue Dec 11 15:42:22 UTC 2018:1:2:4272739918",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:23+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:23+00:00",
+        "LastUpdated": "2018-12-11T15:42:23+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 4,
+        "SABER Member": " Active",
+        "State": " USA",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-e718c061-81a1-424d-a8c1-022f4b599ca7"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -152.40442,
+          61.37072
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Alaska",
+        "ActivityStatus": "Alaska",
+        "AssociatedGroupIdentifier": "IG-f44e0fb0-a66c-4a00-a4d5-6cec9b006538",
+        "Checksum": "Tue Dec 11 15:42:33 UTC 2018:1:2:3097445284",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:33+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:33+00:00",
+        "LastUpdated": "2018-12-11T15:42:33+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 5,
+        "SABER Member": " Pending",
+        "State": " Alaska",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-fb4ea4d3-4551-4a86-98e4-ba976431241b"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -79.80642,
+          35.63007
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-North Carolina",
+        "ActivityStatus": "North Carolina",
+        "AssociatedGroupIdentifier": "IG-b8d6a251-510a-430c-baca-b4641125479c",
+        "Checksum": "Tue Dec 11 15:43:06 UTC 2018:1:2:604865426",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:07+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:07+00:00",
+        "LastUpdated": "2018-12-11T15:43:07+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 6,
+        "SABER Member": " Active",
+        "State": " North Carolina",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-0b3f44dd-b017-482d-a498-04d460823a2f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -88.98614,
+          40.34946
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Illinois",
+        "ActivityStatus": "Illinois",
+        "AssociatedGroupIdentifier": "IG-f17a52fc-5cd6-422a-8526-fd819c8b42fb",
+        "Checksum": "Tue Dec 11 15:42:43 UTC 2018:1:2:3320595964",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:43+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:43+00:00",
+        "LastUpdated": "2018-12-11T15:42:43+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 7,
+        "SABER Member": " Active",
+        "State": " Illinois",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-bc14a94c-cc90-43cb-a0e3-79a583e431a4"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -121.49049,
+          47.4009
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Washington",
+        "ActivityStatus": "Washington",
+        "AssociatedGroupIdentifier": "IG-04a1f79a-0cc7-402d-b046-53b0c3e00d41",
+        "Checksum": "Tue Dec 11 15:42:48 UTC 2018:1:2:3028214258",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:49+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:49+00:00",
+        "LastUpdated": "2018-12-11T15:42:49+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 8,
+        "SABER Member": " Pending",
+        "State": " Washington",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-cfbf7762-3c39-4a96-ac3b-ba0b4eef7a57"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -93.90019,
+          45.69445
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Minnesota",
+        "ActivityStatus": "Minnesota",
+        "AssociatedGroupIdentifier": "IG-8f684cc8-ffaf-421e-bbd0-d0fcd0d1d9c0",
+        "Checksum": "Tue Dec 11 15:42:23 UTC 2018:1:2:1695128097",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:24+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:24+00:00",
+        "LastUpdated": "2018-12-11T15:42:24+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 9,
+        "SABER Member": " Pending",
+        "State": " Minnesota",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-16ffee5e-11ba-4992-ad1b-d51692a858cb"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -121.981,
+          37.3599
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "Incident-Infrastructure-Building",
+        "ActivityName": "Heavy equipment needed (EXERCISE)",
+        "AssociatedGroupIdentifier": "IG-4a28582a-24a7-4102-98d0-f1f7d185af34",
+        "Checksum": "Mon Jan 07 20:54:09 UTC 2019:1:2:4202678028",
+        "Created": "2019-01-07T20:54:09+00:00",
+        "CreatedBy": "ClearinghouseSpotOnResponse@xcore.spotonresponse.com",
+        "DateTime": "2019-01-07T20:54:09+00:00",
+        "LastUpdated": "2019-01-07T20:54:09+00:00",
+        "LastUpdatedBy": "ClearinghouseSpotOnResponse@xcore.spotonresponse.com",
+        "OBJECTID": 10,
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-34b4733f-db07-4230-8316-d2f455c94e29"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -81.68678,
+          27.76628
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Florida",
+        "ActivityStatus": "Florida",
+        "AssociatedGroupIdentifier": "IG-c6850a5e-c0c4-4511-92fe-3184db623a23",
+        "Checksum": "Tue Dec 11 15:42:19 UTC 2018:1:2:854859406",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:20+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:20+00:00",
+        "LastUpdated": "2018-12-11T15:42:20+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 11,
+        "SABER Member": " Active",
+        "State": " Florida",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-c87c53ac-6138-4779-ab63-6bced12730f3"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -122.07094,
+          44.57202
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Oregon",
+        "ActivityStatus": "Oregon",
+        "AssociatedGroupIdentifier": "IG-54b4b029-8dfe-49d8-932b-2810cc8fb93b",
+        "Checksum": "Tue Dec 11 15:43:05 UTC 2018:1:2:1402163554",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:06+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:06+00:00",
+        "LastUpdated": "2018-12-11T15:43:06+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 12,
+        "SABER Member": " Pending",
+        "State": " Oregon",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-e9cd4e96-7c30-43bf-b7d9-057eed56cbba"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -105.3111,
+          39.05981
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Colorado",
+        "ActivityStatus": "Colorado",
+        "AssociatedGroupIdentifier": "IG-d1295f90-1be8-43ee-8cbf-5cb0855c64e1",
+        "Checksum": "Tue Dec 11 15:42:44 UTC 2018:1:2:2977213555",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:44+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:44+00:00",
+        "LastUpdated": "2018-12-11T15:42:44+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 13,
+        "SABER Member": " Active",
+        "State": " Colorado",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-2bbf792c-6057-4275-a2b0-bef696fbbd65"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -69.38193,
+          44.69395
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Maine",
+        "ActivityStatus": "Maine",
+        "AssociatedGroupIdentifier": "IG-5a7c3bab-6892-4d1c-af59-3023d7dd58c5",
+        "Checksum": "Tue Dec 11 15:43:02 UTC 2018:1:2:655079661",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:02+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:02+00:00",
+        "LastUpdated": "2018-12-11T15:43:02+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 14,
+        "SABER Member": " Pending",
+        "State": " Maine",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-9eefb7d6-10c1-4d84-8e78-22701730efab"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.92892,
+          35.56534
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Oklahoma",
+        "ActivityStatus": "Oklahoma",
+        "AssociatedGroupIdentifier": "IG-cbde432d-c38b-4fd4-8bbb-bf020d7f8851",
+        "Checksum": "Tue Dec 11 15:42:52 UTC 2018:1:2:2212483094",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:52+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:52+00:00",
+        "LastUpdated": "2018-12-11T15:42:52+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 15,
+        "SABER Member": " Pending",
+        "State": " Oklahoma",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-1f528d52-0dbf-46b8-9e26-f393578b899b"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -157.49834,
+          21.09432
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Hawaii",
+        "ActivityStatus": "Hawaii",
+        "AssociatedGroupIdentifier": "IG-f4d4262f-cac6-4626-be14-e340feb6df18",
+        "Checksum": "Tue Dec 11 15:42:36 UTC 2018:1:2:540816564",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:37+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:37+00:00",
+        "LastUpdated": "2018-12-11T15:42:37+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 16,
+        "SABER Member": " Pending",
+        "State": " Hawaii",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-278872a6-a892-43ee-b55d-ee7735df9b8e"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -110.45435,
+          46.92192
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Montana",
+        "ActivityStatus": "Montana",
+        "AssociatedGroupIdentifier": "IG-e07d886c-8fd8-4a80-b317-86b5fbe33d63",
+        "Checksum": "Tue Dec 11 15:43:16 UTC 2018:1:2:4187707927",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:17+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:17+00:00",
+        "LastUpdated": "2018-12-11T15:43:17+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 17,
+        "SABER Member": " Pending",
+        "State": " Montana",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-575976e3-3406-4bfa-9844-7eeb43381b86"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -119.68156,
+          36.1162
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-California",
+        "ActivityStatus": "California",
+        "AssociatedGroupIdentifier": "IG-5c463600-4cab-42f4-af96-7b14c9897f37",
+        "Checksum": "Tue Dec 11 15:42:41 UTC 2018:1:2:702012259",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:42+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:42+00:00",
+        "LastUpdated": "2018-12-11T15:42:42+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 18,
+        "SABER Member": " Active",
+        "State": " California",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-f8000f96-87cb-477b-98f2-fc6fc66c3173"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -89.6787,
+          32.74165
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Mississippi",
+        "ActivityStatus": "Mississippi",
+        "AssociatedGroupIdentifier": "IG-0ab04dec-80a7-4398-8f31-1ab5b6b1ae54",
+        "Checksum": "Tue Dec 11 15:42:40 UTC 2018:1:2:2993854220",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:41+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:41+00:00",
+        "LastUpdated": "2018-12-11T15:42:41+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 19,
+        "SABER Member": " Pending",
+        "State": " Mississippi",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-aa25fc5b-8538-4cb4-a686-b07454537020"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -71.5639,
+          43.45249
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-New Hampshire",
+        "ActivityStatus": "New Hampshire",
+        "AssociatedGroupIdentifier": "IG-7f1e3a5d-3c2a-4fb8-96d4-880f6e47c4e7",
+        "Checksum": "Tue Dec 11 15:43:11 UTC 2018:1:2:2365830040",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:12+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:12+00:00",
+        "LastUpdated": "2018-12-11T15:43:12+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 20,
+        "SABER Member": " Pending",
+        "State": " New Hampshire",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-11d573e2-fb6f-4396-a93a-5776903c9374"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -86.69234,
+          35.74784
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Tennessee",
+        "ActivityStatus": "Tennessee",
+        "AssociatedGroupIdentifier": "IG-73d53a0c-1dc3-4946-bd5c-9a7d14d05aa0",
+        "Checksum": "Tue Dec 11 15:42:30 UTC 2018:1:2:3472986452",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:30+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:30+00:00",
+        "LastUpdated": "2018-12-11T15:42:30+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 21,
+        "SABER Member": " Pending",
+        "State": " Tennessee",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-1231f79a-67d5-4670-8f41-dcaa4daad1b4"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -77.20976,
+          40.59075
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Pennsylvania",
+        "ActivityStatus": "Pennsylvania",
+        "AssociatedGroupIdentifier": "IG-a1697fb0-93ef-4d09-b027-c83e787160b5",
+        "Checksum": "Tue Dec 11 15:43:15 UTC 2018:1:2:2382727399",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:16+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:16+00:00",
+        "LastUpdated": "2018-12-11T15:43:16+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 22,
+        "SABER Member": " Active",
+        "State": " Pennsylvania",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-bea131e6-1a0e-47ae-b48b-38067e940b71"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -78.16997,
+          37.76934
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Virginia",
+        "ActivityStatus": "Virginia",
+        "AssociatedGroupIdentifier": "IG-c38aea59-b9c3-4fd9-9698-44402a1a6679",
+        "Checksum": "Tue Dec 11 15:42:49 UTC 2018:1:2:802925981",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:50+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:50+00:00",
+        "LastUpdated": "2018-12-11T15:42:50+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 23,
+        "SABER Member": " Active",
+        "State": " Virginia",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-9fe80ebc-4f49-47ff-afe4-467243ce9e81"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.72649,
+          38.5266
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Kansas",
+        "ActivityStatus": "Kansas",
+        "AssociatedGroupIdentifier": "IG-daaff273-e849-4f98-a662-820be3f5af93",
+        "Checksum": "Tue Dec 11 15:42:53 UTC 2018:1:2:410688633",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:53+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:53+00:00",
+        "LastUpdated": "2018-12-11T15:42:53+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 24,
+        "SABER Member": " Pending",
+        "State": " Kansas",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-3353b6a3-47e3-4021-ab88-345038c791b8"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -86.79113,
+          32.80667
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Alabama",
+        "ActivityStatus": "Alabama",
+        "AssociatedGroupIdentifier": "IG-a6b7404d-6fea-4827-88ec-355e0e1fb5a8",
+        "Checksum": "Tue Dec 11 15:42:20 UTC 2018:1:2:311904465",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:21+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:21+00:00",
+        "LastUpdated": "2018-12-11T15:42:21+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 25,
+        "SABER Member": " Pending",
+        "State": " Alabama",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-d8b1a8b9-c4da-4309-87eb-b298f31b4ac0"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -111.86243,
+          40.15003
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Utah",
+        "ActivityStatus": "Utah",
+        "AssociatedGroupIdentifier": "IG-69cfaaae-fddc-424f-b309-125fd46ad789",
+        "Checksum": "Tue Dec 11 15:43:04 UTC 2018:1:2:3358989581",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:04+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:04+00:00",
+        "LastUpdated": "2018-12-11T15:43:04+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 26,
+        "SABER Member": " Pending",
+        "State": " Utah",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-861a3778-4202-450c-bc4f-ac9d6f2da34f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -71.51178,
+          41.68089
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Rhode Island",
+        "ActivityStatus": "Rhode Island",
+        "AssociatedGroupIdentifier": "IG-0821c1ca-b3cc-4a25-9a4a-611f9037feef",
+        "Checksum": "Tue Dec 11 15:42:55 UTC 2018:1:2:4148640153",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:55+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:55+00:00",
+        "LastUpdated": "2018-12-11T15:42:55+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 27,
+        "SABER Member": " Active",
+        "State": " Rhode Island",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-78b2f8aa-223f-4f10-8197-c664b9005bd7"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -72.75537,
+          41.59778
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Connecticut",
+        "ActivityStatus": "Connecticut",
+        "AssociatedGroupIdentifier": "IG-523b6022-91ab-49d1-aab3-8eb47d2b6ca8",
+        "Checksum": "Tue Dec 11 15:42:32 UTC 2018:1:2:591007691",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:32+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:32+00:00",
+        "LastUpdated": "2018-12-11T15:42:32+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 28,
+        "SABER Member": " Pending",
+        "State": " Connecticut",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-13ab717a-ec37-4d01-bcf5-4e58c6ba795c"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -117.13333,
+          32.8347
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-San Diego County",
+        "ActivityStatus": "San Diego County",
+        "AssociatedGroupIdentifier": "IG-49e41aa8-5d8d-4df8-9cf2-dbb88e9eb0f9",
+        "Checksum": "Tue Dec 11 15:42:25 UTC 2018:1:2:2318680001",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:26+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:26+00:00",
+        "LastUpdated": "2018-12-11T15:42:26+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 29,
+        "SABER Member": " Active",
+        "State": " San Diego County",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-e82cd7d6-02f3-43f4-8503-b276eee087c8"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -80.94501,
+          33.85689
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-South Carolina",
+        "ActivityStatus": "South Carolina",
+        "AssociatedGroupIdentifier": "IG-c46e46fd-02d6-42a0-937c-0f0598b4d38a",
+        "Checksum": "Tue Dec 11 15:42:24 UTC 2018:1:2:294745006",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:25+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:25+00:00",
+        "LastUpdated": "2018-12-11T15:42:25+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 30,
+        "SABER Member": " Active",
+        "State": " South Carolina",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-5cc396f1-fe92-4caf-89d0-010c8ec8e6f8"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -80.95445,
+          38.49122
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-West Virginia",
+        "ActivityStatus": "West Virginia",
+        "AssociatedGroupIdentifier": "IG-fe846098-5cbc-45d3-b700-53427c5031c3",
+        "Checksum": "Tue Dec 11 15:42:59 UTC 2018:1:2:4065162264",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:00+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:00+00:00",
+        "LastUpdated": "2018-12-11T15:43:00+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 31,
+        "SABER Member": " Pending",
+        "State": " West Virginia",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-cf7d72c4-9593-40e3-840c-ab88a628f35f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -99.78401,
+          47.52891
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-North Dakota",
+        "ActivityStatus": "North Dakota",
+        "AssociatedGroupIdentifier": "IG-77ab11d1-05ee-410b-87ac-177819cab4e1",
+        "Checksum": "Tue Dec 11 15:42:39 UTC 2018:1:2:1386785733",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:39+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:39+00:00",
+        "LastUpdated": "2018-12-11T15:42:39+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 32,
+        "SABER Member": " Pending",
+        "State": " North Dakota",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-b0bfc6be-813c-47d5-b3fe-2c7b7ea49816"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.64308,
+          33.04062
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Georgia",
+        "ActivityStatus": "Georgia",
+        "AssociatedGroupIdentifier": "IG-1891b6c2-5c68-483a-b2a1-f019eb8ebf72",
+        "Checksum": "Tue Dec 11 15:43:00 UTC 2018:1:2:3408930418",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:01+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:01+00:00",
+        "LastUpdated": "2018-12-11T15:43:01+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 33,
+        "SABER Member": " Active",
+        "State": " Georgia",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-2c9789c7-4197-49c8-91a2-6ae80dffda38"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -99.43883,
+          44.29978
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-South Dakota",
+        "ActivityStatus": "South Dakota",
+        "AssociatedGroupIdentifier": "IG-fd0b97e5-fb38-48af-af47-31033f95dec4",
+        "Checksum": "Tue Dec 11 15:42:18 UTC 2018:1:2:2840679137",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:19+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:19+00:00",
+        "LastUpdated": "2018-12-11T15:42:19+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 34,
+        "SABER Member": " Pending",
+        "State": " South Dakota",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-5b18bf22-126e-4c08-a09c-845a2a878b8d"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -71.53011,
+          42.23017
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Massachusetts",
+        "ActivityStatus": "Massachusetts",
+        "AssociatedGroupIdentifier": "IG-28783b20-fc5e-4e87-b564-57da2350a0e0",
+        "Checksum": "Tue Dec 11 15:42:56 UTC 2018:1:2:2161765225",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:56+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:56+00:00",
+        "LastUpdated": "2018-12-11T15:42:56+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 35,
+        "SABER Member": " Pending",
+        "State": " Massachusetts",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-d1e042d8-305b-46f6-ad66-4bbbfbabe814"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -114.47883,
+          44.24046
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Idaho",
+        "ActivityStatus": "Idaho",
+        "AssociatedGroupIdentifier": "IG-587d03a5-e8bb-41e3-b8c2-9c4c12f7c582",
+        "Checksum": "Tue Dec 11 15:42:58 UTC 2018:1:2:1776826487",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:59+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:59+00:00",
+        "LastUpdated": "2018-12-11T15:42:59+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 36,
+        "SABER Member": " Active",
+        "State": " Idaho",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-5abc1135-6273-4035-8e36-976ac75afb83"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -77.02682,
+          38.89744
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-District of Columbia",
+        "ActivityStatus": "District of Columbia",
+        "AssociatedGroupIdentifier": "IG-9cf07bf2-4096-4cba-8e43-55a8f5dfcbe5",
+        "Checksum": "Tue Dec 11 15:42:57 UTC 2018:1:2:461154054",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:57+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:57+00:00",
+        "LastUpdated": "2018-12-11T15:42:57+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 37,
+        "SABER Member": " Pending",
+        "State": " District of Columbia",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-317695d4-6901-4ec2-aef2-22e2c10be169"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -82.76491,
+          40.38878
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Ohio",
+        "ActivityStatus": "Ohio",
+        "AssociatedGroupIdentifier": "IG-1f6d7d28-4c98-444f-af56-304b081f16bd",
+        "Checksum": "Tue Dec 11 15:42:21 UTC 2018:1:2:2301756606",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:22+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:22+00:00",
+        "LastUpdated": "2018-12-11T15:42:22+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 38,
+        "SABER Member": " Pending",
+        "State": " Ohio",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-aee28123-4094-4300-810d-fe6fea7506de"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -92.37312,
+          34.9697
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Arkansas",
+        "ActivityStatus": "Arkansas",
+        "AssociatedGroupIdentifier": "IG-3b68f156-97e6-4f74-a9eb-3b7c780ef7b0",
+        "Checksum": "Tue Dec 11 15:43:18 UTC 2018:1:2:279611657",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:18+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:18+00:00",
+        "LastUpdated": "2018-12-11T15:43:18+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 39,
+        "SABER Member": " Pending",
+        "State": " Arkansas",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-787544de-5226-4c95-a206-c9ca224767ae"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -92.28837,
+          38.45609
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Missouri",
+        "ActivityStatus": "Missouri",
+        "AssociatedGroupIdentifier": "IG-e44f3752-124a-4f25-af1d-f266afb43a3d",
+        "Checksum": "Tue Dec 11 15:43:08 UTC 2018:1:2:3443282060",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:08+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:08+00:00",
+        "LastUpdated": "2018-12-11T15:43:08+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 40,
+        "SABER Member": " Active",
+        "State": " Missouri",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-3eefb901-c929-445d-b15c-4858e909cd7a"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -89.61651,
+          44.26854
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Wisconsin",
+        "ActivityStatus": "Wisconsin",
+        "AssociatedGroupIdentifier": "IG-0ed28e4d-53e5-4e54-9391-7c08d3cfecef",
+        "Checksum": "Tue Dec 11 15:42:50 UTC 2018:1:2:1877233289",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:51+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:51+00:00",
+        "LastUpdated": "2018-12-11T15:42:51+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 41,
+        "SABER Member": " Pending",
+        "State": " Wisconsin",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-2a80e55a-7185-4b40-a435-dc9badf3fa86"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -98.26808,
+          41.12537
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Nebraska",
+        "ActivityStatus": "Nebraska",
+        "AssociatedGroupIdentifier": "IG-f705794a-46bd-4eba-be7d-16dd44c246e2",
+        "Checksum": "Tue Dec 11 15:42:46 UTC 2018:1:2:1565471468",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:47+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:47+00:00",
+        "LastUpdated": "2018-12-11T15:42:47+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 42,
+        "SABER Member": " Pending",
+        "State": " Nebraska",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-c28ce0cf-fbf5-49fd-b342-3f71d1c1d266"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -74.52101,
+          40.2989
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-New Jersey",
+        "ActivityStatus": "New Jersey",
+        "AssociatedGroupIdentifier": "IG-702490f4-1599-4818-bd90-64df5edd6027",
+        "Checksum": "Tue Dec 11 15:43:14 UTC 2018:1:2:362857608",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:14+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:14+00:00",
+        "LastUpdated": "2018-12-11T15:43:14+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 43,
+        "SABER Member": " Active",
+        "State": " New Jersey",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-96a4c917-0382-4c4d-8b33-f5e5faf61110"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -72.71069,
+          44.04587
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Vermont",
+        "ActivityStatus": "Vermont",
+        "AssociatedGroupIdentifier": "IG-26c7fd45-1945-4620-b581-11e2e9636d7d",
+        "Checksum": "Tue Dec 11 15:42:38 UTC 2018:1:2:3373131690",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:38+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:38+00:00",
+        "LastUpdated": "2018-12-11T15:42:38+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 44,
+        "SABER Member": " Pending",
+        "State": " Vermont",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-6b4e00fa-37ab-4e09-8036-6805ecb30d01"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -93.21053,
+          42.01154
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Iowa",
+        "ActivityStatus": "Iowa",
+        "AssociatedGroupIdentifier": "IG-5f6e4dd2-6e79-43ff-a148-7686284ae4c7",
+        "Checksum": "Tue Dec 11 15:43:10 UTC 2018:1:2:380043255",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:10+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:10+00:00",
+        "LastUpdated": "2018-12-11T15:43:10+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 45,
+        "SABER Member": " Pending",
+        "State": " Iowa",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-ff3af060-56e6-47ea-a6cb-0ac390e3b758"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -74.94805,
+          42.16573
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-New York",
+        "ActivityStatus": "New York",
+        "AssociatedGroupIdentifier": "IG-2fa7716a-70c7-4bff-b4d9-1ef4416ff40d",
+        "Checksum": "Tue Dec 11 15:42:54 UTC 2018:1:2:1826780662",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:54+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:54+00:00",
+        "LastUpdated": "2018-12-11T15:42:54+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 46,
+        "SABER Member": " Pending",
+        "State": " New York",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-4299adfa-5856-44d4-a7dd-5127bd1a64bf"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -111.43122,
+          33.72976
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Active",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Arizona",
+        "ActivityStatus": "Arizona",
+        "AssociatedGroupIdentifier": "IG-59161fb0-a0d0-44e2-b9aa-6234314053dd",
+        "Checksum": "Tue Dec 11 15:42:47 UTC 2018:1:2:3337256579",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:48+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:48+00:00",
+        "LastUpdated": "2018-12-11T15:42:48+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 47,
+        "SABER Member": " Active",
+        "State": " Arizona",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-1a40963c-5597-40b5-9ac6-b4880bbf871e"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.67007,
+          37.66814
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Kentucky",
+        "ActivityStatus": "Kentucky",
+        "AssociatedGroupIdentifier": "IG-111c0b98-103a-433e-8deb-7eaf9c7b9d27",
+        "Checksum": "Tue Dec 11 15:42:34 UTC 2018:1:2:3423054379",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:34+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:34+00:00",
+        "LastUpdated": "2018-12-11T15:42:34+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 48,
+        "SABER Member": " Pending",
+        "State": " Kentucky",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-2539e536-e6dd-455b-9233-6913146df072"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -117.05537,
+          38.31351
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Nevada",
+        "ActivityStatus": "Nevada",
+        "AssociatedGroupIdentifier": "IG-a45505f8-8d1f-4de3-b5ae-fc6b6e72e3f5",
+        "Checksum": "Tue Dec 11 15:43:03 UTC 2018:1:2:3165582466",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:03+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:03+00:00",
+        "LastUpdated": "2018-12-11T15:43:03+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 49,
+        "SABER Member": " Pending",
+        "State": " Nevada",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-0ffaa724-b0bf-4f7a-af4f-04a370be5268"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -106.24848,
+          34.84051
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-New Mexico",
+        "ActivityStatus": "New Mexico",
+        "AssociatedGroupIdentifier": "IG-184e8cfc-7160-47b4-b751-449ebc3a7864",
+        "Checksum": "Tue Dec 11 15:42:35 UTC 2018:1:2:1470293572",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:36+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:36+00:00",
+        "LastUpdated": "2018-12-11T15:42:36+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 50,
+        "SABER Member": " Pending",
+        "State": " New Mexico",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-2b3e0f71-4908-4e17-9f26-d697d3f71b71"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.5361,
+          43.32662
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Michigan",
+        "ActivityStatus": "Michigan",
+        "AssociatedGroupIdentifier": "IG-60ede45c-d380-4a2d-97d4-aa6ee55ccfa4",
+        "Checksum": "Tue Dec 11 15:42:27 UTC 2018:1:2:1712300382",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:28+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:28+00:00",
+        "LastUpdated": "2018-12-11T15:42:28+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 51,
+        "SABER Member": " Pending",
+        "State": " Michigan",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-556f5a7f-f880-4f84-b22b-4e9d207ec7fd"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -107.30249,
+          42.75597
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Wyoming",
+        "ActivityStatus": "Wyoming",
+        "AssociatedGroupIdentifier": "IG-07d0ff87-c051-4a9e-9240-79bf7ad3bb13",
+        "Checksum": "Tue Dec 11 15:42:29 UTC 2018:1:2:2403234368",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:29+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:29+00:00",
+        "LastUpdated": "2018-12-11T15:42:29+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 52,
+        "SABER Member": " Pending",
+        "State": " Wyoming",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-375d0886-2b92-41b7-b6e4-7f20120284b5"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -91.86781,
+          31.16955
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Louisiana",
+        "ActivityStatus": "Louisiana",
+        "AssociatedGroupIdentifier": "IG-faef6501-9d4e-4f3d-b1e4-ea5498d2307e",
+        "Checksum": "Tue Dec 11 15:43:12 UTC 2018:1:2:4204618088",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:43:13+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:43:13+00:00",
+        "LastUpdated": "2018-12-11T15:43:13+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 53,
+        "SABER Member": " Pending",
+        "State": " Louisiana",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-841249f3-04b7-45c9-a7bb-f8e9dde15985"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -97.56346,
+          31.05449
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "ActivityCategoryText": "SABER-Pending",
+        "ActivityName": "SABER CONNECTIVITY VERIFICATION-Texas",
+        "ActivityStatus": "Texas",
+        "AssociatedGroupIdentifier": "IG-656ebbf4-39f2-4afe-b8e6-f5f99ae240ed",
+        "Checksum": "Tue Dec 11 15:42:31 UTC 2018:1:2:1420090683",
+        "Comment": " If you are seeing this, you are connected to SABER.  For more information, enroll at www.SABERspace.org.",
+        "Created": "2018-12-11T15:42:31+00:00",
+        "CreatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "DateTime": "2018-12-11T15:42:31+00:00",
+        "LastUpdated": "2018-12-11T15:42:31+00:00",
+        "LastUpdatedBy": "saberconnectivity@xcore.spotonresponse.com",
+        "OBJECTID": 54,
+        "SABER Member": " Pending",
+        "State": " Texas",
+        "Type": "Incident",
+        "Version": 1,
+        "WorkProductIdentification": "Incident-57e73de9-9256-4978-a6bb-56c14d215d20"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

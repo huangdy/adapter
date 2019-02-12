@@ -1,0 +1,167 @@
+package com.spotonresponse.adapter.services;
+
+import com.spotonresponse.adapter.model.Configuration;
+import com.spotonresponse.adapter.model.Util;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class JSONPollerTask implements Runnable {
+
+    private static final Logger logger = LoggerFactory.getLogger(JSONPollerTask.class);
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
+    public static final String S_Features = "features";
+    public static final String S_Properties = "properties";
+    public static final String S_Geometry = "geometry";
+    public static final String S_coordinates = "coordinates";
+    public static final String S_TokenSeparator = ":";
+    public static String PatternPrefix = "(?i:.*";
+    public static String PatternPostfix = ".*)";
+
+    private Configuration configuration;
+    private Map<String, List<String>> mapping;
+
+    public JSONPollerTask(Configuration configuration) {
+
+        this.configuration = configuration;
+        this.mapping = configuration.getMap();
+    }
+
+    // @Scheduled(cron = "*/30 * * * * *")
+    // @Scheduled(cron = "${jsonpoller.cron.schedule}")
+    @Override
+    public void run() {
+
+        logger.info("The time is now {}, JSON URL: {}", dateFormat.format(new Date()), configuration.getJson_ds());
+        if (configuration.getJson_ds() == null) {
+            // TODO fatal error
+            System.exit(-1);
+        }
+        BufferedReader reader = null;
+        HttpURLConnection con = null;
+        try {
+            URL url = new URL(configuration.getJson_ds());
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            // int status = con.getResponseCode();
+            reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = reader.readLine()) != null) {
+                content.append(inputLine);
+            }
+            JSONObject jsonObject = new JSONObject(content.toString());
+
+            // features is array of records
+            JSONArray features = (JSONArray) jsonObject.get(S_Features);
+
+            // features ->
+            //     { properties, geometry },
+            for (int i = 0; i < features.length(); i++) {
+                JSONObject feature = (JSONObject) features.get(i);
+
+                // convert properties into a row of data
+                JSONObject properties = (JSONObject) feature.get(S_Properties);
+                Map<String, Object> rowData = Util.toMap(properties);
+
+                // convert the geometry to latitude and longitude
+                JSONObject geo = (JSONObject) feature.get(S_Geometry);
+                JSONArray lonLat = (JSONArray) geo.get(S_coordinates);
+                rowData.put("Longitude", lonLat.get(0));
+                rowData.put("Latitude", lonLat.get(1));
+
+                // call the toRecord to convert the row of data into the JSON record
+                JSONObject record = toRecord(rowData);
+
+                logger.debug("Record: [\n{}\n]", record.toString());
+            }
+            reader.close();
+        } catch (Exception e) {
+            // TODO
+            logger.error("Exception: {}", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                con.disconnect();
+            }
+        }
+    }
+
+    private JSONObject toRecord(Map<String, Object> row) {
+
+        JSONObject record = new JSONObject();
+        Set<String> keys = this.mapping.keySet();
+        keys.forEach(key -> {
+            StringBuffer sb = new StringBuffer();
+            List<String> columns = mapping.get(key);
+            int isFirstColumn = 0;
+            for (String column : columns) {
+                if (isFirstColumn++ > 0) {
+                    sb.append(S_TokenSeparator);
+                }
+                sb.append(row.get(column) != null ? row.get(column) : "N/A");
+            }
+            if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
+
+            }
+            record.put(key, sb.toString());
+        });
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        Collection<Object> values = row.values();
+        int isFirstColumn = 0;
+        for (Object value : values) {
+            if (isFirstColumn++ > 0) {
+                sb.append(S_TokenSeparator);
+            }
+            if (value instanceof Double) {
+                sb.append(value.toString());
+            } else if (value instanceof String) {
+                sb.append((String) ((String) value).trim());
+            }
+        }
+        sb.append("]");
+        record.put("content", sb.toString());
+
+        String filter = (String) record.get(Configuration.FN_FilterName);
+        logger.debug("Filter: [{}] Matched: [{}]", filter, (isMatchFilter(filter) ? "YES" : "NO"));
+
+        // TO DO to perform the prefix, suffix, distance, filter, ...
+        if (configuration.getCategoryFixed() != null) {
+            record.put(Configuration.FN_Category, configuration.getCategoryFixed());
+        } else {
+            String category = (String) record.get(Configuration.FN_FilterName);
+            if (category != null || !category.equalsIgnoreCase("N/A")) {
+                if (configuration.getCategoryPrefix() != null) {
+                    category = configuration.getCategoryPrefix() + category;
+                }
+                if (configuration.getCategorySuffix() != null) {
+                    category = category + configuration.getCategorySuffix();
+                }
+            }
+            record.put(Configuration.FN_Category, category);
+        }
+
+        return record;
+    }
+
+    private boolean isMatchFilter(String filter) {
+
+        boolean negativeExpression = configuration.getFilterText().startsWith("!");
+        String filterText = negativeExpression ? configuration.getFilterText().substring(1) : configuration.getFilterText();
+        String pattern = PatternPrefix + filterText + PatternPostfix;
+        logger.debug("Filter Pattern: " + pattern);
+
+        return filter.matches(pattern);
+    }
+}
