@@ -16,14 +16,13 @@ import java.util.*;
 
 public class JSONPollerTask implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(JSONPollerTask.class);
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
     public static final String S_Features = "features";
     public static final String S_Properties = "properties";
     public static final String S_Geometry = "geometry";
     public static final String S_coordinates = "coordinates";
     public static final String S_TokenSeparator = ":";
+    private static final Logger logger = LoggerFactory.getLogger(JSONPollerTask.class);
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     public static String PatternPrefix = "(?i:.*";
     public static String PatternPostfix = ".*)";
 
@@ -36,8 +35,6 @@ public class JSONPollerTask implements Runnable {
         this.mapping = configuration.getMap();
     }
 
-    // @Scheduled(cron = "*/30 * * * * *")
-    // @Scheduled(cron = "${jsonpoller.cron.schedule}")
     @Override
     public void run() {
 
@@ -64,28 +61,33 @@ public class JSONPollerTask implements Runnable {
             // features is array of records
             JSONArray features = (JSONArray) jsonObject.get(S_Features);
 
-            // features ->
-            //     { properties, geometry },
+            // features: [
+            //     { properties -> row of data
+            //     geometry -> latitude/longitude
+            //     }
+            //     .
+            //  ]
             for (int i = 0; i < features.length(); i++) {
                 JSONObject feature = (JSONObject) features.get(i);
 
                 // convert properties into a row of data
                 JSONObject properties = (JSONObject) feature.get(S_Properties);
-                Map<String, Object> rowData = Util.toMap(properties);
+                Map<String, String> rowData = Util.convertKeyValue(Util.toMap(properties));
 
                 // convert the geometry to latitude and longitude
                 JSONObject geo = (JSONObject) feature.get(S_Geometry);
                 JSONArray lonLat = (JSONArray) geo.get(S_coordinates);
-                rowData.put("Longitude", lonLat.get(0));
-                rowData.put("Latitude", lonLat.get(1));
+                rowData.put("Longitude", String.valueOf(lonLat.get(0)));
+                rowData.put("Latitude", String.valueOf(lonLat.get(1)));
 
                 // call the toRecord to convert the row of data into the JSON record
                 JSONObject record = toRecord(rowData);
 
-                logger.debug("Record: [\n{}\n]", record.toString());
+                logger.debug("Record: [\n{}\n]", record == null ? "N/A" : record.toString());
             }
             reader.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             // TODO
             logger.error("Exception: {}", e.getMessage());
             e.printStackTrace();
@@ -96,7 +98,9 @@ public class JSONPollerTask implements Runnable {
         }
     }
 
-    private JSONObject toRecord(Map<String, Object> row) {
+    private JSONObject toRecord(Map<String, String> row) {
+
+        boolean isFullDescription = configuration.isFullDescription();
 
         JSONObject record = new JSONObject();
         Set<String> keys = this.mapping.keySet();
@@ -113,43 +117,69 @@ public class JSONPollerTask implements Runnable {
             if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
 
             }
-            record.put(key, sb.toString());
+            record.put(key, sb.toString().trim());
         });
 
+        // fill the content with every columns
         StringBuffer sb = new StringBuffer();
         sb.append("[");
-        Collection<Object> values = row.values();
+        Collection<String> values = row.values();
         int isFirstColumn = 0;
         for (Object value : values) {
             if (isFirstColumn++ > 0) {
                 sb.append(S_TokenSeparator);
             }
-            if (value instanceof Double) {
-                sb.append(value.toString());
-            } else if (value instanceof String) {
-                sb.append((String) ((String) value).trim());
-            }
+            sb.append(value);
         }
         sb.append("]");
         record.put("content", sb.toString());
 
+        if (isFullDescription) {
+            sb = new StringBuffer();
+            keys = row.keySet();
+            for (String key : keys) {
+                sb.append("<br/>");
+                sb.append("<b>");
+                sb.append(key + ": ");
+                sb.append("</b>");
+                sb.append(row.get(key));
+            }
+            record.put(Configuration.FN_Description, sb.toString());
+        }
+
+        // check whether filter match the filter text
         String filter = (String) record.get(Configuration.FN_FilterName);
-        logger.debug("Filter: [{}] Matched: [{}]", filter, (isMatchFilter(filter) ? "YES" : "NO"));
+        boolean isMatched = isMatchFilter(filter);
+        logger.debug("Filter: [{}] Matched: [{}]", filter, isMatched ? "YES" : "NO");
+        if (!isMatched) { return null; }
 
         // TO DO to perform the prefix, suffix, distance, filter, ...
+        // category.fix, category.prefix, category.suffix
         if (configuration.getCategoryFixed() != null) {
             record.put(Configuration.FN_Category, configuration.getCategoryFixed());
         } else {
-            String category = (String) record.get(Configuration.FN_FilterName);
-            if (category != null || !category.equalsIgnoreCase("N/A")) {
+            if (configuration.getCategoryPrefix() != null || configuration.getCategorySuffix() != null) {
+                String category = (String) record.get(Configuration.FN_FilterName);
                 if (configuration.getCategoryPrefix() != null) {
                     category = configuration.getCategoryPrefix() + category;
                 }
                 if (configuration.getCategorySuffix() != null) {
                     category = category + configuration.getCategorySuffix();
                 }
+                record.put(Configuration.FN_Category, category);
             }
-            record.put(Configuration.FN_Category, category);
+        }
+
+        // title.prefix, title.suffix
+        if (configuration.getTitlePrefix() != null || configuration.getTitleSuffix() != null) {
+            String title = (String) record.get(Configuration.FN_Title);
+            if (configuration.getTitlePrefix() != null) {
+                title = configuration.getTitlePrefix() + title;
+            }
+            if (configuration.getTitleSuffix() != null) {
+                title = title + configuration.getTitleSuffix();
+            }
+            record.put(Configuration.FN_Title, title);
         }
 
         return record;

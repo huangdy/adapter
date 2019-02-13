@@ -1,15 +1,14 @@
 package com.spotonresponse.adapter.process;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import java.io.IOException;
 import java.io.Reader;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 /*
  * This readNext() will trim the token without leading/trailing spaces
  */
-public class XCCSVReader
-extends CSVReader {
+public class XCCSVReader extends CSVReader {
 
     public XCCSVReader(Reader reader) {
         super(reader);

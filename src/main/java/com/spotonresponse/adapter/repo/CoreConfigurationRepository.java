@@ -8,5 +8,4 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface CoreConfigurationRepository extends JpaRepository<CoreConfiguration, String> {
-}
+public interface CoreConfigurationRepository extends JpaRepository<CoreConfiguration, String> {}

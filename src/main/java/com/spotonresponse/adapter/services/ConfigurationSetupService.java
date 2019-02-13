@@ -47,19 +47,17 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
             ConfigurationRepo configRepo = new ConfigurationRepo();
             File[] files = new ClassPathResource("config").getFile().listFiles();
             for (File file : files) {
-                ConfigFileParser configFileParser = new ConfigFileParser(file.getAbsolutePath(),
-                                                                         new FileInputStream(file));
 
-                logger.debug("Configuration File: {}", file.getAbsolutePath());
+                logger.debug("Configuration File: {}", file.getPath());
+                ConfigFileParser configFileParser = new ConfigFileParser(file.getPath(), new FileInputStream(file));
 
                 List<Configuration> configurationList = configFileParser.getConfigurationList();
                 configurationList.forEach(configuration -> {
                     configRepo.add(configuration);
                     configurationRepository.save(configuration);
                     if (configuration.getJson_ds() != null) {
-                        logger.debug("Start JSON poller: [{}], with cron: [{}]", configuration.getJson_ds(), cronSchedule);
-                        threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration),
-                                                         new CronTrigger(cronSchedule));
+                        logger.debug("Start JSON poller Thread: [{}], with cron: [{}]", configuration.getJson_ds(), cronSchedule);
+                        threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration), new CronTrigger(cronSchedule));
                     }
                 });
             }

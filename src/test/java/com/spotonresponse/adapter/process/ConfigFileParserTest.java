@@ -35,10 +35,9 @@ public class ConfigFileParserTest {
             File[] files = new ClassPathResource("config").getFile().listFiles();
             for (File file : files) {
                 logger.debug("Filename: {}", file.getAbsolutePath());
-                ConfigFileParser configFileParser = new ConfigFileParser(file.getPath(),
-                                                                         new FileInputStream(file.getAbsolutePath()));
+                ConfigFileParser configFileParser = new ConfigFileParser(file.getPath(), new FileInputStream(file.getAbsolutePath()));
                 List<Configuration> configurationList = configFileParser.getConfigurationList();
-                for (Configuration configuration: configurationList) {
+                for (Configuration configuration : configurationList) {
                     configurationRepository.save(configuration);
                 }
             }

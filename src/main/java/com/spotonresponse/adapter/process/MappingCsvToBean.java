@@ -128,20 +128,16 @@ public class MappingCsvToBean extends CsvToBean<MappedRecord> {
 
         // fill the empty fields
         if (record.getCategory().equals("N/A")) {
-            record.setCategory(
-                getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_Category)));
+            record.setCategory(getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_Category)));
         }
         if (record.getFilter().equals("N/A")) {
-            record.setFilter(
-                getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_FilterName)));
+            record.setFilter(getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_FilterName)));
         }
         if (record.getIndex().equals("N/A")) {
-            record.setIndex(
-                getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_Index)));
+            record.setIndex(getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_Index)));
         }
         if (record.getDescription().equals("N/A")) {
-            record.setDescription(
-                getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_Description)));
+            record.setDescription(getAttributeValue(record, configuration.getDuplicateAttributeValue(Configuration.FN_Description)));
         }
 
         // figure out the content which is the whole row of data
@@ -159,8 +155,7 @@ public class MappingCsvToBean extends CsvToBean<MappedRecord> {
             if (columnNames[i] == null || columnNames[i].length == 1) {
                 continue;
             }
-            final boolean isDescription = Configuration.DefinedColumnNames[i].equalsIgnoreCase(
-                Configuration.FN_Description);
+            final boolean isDescription = Configuration.DefinedColumnNames[i].equalsIgnoreCase(Configuration.FN_Description);
             sb = new StringBuffer();
             for (int j = 0; j < columnNames[i].length; j++) {
                 if (isDescription) {
@@ -173,8 +168,7 @@ public class MappingCsvToBean extends CsvToBean<MappedRecord> {
                     if (columnNames[i][j] == null) {
                         sb.append("N/A");
                     } else {
-                        sb.append(
-                            getRecordValue(record, configuration, columnNames[i][j], columns, columnIndexes[i][j]));
+                        sb.append(getRecordValue(record, configuration, columnNames[i][j], columns, columnIndexes[i][j]));
                     }
                     sb.append(TokenSeparator);
                 }

@@ -28,18 +28,15 @@ public class JsonAdapterConfiguration {
 
     private final static String S_AWS_ACCESS_KEY = "aws.access.key.id";
     private final static String S_AWS_SECRET_KEY = "aws.secret.access.key";
-
+    @Autowired
+    Environment environment;
     @Value("${amazon.endpoint}")
     private String amazon_endpoint;
     @Value("${amazon.region}")
     private String amazon_region;
     @Value("${nosql.table.name}")
     private String dynamoDBTableName;
-
     private int pollerCount = 3;
-
-    @Autowired
-    Environment environment;
 
     @Bean
     public DynamoDBRepository dynamoDBRepository() {

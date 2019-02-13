@@ -1,13 +1,11 @@
 package com.spotonresponse.adapter.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class CoreConfiguration
-    implements Serializable {
+public class CoreConfiguration implements Serializable {
 
     /**
      *

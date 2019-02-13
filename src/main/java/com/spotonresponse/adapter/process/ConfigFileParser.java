@@ -30,8 +30,7 @@ public class ConfigFileParser {
         super();
 
         int index = configFilename.indexOf("/");
-        final String creator = configFilename.substring(configFilename.lastIndexOf((index == -1 ? "\\" : "/")) + 1,
-                                                        configFilename.lastIndexOf("."));
+        final String creator = configFilename.substring(configFilename.lastIndexOf((index == -1 ? "\\" : "/")) + 1, configFilename.lastIndexOf("."));
         logger.debug("Creator: " + creator);
 
         int startCount = 0;
@@ -85,9 +84,7 @@ public class ConfigFileParser {
                 } else if (line.equalsIgnoreCase(Configuration.N_Configuration_End)) {
                     logger.debug("Configuration: .. end ...");
                     if (configuration.isValid()) {
-                        coreConfiguration = new CoreConfiguration(configuration.getJson_ds(),
-                                                                  configuration.getUsername(),
-                                                                  configuration.getPassword());
+                        coreConfiguration = new CoreConfiguration(configuration.getJson_ds(), configuration.getUsername(), configuration.getPassword());
                         configurationList.add(configuration);
                         configuration = null;
                         continue;
@@ -98,8 +95,7 @@ public class ConfigFileParser {
                 if (configuration == null) {
                     throw new Exception("Configuration File: " + configFilename + ": Invalid format ...");
                 }
-                final String[] tokens = line.split(",",
-                                                   -1);
+                final String[] tokens = line.split(",", -1);
                 if (tokens.length != 2) {
                     logger.error("Configuration File: " + configFilename + "Invalid formated Line: [" + line + "]");
                     continue;
@@ -110,9 +106,7 @@ public class ConfigFileParser {
             }
             if (configuration != null) {
                 if (configuration.isValid()) {
-                    coreConfiguration = new CoreConfiguration(configuration.getJson_ds(),
-                                                              configuration.getUsername(),
-                                                              configuration.getPassword());
+                    coreConfiguration = new CoreConfiguration(configuration.getJson_ds(), configuration.getUsername(), configuration.getPassword());
                     configurationList.add(configuration);
                 } else {
                     throw new Exception("Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());

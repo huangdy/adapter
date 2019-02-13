@@ -4,7 +4,8 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
 
 import javax.xml.bind.DatatypeConverter;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.util.AbstractMap;
 import java.util.Map;
@@ -60,7 +61,8 @@ public class MappedRecordJson extends JSONObject {
             URL aURL = new URL(url);
             this.host = aURL.getHost();
             this.path = aURL.getPath();
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
@@ -77,7 +79,8 @@ public class MappedRecordJson extends JSONObject {
         MessageDigest md5hash = null;
         try {
             md5hash = MessageDigest.getInstance("MD5");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return null;
         }
         md5hash.update(byes);

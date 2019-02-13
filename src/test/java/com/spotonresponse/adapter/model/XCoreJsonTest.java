@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class XCoreJsonTest {
 
@@ -30,7 +29,7 @@ public class XCoreJsonTest {
             for (int i = 0; i < features.length(); i++) {
                 JSONObject feature = (JSONObject) features.get(i);
                 Map<String, String> record = new HashMap<String, String>();
-                JSONArray properties = (JSONArray)feature.get(S_Properties);
+                JSONArray properties = (JSONArray) feature.get(S_Properties);
                 JSONObject geo = (JSONObject) feature.get(S_Geometry);
                 String lonLat = (String) geo.get(S_coordinates);
                 System.out.println("Record: [\n" + features.get(i) + "\n]");
