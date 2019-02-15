@@ -27,12 +27,10 @@ public class JSONPollerTask implements Runnable {
     public static String PatternPostfix = ".*)";
 
     private Configuration configuration;
-    private Map<String, List<String>> mapping;
 
     public JSONPollerTask(Configuration configuration) {
 
         this.configuration = configuration;
-        this.mapping = configuration.getMap();
     }
 
     @Override
@@ -86,8 +84,7 @@ public class JSONPollerTask implements Runnable {
                 logger.debug("Record: [\n{}\n]", record == null ? "N/A" : record.toString());
             }
             reader.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO
             logger.error("Exception: {}", e.getMessage());
             e.printStackTrace();
@@ -103,10 +100,10 @@ public class JSONPollerTask implements Runnable {
         boolean isFullDescription = configuration.isFullDescription();
 
         JSONObject record = new JSONObject();
-        Set<String> keys = this.mapping.keySet();
+        Set<String> keys = configuration.getMap().keySet();
         keys.forEach(key -> {
             StringBuffer sb = new StringBuffer();
-            List<String> columns = mapping.get(key);
+            List<String> columns = configuration.getMap().get(key);
             int isFirstColumn = 0;
             for (String column : columns) {
                 if (isFirstColumn++ > 0) {
@@ -151,6 +148,7 @@ public class JSONPollerTask implements Runnable {
         String filter = (String) record.get(Configuration.FN_FilterName);
         boolean isMatched = isMatchFilter(filter);
         logger.debug("Filter: [{}] Matched: [{}]", filter, isMatched ? "YES" : "NO");
+        isMatched = isWithinBoundingBox(row);
         if (!isMatched) { return null; }
 
         // TO DO to perform the prefix, suffix, distance, filter, ...
@@ -183,6 +181,11 @@ public class JSONPollerTask implements Runnable {
         }
 
         return record;
+    }
+
+    private boolean isWithinBoundingBox(Map<String, String> row) {
+
+        return true;
     }
 
     private boolean isMatchFilter(String filter) {

@@ -42,16 +42,19 @@ public class MappedRecordJson extends JSONObject {
 
         super(new GsonBuilder().setPrettyPrinting().create().toJson(record));
 
-        setWhere(record.getLatitude(), record.getLongitude());
-        parseUrl(record.getCoreUri());
+        init(record.getLatitude(), record.getLongitude(), record.getTitle(), getHash(record.getIndex().getBytes()),
+             record.getCoreUri());
+    }
 
+    private void init(String latitude, String longitude, String title, String md5hash, String uri) {
+
+        setWhere(latitude, longitude);
+        parseUrl(uri);
         this.put(S_Source, S_CSVAdapter);
         this.put(S_SourceHost, this.host);
         this.put(S_SourceURL, this.path);
-        // this.put(S_SourceContact, S_NA);
-        // this.put(S_SourceEmail, S_NA);
-        this.put(S_Title, record.getTitle());
-        this.put(S_MD5HASH, getHash(record.getIndex().getBytes()));
+        this.put(S_Title, title);
+        this.put(S_MD5HASH, md5hash);
         clearUp();
     }
 
@@ -61,8 +64,7 @@ public class MappedRecordJson extends JSONObject {
             URL aURL = new URL(url);
             this.host = aURL.getHost();
             this.path = aURL.getPath();
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
@@ -79,8 +81,7 @@ public class MappedRecordJson extends JSONObject {
         MessageDigest md5hash = null;
         try {
             md5hash = MessageDigest.getInstance("MD5");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
         md5hash.update(byes);

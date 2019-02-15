@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,12 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
     @Value("${jsonpoller.cron.schedule}")
     private String cronSchedule;
+
+    @Value("${adapter.config.path}")
+    private String configPath;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     @Autowired
     private ConfigurationRepository configurationRepository;
@@ -45,7 +52,13 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
         try {
             ConfigurationRepo configRepo = new ConfigurationRepo();
-            File[] files = new ClassPathResource("config").getFile().listFiles();
+
+            logger.debug("Configuration Path: {}", configPath);
+
+            // to use configPath as the resource to find the configuration path
+            File[] files = resourceLoader.getResource(configPath).getFile().listFiles();
+
+            // File[] files = new ClassPathResource("config").getFile().listFiles();
             for (File file : files) {
 
                 logger.debug("Configuration File: {}", file.getPath());
@@ -61,8 +74,7 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
                     }
                 });
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO
             e.printStackTrace();
         }
