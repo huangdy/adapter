@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
@@ -18,7 +17,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 @Component
 public class ConfigurationSetupService implements ApplicationListener<ApplicationReadyEvent> {
@@ -58,7 +60,9 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
             // to use configPath as the resource to find the configuration path
             File[] files = resourceLoader.getResource(configPath).getFile().listFiles();
 
-            // File[] files = new ClassPathResource("config").getFile().listFiles();
+            // the map for the configuration and its task
+            Map<String, ScheduledFuture> scheduleMap = new HashMap<String, ScheduledFuture>();
+
             for (File file : files) {
 
                 logger.debug("Configuration File: {}", file.getPath());
@@ -66,11 +70,16 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
                 List<Configuration> configurationList = configFileParser.getConfigurationList();
                 configurationList.forEach(configuration -> {
-                    configRepo.add(configuration);
-                    configurationRepository.save(configuration);
+                    // configRepo.add(configuration);
+                    // configurationRepository.save(configuration);
                     if (configuration.getJson_ds() != null) {
-                        logger.debug("Start JSON poller Thread: [{}], with cron: [{}]", configuration.getJson_ds(), cronSchedule);
-                        threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration), new CronTrigger(cronSchedule));
+                        logger.debug("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
+                                     configuration.getId(),
+                                     configuration.getJson_ds(),
+                                     cronSchedule);
+                        scheduleMap.put(configuration.getId(),
+                                        threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration),
+                                                                         new CronTrigger(cronSchedule)));
                     }
                 });
             }

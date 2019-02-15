@@ -41,8 +41,9 @@ public class Configuration implements Serializable {
     public static final String FN_RedirectUrl = "url.redirectUrl";
     public static final String urlPostfix = "/core/ws/services";
     public static final String S_Dot = "\\.";
+    public static final String FN_JsonDataSource = "json_ds";
 
-    public static final String[] DefinedColumnNames = new String[]{
+    public static final String[] DefinedColumnNames = new String[] {
         FN_Title,
         FN_Category,
         FN_Latitude,
@@ -56,10 +57,6 @@ public class Configuration implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(Configuration.class);
-    public static String FN_JsonDataSource = "json_ds";
-    private static HashMap<String, String> mappingColumns = new HashMap<String, String>();
-    final HashMap<String, String> map = new HashMap<String, String>();
-    final HashMap<String, String> duplicateMap = new HashMap<String, String>();
 
     @Id
     @Column
@@ -81,6 +78,7 @@ public class Configuration implements Serializable {
     private String uri;
     private String username;
     private String password;
+    private String mappingColumns;
     @Column(columnDefinition = "VARCHAR(65536)")
     private String description = "title.category";
     @Column(columnDefinition = "VARCHAR(65536)")
@@ -89,21 +87,13 @@ public class Configuration implements Serializable {
     private boolean fullDescription = false;
     private String redirectUrl = "http://www.google.com";
 
-    public static String getMappingColumn(String column) {
-
-        if (mappingColumns.size() == 0) {
-            return column;
-        }
-
-        String mappedColumn = mappingColumns.get(column);
-        return mappedColumn == null ? column : mappedColumn;
-    }
-
     public String getUri() {
+
         return uri;
     }
 
     public void setUri(String uri) {
+
         this.uri = uri;
     }
 
@@ -127,12 +117,26 @@ public class Configuration implements Serializable {
         this.password = password;
     }
 
-    public HashMap<String, String> getMappingColumns() {
+    public Map<String, String> getMappingColumns() {
 
-        return mappingColumns;
+        if (this.mappingColumns == null) { return null; }
+
+        Map<String, String> map = new HashMap<String, String>();
+
+        String[] pairs = this.mappingColumns.split("\\.", -1);
+        for (String pair : pairs) {
+            String[] tokens = pair.split(":", -1);
+            if (tokens.length != 2) {
+                logger.error("[" + pair + "] is not valid key and value");
+                continue;
+            }
+            map.put(tokens[0], tokens[1]);
+        }
+
+        return map;
     }
 
-    public void setMappingColumns(HashMap<String, String> mappingColumns) {
+    public void setMappingColumns(String mappingColumns) {
 
         this.mappingColumns = mappingColumns;
     }
@@ -323,8 +327,7 @@ public class Configuration implements Serializable {
 
         try {
             return (String) this.getClass().getDeclaredField(columnName).get(this);
-        }
-        catch (final Throwable e) {
+        } catch (final Throwable e) {
             if (e instanceof NoSuchFieldException) {
                 return "";
             } else {
@@ -368,12 +371,12 @@ public class Configuration implements Serializable {
 
     private void setAutoClose(String ac) {
 
-        this.autoClose = ac.equalsIgnoreCase("true") == true || ac.equals("1") == true ? true : false;
+        this.autoClose = ac.equalsIgnoreCase("true") == true || ac.equals("1") == true;
     }
 
     public boolean isValid() {
 
-        return this.latitude != null && this.longitude != null && this.filter != null && this.filterText != null ? true : false;
+        return this.latitude != null && this.longitude != null && this.filter != null && this.filterText != null;
     }
 
     public void setKeyValue(final String[] keyAndValue) {
@@ -421,15 +424,7 @@ public class Configuration implements Serializable {
         } else if (keyAndValue[0].equalsIgnoreCase(FN_AutoClose)) {
             this.setAutoClose(keyAndValue[1]);
         } else if (keyAndValue[0].equalsIgnoreCase(FN_MappingColumns)) {
-            String[] pairs = keyAndValue[1].split("\\.", -1);
-            for (String pair : pairs) {
-                String[] tokens = pair.split(":", -1);
-                if (tokens.length != 2) {
-                    logger.error("[" + pair + "] is not valid key and value");
-                    continue;
-                }
-                mappingColumns.put(tokens[0], tokens[1]);
-            }
+            this.setMappingColumns(keyAndValue[1]);
         } else if (keyAndValue[0].equalsIgnoreCase(FN_FullDescription)) {
             this.setFullDescription(keyAndValue[1]);
         } else if (keyAndValue[0].equalsIgnoreCase(FN_JsonDataSource)) {
@@ -465,56 +460,6 @@ public class Configuration implements Serializable {
             theMap.put(FN_Longitude, Arrays.asList(this.longitude.split(S_Dot, -1)));
         }
         return theMap;
-    }
-
-    public Map<String, String> toMap() {
-
-        if (this.getTitle() != null && this.getTitle().indexOf(".") == -1) {
-            map.put(this.getTitle(), FN_Title);
-        }
-        String column = null;
-        if (this.getCategory() != null && this.getCategory().indexOf(".") == -1) {
-
-            column = map.get(this.getCategory());
-            if (column != null) {
-                duplicateMap.put(FN_Category, column);
-            } else {
-                map.put(this.getCategory(), FN_Category);
-            }
-        }
-        if (this.getFilter() != null && this.getFilter().indexOf(".") == -1) {
-            column = map.get(this.getFilter());
-            if (column != null) {
-                duplicateMap.put(FN_FilterName, column);
-            } else {
-                map.put(this.getFilter(), FN_FilterName);
-            }
-        }
-        if (this.getIndex() != null && this.getIndex().indexOf(".") == -1) {
-            column = map.get(this.getIndex());
-            if (column != null) {
-                duplicateMap.put(FN_Index, column);
-            } else {
-                map.put(this.getIndex(), FN_Index);
-            }
-        }
-        if (this.getDescription() != null && this.getDescription().indexOf(".") == -1) {
-            column = map.get(this.getDescription());
-            if (column != null) {
-                duplicateMap.put(FN_Description, column);
-            } else {
-                map.put(this.getDescription(), FN_Description);
-            }
-        }
-        map.put(this.getLatitude(), FN_Latitude);
-        map.put(this.getLongitude(), FN_Longitude);
-
-        return map;
-    }
-
-    public String getDuplicateAttributeValue(String attributeName) {
-
-        return duplicateMap.get(attributeName);
     }
 
     @Override

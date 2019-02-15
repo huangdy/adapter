@@ -22,9 +22,10 @@ public class MappedRecordJson extends JSONObject {
     private static final String S_Source = "Source";
     private static final String S_SourceHost = "SourceHost";
     private static final String S_SourceURL = "SourceURL";
-    private static final String S_SourceContact = "SourceConteact";
+    private static final String S_SourceContact = "SourceContact";
     private static final String S_SourceEmail = "SourceEmail";
     private static final String S_CSVAdapter = "CSV Adapter";
+    private static final String S_JSONAdapter = "JSON_Adapter";
     private static final String S_NA = "N/A";
     private static final String S_Title = "title";
     private static final String S_MD5HASH = "md5hash";
@@ -38,19 +39,39 @@ public class MappedRecordJson extends JSONObject {
     private String host;
     private String path;
 
+    public static String ToHash(String key) {
+
+        byte[] bytes = key.getBytes();
+
+        MessageDigest md5hash = null;
+        try {
+            md5hash = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            return null;
+        }
+        md5hash.update(bytes);
+        byte[] digest = md5hash.digest();
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
+
+    public MappedRecordJson() { }
+
     public MappedRecordJson(MappedRecord record) {
 
         super(new GsonBuilder().setPrettyPrinting().create().toJson(record));
 
-        init(record.getLatitude(), record.getLongitude(), record.getTitle(), getHash(record.getIndex().getBytes()),
+        init(record.getLatitude(),
+             record.getLongitude(),
+             record.getCreator(),
+             MappedRecordJson.ToHash(record.getIndex()),
              record.getCoreUri());
     }
 
-    private void init(String latitude, String longitude, String title, String md5hash, String uri) {
+    public void init(String latitude, String longitude, String title, String md5hash, String uri) {
 
         setWhere(latitude, longitude);
         parseUrl(uri);
-        this.put(S_Source, S_CSVAdapter);
+        this.put(S_Source, uri);
         this.put(S_SourceHost, this.host);
         this.put(S_SourceURL, this.path);
         this.put(S_Title, title);
@@ -74,19 +95,6 @@ public class MappedRecordJson extends JSONObject {
         for (String key : removeEntries) {
             this.remove(key);
         }
-    }
-
-    private String getHash(byte[] byes) {
-
-        MessageDigest md5hash = null;
-        try {
-            md5hash = MessageDigest.getInstance("MD5");
-        } catch (Exception e) {
-            return null;
-        }
-        md5hash.update(byes);
-        byte[] digest = md5hash.digest();
-        return DatatypeConverter.printHexBinary(digest).toUpperCase();
     }
 
     private void setWhere(String lat, String lon) {

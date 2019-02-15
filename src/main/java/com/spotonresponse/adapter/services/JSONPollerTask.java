@@ -1,8 +1,10 @@
 package com.spotonresponse.adapter.services;
 
 import com.spotonresponse.adapter.model.Configuration;
+import com.spotonresponse.adapter.model.MappedRecordJson;
 import com.spotonresponse.adapter.model.Util;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,11 +97,15 @@ public class JSONPollerTask implements Runnable {
         }
     }
 
+    //
+    // parse the row into the MappedRecordJson
+    //
     private JSONObject toRecord(Map<String, String> row) {
 
         boolean isFullDescription = configuration.isFullDescription();
 
-        JSONObject record = new JSONObject();
+        MappedRecordJson record = new MappedRecordJson();
+
         Set<String> keys = configuration.getMap().keySet();
         keys.forEach(key -> {
             StringBuffer sb = new StringBuffer();
@@ -116,6 +122,13 @@ public class JSONPollerTask implements Runnable {
             }
             record.put(key, sb.toString().trim());
         });
+
+        // check whether filter match the filter text
+        String filter = (String) record.get(Configuration.FN_FilterName);
+        boolean isMatched = isMatchFilter(filter);
+        logger.debug("Filter: [{}] Matched: [{}]", filter, isMatched ? "YES" : "NO");
+        isMatched = isWithinBoundingBox(row);
+        if (!isMatched) { return null; }
 
         // fill the content with every columns
         StringBuffer sb = new StringBuffer();
@@ -143,13 +156,6 @@ public class JSONPollerTask implements Runnable {
             }
             record.put(Configuration.FN_Description, sb.toString());
         }
-
-        // check whether filter match the filter text
-        String filter = (String) record.get(Configuration.FN_FilterName);
-        boolean isMatched = isMatchFilter(filter);
-        logger.debug("Filter: [{}] Matched: [{}]", filter, isMatched ? "YES" : "NO");
-        isMatched = isWithinBoundingBox(row);
-        if (!isMatched) { return null; }
 
         // TO DO to perform the prefix, suffix, distance, filter, ...
         // category.fix, category.prefix, category.suffix
@@ -180,7 +186,32 @@ public class JSONPollerTask implements Runnable {
             record.put(Configuration.FN_Title, title);
         }
 
+        record.init((String) record.get(Configuration.FN_Latitude),
+                    (String) record.get(Configuration.FN_Longitude),
+                    configuration.getId(),
+                    MappedRecordJson.ToHash((String) record.get(Configuration.FN_Index)),
+                    configuration.getJson_ds());
+
+        mapRecord(record, configuration.getMappingColumns());
+
         return record;
+    }
+
+    private void mapRecord(MappedRecordJson record, Map<String, String> mappingColumns) {
+
+        if (mappingColumns == null) { return; }
+        Set<String> columns = mappingColumns.keySet();
+        for (String column : columns) {
+            Object value;
+            try {
+                value = record.get(column);
+            } catch (JSONException e) {
+                // TODO
+                continue;
+            }
+            record.put(mappingColumns.get(column), value);
+            record.remove(column);
+        }
     }
 
     private boolean isWithinBoundingBox(Map<String, String> row) {
@@ -191,7 +222,8 @@ public class JSONPollerTask implements Runnable {
     private boolean isMatchFilter(String filter) {
 
         boolean negativeExpression = configuration.getFilterText().startsWith("!");
-        String filterText = negativeExpression ? configuration.getFilterText().substring(1) : configuration.getFilterText();
+        String filterText = negativeExpression ? configuration.getFilterText()
+            .substring(1) : configuration.getFilterText();
         String pattern = PatternPrefix + filterText + PatternPostfix;
         logger.debug("Filter Pattern: " + pattern);
 
