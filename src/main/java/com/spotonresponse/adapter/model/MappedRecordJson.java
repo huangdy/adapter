@@ -24,10 +24,7 @@ public class MappedRecordJson extends JSONObject {
     private static final String S_SourceURL = "SourceURL";
     private static final String S_SourceContact = "SourceContact";
     private static final String S_SourceEmail = "SourceEmail";
-    private static final String S_CSVAdapter = "CSV Adapter";
-    private static final String S_JSONAdapter = "JSON_Adapter";
-    private static final String S_NA = "N/A";
-    private static final String S_Title = "title";
+    private static final String S_CREATOR = "creator";
     private static final String S_MD5HASH = "md5hash";
     private static final String[] removeEntries = {
         "coreUri",
@@ -74,7 +71,7 @@ public class MappedRecordJson extends JSONObject {
         this.put(S_Source, uri);
         this.put(S_SourceHost, this.host);
         this.put(S_SourceURL, this.path);
-        this.put(S_Title, title);
+        this.put(S_CREATOR, title);
         this.put(S_MD5HASH, md5hash);
         clearUp();
     }
@@ -106,9 +103,9 @@ public class MappedRecordJson extends JSONObject {
         this.put("where", where);
     }
 
-    public String getTitle() {
+    public String getCreator() {
 
-        return (String) this.get(S_Title);
+        return (String) this.get(S_CREATOR);
     }
 
     public String getPrimaryKey() {
@@ -118,7 +115,7 @@ public class MappedRecordJson extends JSONObject {
 
     public Map.Entry getMapEntry() {
 
-        return new AbstractMap.SimpleImmutableEntry(getTitle(), getPrimaryKey());
+        return new AbstractMap.SimpleImmutableEntry(getCreator(), getPrimaryKey());
     }
 }
 

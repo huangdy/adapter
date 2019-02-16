@@ -83,7 +83,9 @@ public class JSONPollerTask implements Runnable {
                 // call the toRecord to convert the row of data into the JSON record
                 JSONObject record = toRecord(rowData);
 
-                logger.debug("Record: [\n{}\n]", record == null ? "N/A" : record.toString());
+                logger.debug("[{}]: {}",
+                             record == null ? "N/A" : record.get("creator"),
+                             record == null ? "N/A" : record.toString());
             }
             reader.close();
         } catch (Exception e) {

@@ -30,7 +30,7 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     @Value("${jsonpoller.cron.schedule}")
     private String cronSchedule;
 
-    @Value("${adapter.config.path}")
+    @Value("${config.path}")
     private String configPath;
 
     @Autowired

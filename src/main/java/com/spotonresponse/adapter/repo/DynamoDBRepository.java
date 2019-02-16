@@ -19,7 +19,8 @@ import java.util.Map;
 public class DynamoDBRepository {
 
     private static final Logger logger = LogManager.getLogger(DynamoDBRepository.class);
-
+    private static final String S_MD5HASH = "md5hash";
+    private static final String S_CREATOR = "creator";
     private static DynamoDB dynamoDB = null;
     private static Table table = null;
 
@@ -27,22 +28,32 @@ public class DynamoDBRepository {
 
     }
 
-    public void init(String aws_access_key_id, String aws_secret_access_key, String amazon_endpoint, String amazon_region, String dynamoDBTableName) {
+    public void init(String aws_access_key_id,
+                     String aws_secret_access_key,
+                     String amazon_endpoint,
+                     String amazon_region,
+                     String dynamoDBTableName) {
 
-        if (aws_access_key_id == null || aws_secret_access_key == null || amazon_endpoint == null || amazon_region == null || dynamoDBTableName == null) {
+        if (aws_access_key_id == null ||
+            aws_secret_access_key == null ||
+            amazon_endpoint == null ||
+            amazon_region == null ||
+            dynamoDBTableName == null) {
             return;
         }
 
         BasicAWSCredentials credentials = new BasicAWSCredentials(aws_access_key_id, aws_secret_access_key);
 
         try {
-            AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(credentials)).withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazon_endpoint, amazon_region)).build();
+            AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazon_endpoint, amazon_region))
+                .build();
             dynamoDB = new DynamoDB(client);
 
             logger.debug("Setting up DynamoDB client");
             table = dynamoDB.getTable(dynamoDBTableName);
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             logger.error("Cannot create NOSQL Table: " + e.getMessage());
         }
     }
@@ -64,12 +75,19 @@ public class DynamoDBRepository {
 
         try {
             logger.debug("deleteEntry: Title: [" + key.getKey() + "] & MD5hash: [" + key.getValue() + "]");
-            DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(new PrimaryKey("title", key.getKey(), "md5hash", key.getValue()));
+            DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(new PrimaryKey(S_CREATOR,
+                                                                                               key.getKey(),
+                                                                                               S_MD5HASH,
+                                                                                               key.getValue()));
             table.deleteItem(deleteItemSpec);
             logger.debug("eleteEntry: ... successful ...");
-        }
-        catch (Exception e) {
-            logger.error("deleteEntry: Title: [" + key.getKey() + "] & MD5hash: [" + key.getValue() + "]: Error: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("deleteEntry: Title: [" +
+                         key.getKey() +
+                         "] & MD5hash: [" +
+                         key.getValue() +
+                         "]: Error: " +
+                         e.getMessage());
             return false;
         }
 
@@ -91,18 +109,14 @@ public class DynamoDBRepository {
             return false;
         }
 
-        // Get the values for the indexes (keys)
-        String md5hash = item.getPrimaryKey();
-        String title = item.getTitle();
-
+        logger.debug("createEntry: Creator: [{}] MD5HASH: [{}]", item.getCreator(), item.getPrimaryKey());
         try {
-            logger.debug("createEntry: Title: [" + title + "] & MD5hash: [" + md5hash + "]");
-            table.putItem(new Item().withPrimaryKey("md5hash", md5hash, "title", title).withJSON("item", item.toString()));
+            table.putItem(new Item().withPrimaryKey(S_MD5HASH, item.getPrimaryKey(), S_CREATOR, item.getCreator())
+                              .withJSON("item", item.toString()));
             logger.debug("createEntry: ... successful ...");
 
-        }
-        catch (Exception e) {
-            logger.debug("createEntry: Title: [" + title + "] & MD5hash: [" + md5hash + "]: Error: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error: {}", e.getMessage());
             return false;
         }
 
