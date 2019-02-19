@@ -3,10 +3,8 @@ package com.spotonresponse.adapter.model;
 import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
 
-import javax.xml.bind.DatatypeConverter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.MessageDigest;
 import java.util.AbstractMap;
 import java.util.Map;
 
@@ -36,21 +34,6 @@ public class MappedRecordJson extends JSONObject {
     private String host;
     private String path;
 
-    public static String ToHash(String key) {
-
-        byte[] bytes = key.getBytes();
-
-        MessageDigest md5hash = null;
-        try {
-            md5hash = MessageDigest.getInstance("MD5");
-        } catch (Exception e) {
-            return null;
-        }
-        md5hash.update(bytes);
-        byte[] digest = md5hash.digest();
-        return DatatypeConverter.printHexBinary(digest).toUpperCase();
-    }
-
     public MappedRecordJson() { }
 
     public MappedRecordJson(MappedRecord record) {
@@ -60,7 +43,7 @@ public class MappedRecordJson extends JSONObject {
         init(record.getLatitude(),
              record.getLongitude(),
              record.getCreator(),
-             MappedRecordJson.ToHash(record.getIndex()),
+             Util.ToHash(record.getIndex()),
              record.getCoreUri());
     }
 
@@ -68,9 +51,9 @@ public class MappedRecordJson extends JSONObject {
 
         setWhere(latitude, longitude);
         parseUrl(uri);
-        this.put(S_Source, uri);
+        this.put(S_Source, "Saber JSON Adapter");
         this.put(S_SourceHost, this.host);
-        this.put(S_SourceURL, this.path);
+        this.put(S_SourceURL, uri);
         this.put(S_CREATOR, title);
         this.put(S_MD5HASH, md5hash);
         clearUp();
@@ -103,6 +86,11 @@ public class MappedRecordJson extends JSONObject {
         this.put("where", where);
     }
 
+    public Map.Entry getMapEntry() {
+
+        return new AbstractMap.SimpleImmutableEntry(getCreator(), getPrimaryKey());
+    }
+
     public String getCreator() {
 
         return (String) this.get(S_CREATOR);
@@ -113,9 +101,8 @@ public class MappedRecordJson extends JSONObject {
         return (String) this.get(S_MD5HASH);
     }
 
-    public Map.Entry getMapEntry() {
+    public String getLatitude() { return (String) this.get(Configuration.FN_Latitude); }
 
-        return new AbstractMap.SimpleImmutableEntry(getCreator(), getPrimaryKey());
-    }
+    public String getLongitude() { return (String) this.get(Configuration.FN_Longitude); }
 }
 

@@ -1,10 +1,22 @@
 package com.spotonresponse.adapter.model;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LinearRing;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.*;
 
 public class Util {
 
@@ -64,4 +76,44 @@ public class Util {
         }
         return list;
     }
+
+    public static boolean IsInsideBoundingBox(Double[][] boundingBox, String lat, String lon) {
+
+        final Coordinate coords = new Coordinate(Double.parseDouble(lon), Double.parseDouble(lat));
+        final Point point = new GeometryFactory().createPoint(coords);
+
+        return contains(boundingBox, point);
+    }
+
+    private static boolean contains(Double[][] bb, Point point) {
+
+        final LinearRing bbLinerRing = new GeometryFactory().createLinearRing(getCoordinateArray(bb));
+        final Polygon bbPloygon = new GeometryFactory().createPolygon(bbLinerRing, null);
+        return point.within(bbPloygon);
+    }
+
+    private static Coordinate[] getCoordinateArray(Double[][] coords) {
+
+        final List<Coordinate> coordianteList = new ArrayList<Coordinate>();
+        for (final Double[] coord : coords)
+            coordianteList.add(new Coordinate(coord[0], coord[1]));
+        return coordianteList.toArray(new Coordinate[coordianteList.size()]);
+    }
+
+    public static String ToHash(String key) {
+
+        byte[] bytes = key.getBytes();
+
+        MessageDigest md5hash = null;
+        try {
+            md5hash = MessageDigest.getInstance("MD5");
+        }
+        catch (Exception e) {
+            return null;
+        }
+        md5hash.update(bytes);
+        byte[] digest = md5hash.digest();
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
+
 }

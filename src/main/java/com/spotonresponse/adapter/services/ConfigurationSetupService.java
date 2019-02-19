@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,15 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
+
+        initConfiguration();
+
+        // startConfigurationThread();
+
+        return;
+    }
+
+    private void initConfiguration() {
 
         try {
             ConfigurationRepo configRepo = new ConfigurationRepo();
@@ -87,7 +97,18 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
             // TODO
             e.printStackTrace();
         }
+    }
 
-        return;
+    private void startConfigurationThread() {
+
+        // register directory and process its events
+        // Path configDirectory = resourceLoader.getResource(configPath);
+        try {
+            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(configPath).getFile().getPath()),
+                                         false).processEvents();
+        } catch (Exception e) {
+            // TODO
+            e.printStackTrace();
+        }
     }
 }

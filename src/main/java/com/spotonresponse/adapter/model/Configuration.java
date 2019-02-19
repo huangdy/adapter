@@ -31,6 +31,7 @@ public class Configuration implements Serializable {
     public static final String FN_Distance = "distance";
     public static final String FN_DistanceFilterText = "distance.filter.text";
     public static final String FN_Index = "index";
+    public static final String FN_Content = "content";
     public static final String FN_Description = "description";
     public static final String FN_MappingColumns = "mapping.columns";
     public static final String FN_FullDescription = "full.description";
@@ -51,6 +52,7 @@ public class Configuration implements Serializable {
         FN_FilterName,
         FN_Index,
         FN_Description,
+        FN_Content,
         };
     /**
      *

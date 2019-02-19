@@ -19,8 +19,9 @@ import java.util.Map;
 public class DynamoDBRepository {
 
     private static final Logger logger = LogManager.getLogger(DynamoDBRepository.class);
+
     private static final String S_MD5HASH = "md5hash";
-    private static final String S_CREATOR = "creator";
+    private static final String S_CREATOR = "title";
     private static DynamoDB dynamoDB = null;
     private static Table table = null;
 
@@ -74,7 +75,7 @@ public class DynamoDBRepository {
         }
 
         try {
-            logger.debug("deleteEntry: Title: [" + key.getKey() + "] & MD5hash: [" + key.getValue() + "]");
+            logger.debug("deleteEntry: Title: [{}] & MD5Hash: [{}]", key.getKey(), key);
             DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(new PrimaryKey(S_CREATOR,
                                                                                                key.getKey(),
                                                                                                S_MD5HASH,
@@ -82,17 +83,10 @@ public class DynamoDBRepository {
             table.deleteItem(deleteItemSpec);
             logger.debug("eleteEntry: ... successful ...");
         } catch (Exception e) {
-            logger.error("deleteEntry: Title: [" +
-                         key.getKey() +
-                         "] & MD5hash: [" +
-                         key.getValue() +
-                         "]: Error: " +
-                         e.getMessage());
+            logger.error("deleteEntry: Title: [{}] & MD5Hash: [{}]: Error: [{}]", key.getKey(), key, e.getMessage());
             return false;
         }
-
         return true;
-
     }
 
     public boolean updateEntry(MappedRecordJson item) {

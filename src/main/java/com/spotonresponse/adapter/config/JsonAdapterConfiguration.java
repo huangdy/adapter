@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -28,8 +26,10 @@ public class JsonAdapterConfiguration {
 
     private final static String S_AWS_ACCESS_KEY = "aws.access.key.id";
     private final static String S_AWS_SECRET_KEY = "aws.secret.access.key";
+
     @Autowired
     Environment environment;
+
     @Value("${amazon.endpoint}")
     private String amazon_endpoint;
     @Value("${amazon.region}")
@@ -45,7 +45,8 @@ public class JsonAdapterConfiguration {
         String aws_secret_access_key = environment.getProperty(S_AWS_SECRET_KEY);
 
         DynamoDBRepository DynamoDBRepository = new DynamoDBRepository();
-        DynamoDBRepository.init(aws_access_key_id, aws_secret_access_key, amazon_endpoint, amazon_region, dynamoDBTableName);
+        DynamoDBRepository.init(aws_access_key_id, aws_secret_access_key, amazon_endpoint, amazon_region,
+                                dynamoDBTableName);
         return DynamoDBRepository;
     }
 
@@ -71,11 +72,13 @@ public class JsonAdapterConfiguration {
     }
     */
 
+    /*
     @Bean
     public DataSource dataSource() {
 
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
+    */
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
@@ -83,7 +86,7 @@ public class JsonAdapterConfiguration {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
         bean.setDatabase(Database.H2);
         bean.setGenerateDdl(true);
-        bean.setShowSql(true);
+        bean.setShowSql(false);
         return bean;
     }
 

@@ -1,5 +1,8 @@
 package com.spotonresponse.adapter.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +14,8 @@ public class MappedRecord implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    static Logger logger = LoggerFactory.getLogger(MappedRecord.class);
 
     @Id
     @Column
@@ -46,170 +51,112 @@ public class MappedRecord implements Serializable {
 
     private Date lastUpdated;
 
-    public String getCategory() {
+    public MappedRecord() {}
 
-        return this.category;
+    public void put(String key, String value) {
+
+        if (key.equalsIgnoreCase(Configuration.FN_Title)) {
+            setTitle(value);
+        } else if (key.equalsIgnoreCase(Configuration.FN_Description)) {
+            setDescription(value);
+        } else if (key.equalsIgnoreCase(Configuration.FN_Category)) {
+            setCategory(value);
+        } else if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
+            setFilter(value);
+        } else if (key.equalsIgnoreCase(Configuration.FN_Index)) {
+            setIndex(value);
+        } else if (key.equalsIgnoreCase(Configuration.FN_Content)) {
+            setContent(value);
+        } else {
+            logger.error("MapperRecord.put: key: [{}], value: [{}]", key, value);
+        }
     }
 
-    public void setCategory(String category) {
+    public String get(String key) {
 
-        this.category = category;
+        if (key.equalsIgnoreCase(Configuration.FN_Title)) {
+            return getTitle();
+        } else if (key.equalsIgnoreCase(Configuration.FN_Description)) {
+            return getDescription();
+        } else if (key.equalsIgnoreCase(Configuration.FN_Category)) {
+            return getCategory();
+        } else if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
+            return getTitle();
+        } else if (key.equalsIgnoreCase(Configuration.FN_Content)) {
+            return getContent();
+        } else {
+            logger.error("MapperRecord.get: key: [{}]", key);
+            return "N/A";
+        }
     }
 
-    public String getContent() {
+    public String getCategory() { return this.category; }
 
-        return this.content;
-    }
+    public void setCategory(String category) { this.category = category; }
 
-    public void setContent(String content) {
+    public String getDescription() { return this.description; }
 
-        this.content = content;
-    }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getCoreUri() {
+    public String getTitle() { return this.title; }
 
-        return coreUri;
-    }
+    public void setTitle(String title) { this.title = title; }
 
-    public void setCoreUri(String uri) {
+    public String getMD5Hash() { return Util.ToHash(this.index); }
 
-        this.coreUri = uri;
-    }
+    public String getContent() { return this.content; }
 
-    public String getCreator() {
+    public void setContent(String content) { this.content = content; }
 
-        return this.creator;
-    }
+    public String getCoreUri() { return coreUri; }
 
-    public void setCreator(String creator) {
+    public void setCoreUri(String uri) { this.coreUri = uri; }
 
-        this.creator = creator;
-    }
+    public String getCreator() { return this.creator; }
 
-    public String getDescription() {
+    public void setCreator(String creator) { this.creator = creator; }
 
-        return this.description;
-    }
+    public String getDistance() { return this.distance; }
 
-    public void setDescription(String description) {
+    public void setDistance(String distance) { this.distance = distance; }
 
-        this.description = description;
-    }
+    public String getDistanceFilterText() { return this.distanceFilterText; }
 
-    public String getDistance() {
+    public void setDistanceFilterText(String distanceFilterText) { this.distanceFilterText = distanceFilterText; }
 
-        return this.distance;
-    }
+    public String getFilter() { return this.filter; }
 
-    public void setDistance(String distance) {
+    public void setFilter(String filter) { this.filter = filter; }
 
-        this.distance = distance;
-    }
+    public Integer getId() { return this.id; }
 
-    public String getDistanceFilterText() {
+    public void setId(Integer id) { this.id = id; }
 
-        return this.distanceFilterText;
-    }
+    public String getIgID() { return this.igID; }
 
-    public void setDistanceFilterText(String distanceFilterText) {
+    public void setIgID(String igID) { this.igID = igID; }
 
-        this.distanceFilterText = distanceFilterText;
-    }
+    public String getIndex() { return this.index; }
 
-    public String getFilter() {
+    public void setIndex(String index) { this.index = index; }
 
-        return this.filter;
-    }
+    public String getKey() { return this.index + this.coreUri; }
 
-    public void setFilter(String filter) {
+    public Date getLastUpdated() { return this.lastUpdated; }
 
-        this.filter = filter;
-    }
+    public void setLastUpdated(Date lastUpdated) { this.lastUpdated = lastUpdated; }
 
-    public Integer getId() {
+    public String getLatitude() { return this.latitude; }
 
-        return this.id;
-    }
+    public void setLatitude(String latitude) { this.latitude = latitude; }
 
-    public void setId(Integer id) {
+    public String getLongitude() { return this.longitude; }
 
-        this.id = id;
-    }
+    public void setLongitude(String longitude) { this.longitude = longitude; }
 
-    public String getIgID() {
+    public String getWorkProductID() { return this.workProductID; }
 
-        return this.igID;
-    }
-
-    public void setIgID(String igID) {
-
-        this.igID = igID;
-    }
-
-    public String getIndex() {
-
-        return this.index;
-    }
-
-    public void setIndex(String index) {
-
-        this.index = index;
-    }
-
-    public String getKey() {
-
-        return this.index + this.coreUri;
-    }
-
-    public Date getLastUpdated() {
-
-        return this.lastUpdated;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-
-        this.lastUpdated = lastUpdated;
-    }
-
-    public String getLatitude() {
-
-        return this.latitude;
-    }
-
-    public void setLatitude(String latitude) {
-
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-
-        return this.longitude;
-    }
-
-    public void setLongitude(String longitude) {
-
-        this.longitude = longitude;
-    }
-
-    public String getTitle() {
-
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-
-        this.title = title;
-    }
-
-    public String getWorkProductID() {
-
-        return this.workProductID;
-    }
-
-    public void setWorkProductID(String workProductID) {
-
-        this.workProductID = workProductID;
-    }
+    public void setWorkProductID(String workProductID) { this.workProductID = workProductID; }
 
     @Override
     public String toString() {
