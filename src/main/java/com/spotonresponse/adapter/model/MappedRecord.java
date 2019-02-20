@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.rmi.ConnectIOException;
 import java.util.Date;
 
 @Entity
@@ -67,6 +68,10 @@ public class MappedRecord implements Serializable {
             setIndex(value);
         } else if (key.equalsIgnoreCase(Configuration.FN_Content)) {
             setContent(value);
+        } else if (key.equalsIgnoreCase(Configuration.FN_Latitude)) {
+            setLatitude(value);
+        } else if (key.equalsIgnoreCase(Configuration.FN_Longitude)) {
+            setLongitude(value);
         } else {
             logger.error("MapperRecord.put: key: [{}], value: [{}]", key, value);
         }

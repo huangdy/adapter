@@ -111,8 +111,11 @@ public class ConfigurationFileWatcher {
                 Path name = ev.context();
                 Path child = dir.resolve(name);
 
-                // print out event
-                logger.info("Event: {}, file: {}\n", event.kind().name(), child);
+                if (lastAccessTimestamp.get(child.toString()) == null || !isDuplicate(child.toString())) {
+                    // print out event
+                    logger.info("Event: {}, file: {}\n", event.kind().name(), child);
+                    lastAccessTimestamp.put(child.toString(), new Date());
+                }
 
                 // if directory is created, and watching recursively, then
                 // register it and its sub-directories
@@ -139,6 +142,14 @@ public class ConfigurationFileWatcher {
                 }
             }
         }
+    }
+
+    private boolean isDuplicate(String child) {
+
+        Date lastAccessTime = lastAccessTimestamp.get(child);
+        Date currentTime = new Date();
+        logger.debug("LastAccessTime: {}, Current time: {}", lastAccessTime, currentTime);
+        return lastAccessTime.equals(currentTime);
     }
 
     @SuppressWarnings("unchecked")

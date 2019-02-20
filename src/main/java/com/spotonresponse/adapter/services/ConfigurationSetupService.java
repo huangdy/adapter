@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
@@ -30,6 +31,9 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
     @Value("${jsonpoller.cron.schedule}")
     private String cronSchedule;
+
+    @Value("${test.config.path}")
+    private String testConfigPath;
 
     @Value("${config.path}")
     private String configPath;
@@ -55,7 +59,7 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
         initConfiguration();
 
-        // startConfigurationThread();
+        startConfigurationDirectoryMonitorThread();
 
         return;
     }
@@ -99,12 +103,12 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
         }
     }
 
-    private void startConfigurationThread() {
+    private void startConfigurationDirectoryMonitorThread() {
 
         // register directory and process its events
         // Path configDirectory = resourceLoader.getResource(configPath);
         try {
-            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(configPath).getFile().getPath()),
+            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()),
                                          false).processEvents();
         } catch (Exception e) {
             // TODO

@@ -56,6 +56,9 @@ public class JSONPollerTask implements Runnable {
                 new JsonFeedParser(this.configuration, content.toString()).getRecordList();
 
             DynamoDBRepository dynamoDBRepository = new DynamoDBRepository();
+            recordList.forEach(record ->{
+                dynamoDBRepository.createEntry(record);
+            });
 
             // TODO inject from this thread ???
 

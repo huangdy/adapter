@@ -75,6 +75,7 @@ public class JsonFeedParser {
             Double[][] boundingBox = calculateBoundingBox(recordList, configuration.getDistance());
             for (MappedRecord record : recordList) {
                 if (Util.IsInsideBoundingBox(boundingBox, record.getLatitude(), record.getLongitude()) == false) {
+                    logger.trace("{} is outside bounding box", record);
                     mismatched.add(record);
                 }
             }
@@ -88,6 +89,7 @@ public class JsonFeedParser {
             if (configuration.getMappingColumns() != null) {
                 mapRecord(mappedRecordJson);
             }
+            logger.debug("record: {}", mappedRecordJson);
             recordJsonList.add(mappedRecordJson);
         }
     }
@@ -100,6 +102,9 @@ public class JsonFeedParser {
         boolean isFullDescription = configuration.isFullDescription();
 
         MappedRecord record = new MappedRecord();
+        record.setCreator(configuration.getId());
+        record.setCoreUri(configuration.getJson_ds());
+        record.setLastUpdated(new Date());
 
         Set<String> keys = configuration.getMap().keySet();
         keys.forEach(key -> {
@@ -110,7 +115,7 @@ public class JsonFeedParser {
                 if (isFirstColumn++ > 0) {
                     sb.append(S_TokenSeparator);
                 }
-                sb.append(row.get(column) != null ? row.get(column) : "N/A");
+                sb.append(row.get(column));
             }
             if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
 
@@ -121,7 +126,7 @@ public class JsonFeedParser {
         // check whether filter match the filter text
         String filter = record.getFilter();
         boolean isMatched = isMatchFilter(filter);
-        logger.debug("Filter: [{}] Matched: [{}]", filter, isMatched ? "YES" : "NO");
+        logger.trace("Filter: [{}] Matched: [{}]", filter, isMatched ? "YES" : "NO");
 
         // if the filter mis-match then we don't need to continue
         if (!isMatched) { return null; }
@@ -190,7 +195,7 @@ public class JsonFeedParser {
         boolean negativeExpression = configuration.getFilterText().startsWith("!");
         String filterText = negativeExpression ? filter.substring(1) : filter;
         String pattern = PatternPrefix + filterText + PatternPostfix;
-        logger.debug("Filter Pattern: " + pattern);
+        logger.trace("Filter Pattern: " + pattern);
         boolean isMatched = filter.matches(pattern);
         return isMatched && negativeExpression == false || isMatched == false && negativeExpression == true;
     }
