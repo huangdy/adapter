@@ -52,20 +52,16 @@ public class JSONPollerTask implements Runnable {
             }
 
             // use the input stream to generate records
-            List<MappedRecordJson> recordList =
-                new JsonFeedParser(this.configuration, content.toString()).getRecordList();
+            List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration,
+                                                                   content.toString()).getRecordList();
 
             DynamoDBRepository dynamoDBRepository = new DynamoDBRepository();
-            recordList.forEach(record ->{
-                dynamoDBRepository.createEntry(record);
-            });
-
-            // TODO inject from this thread ???
+            dynamoDBRepository.removeByCreator(configuration.getId());
+            dynamoDBRepository.createAllEntries(recordList);
 
             // close the reader
             reader.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO
             logger.error("Exception: {}", e.getMessage());
             e.printStackTrace();

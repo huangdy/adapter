@@ -2,7 +2,6 @@ package com.spotonresponse.adapter.process;
 
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.repo.ConfigurationRepository;
-import com.spotonresponse.adapter.repo.CoreConfigurationRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,9 +23,6 @@ public class ConfigFileParserTest {
 
     @Autowired
     private ConfigurationRepository configurationRepository;
-
-    @Autowired
-    private CoreConfigurationRepository coreConfigurationRepository;
 
     @Test
     public void testConfigFileParser() {

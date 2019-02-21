@@ -1,38 +1,21 @@
 [
-  {
-    "SourceURL": "/fieldnotes/features.json.php",
-    "creator": "landslide",
-    "Mapping Category": "N/A",
-    "index": "37.45688:-122.17053",
-    "description": "<br/><b>synced: <\/b><br/><b>notes: <\/b>Test1<br/><b>surface: <\/b><br/><b>offset: <\/b>Soil<br/><b>timezone: <\/b>PST<br/><b>strike: <\/b><br/><b>length: <\/b><br/><b>igid: <\/b><br/><b>description: <\/b><br/><b>accuracy: <\/b>65.00<br/><b>azimuth: <\/b><br/><b>Latitude: <\/b>37.45688<br/><b>recorded: <\/b>2016-01-26 00:19:17 UTC<br/><b>Longitude: <\/b>-122.17053<br/><b>operator: <\/b>timothy.dawson@conservation.ca.gov<br/><b>site: <\/b>test<br/><b>afterslip: <\/b><br/><b>form: <\/b>Fault Rupture<br/><b>attachment: <\/b><br/><b>plunge: <\/b><br/><b>zaccuracy: <\/b>12.49<br/><b>timestamp: <\/b>Mon, Jan 25 2016 4:18pm",
-    "md5hash": "94434E73419EC0B4F2FC85AD0117C691",
-    "content": "[:Test1::Soil:PST:::::65.00::37.45688:2016-01-26 00:19:17 UTC:-122.17053:timothy.dawson@conservation.ca.gov:test::Fault Rupture:::12.49:Mon, Jan 25 2016 4:18pm]",
-    "Source": "https://bayquakealliance.org/fieldnotes/features.json.php",
-    "SourceHost": "bayquakealliance.org",
-    "Mapping Title": "N/A:N/A",
-    "filter": "N/A",
-    "where": {
-      "Point": {
-        "pos": "37.45688 -122.17053"
-      }
+    {
+        "creator": "landslide",
+        "SourceURL": "https://bayquakealliance.org/fieldnotes/features.json.php",
+        "Mapping Category": "Buildings",
+        "description": "<br/><b>area: <\/b><br/><b>synced: <\/b><br/><b>notes: <\/b><br/><b>timezone: <\/b>EST<br/><b>igid: <\/b><br/><b>description: <\/b>40.75352, -82.00622<br/><b>accuracy: <\/b>152.77<br/><b>Latitude: <\/b>40.75352<br/><b>recorded: <\/b>2011-12-24 18:10:29 UTC<br/><b>type: <\/b>Fall<br/><b>Longitude: <\/b>-82.00622<br/><b>operator: <\/b>lblair@usgs.gov<br/><b>site: <\/b><br/><b>form: <\/b>Landslide<br/><b>attachment: <\/b><br/><b>material: <\/b><br/><b>facilities: <\/b>Buildings<br/><b>zaccuracy: <\/b>11.38<br/><b>timestamp: <\/b>Sat, Dec 24 2011 2:10pm",
+        "index": "40.75352:-82.00622",
+        "md5hash": "657F21C7263B726CC8859E62368863B2",
+        "content": "[:::EST::40.75352, -82.00622:152.77:40.75352:2011-12-24 18:10:29 UTC:Fall:-82.00622:lblair@usgs.gov::Landslide:::Buildings:11.38:Sat, Dec 24 2011 2:10pm]",
+        "Source": "Saber JSON Adapter",
+        "SourceHost": "bayquakealliance.org",
+        "Mapping Title": ":Buildings",
+        "filter": "Fall",
+        "lastUpdated": "Feb 19, 2019 9:09:23 PM",
+        "where": {
+            "Point": {
+                "pos": "40.75352 -82.00622"
+            }
+        }
     }
-  },
-  {
-    "SourceURL": "/fieldnotes/features.json.php",
-    "creator": "landslide",
-    "Mapping Category": "N/A",
-    "index": "37.45665:-122.17054",
-    "description": "<br/><b>synced: <\/b><br/><b>notes: <\/b>Test2<br/><b>surface: <\/b><br/><b>offset: <\/b>Bedrock, Pipeline<br/><b>timezone: <\/b>PST<br/><b>strike: <\/b><br/><b>length: <\/b>3.0<br/><b>igid: <\/b><br/><b>description: <\/b><br/><b>accuracy: <\/b>65.00<br/><b>azimuth: <\/b>90<br/><b>Latitude: <\/b>37.45665<br/><b>recorded: <\/b>2016-01-26 00:20:08 UTC<br/><b>Longitude: <\/b>-122.17054<br/><b>operator: <\/b>timothy.dawson@conservation.ca.gov<br/><b>site: <\/b>site 2<br/><b>afterslip: <\/b><br/><b>form: <\/b>Fault Rupture<br/><b>attachment: <\/b><br/><b>plunge: <\/b>45<br/><b>zaccuracy: <\/b>11.67<br/><b>timestamp: <\/b>Mon, Jan 25 2016 4:19pm",
-    "md5hash": "C2CAB8B4C52DC5203757F9B2DE71849D",
-    "content": "[:Test2::Bedrock, Pipeline:PST::3.0:::65.00:90:37.45665:2016-01-26 00:20:08 UTC:-122.17054:timothy.dawson@conservation.ca.gov:site 2::Fault Rupture::45:11.67:Mon, Jan 25 2016 4:19pm]",
-    "Source": "https://bayquakealliance.org/fieldnotes/features.json.php",
-    "SourceHost": "bayquakealliance.org",
-    "Mapping Title": "N/A:N/A",
-    "filter": "N/A",
-    "where": {
-      "Point": {
-        "pos": "37.45665 -122.17054"
-      }
-    }
-  }
 ]

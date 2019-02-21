@@ -22,7 +22,7 @@ public class MappedRecordJson extends JSONObject {
     private static final String S_SourceURL = "SourceURL";
     private static final String S_SourceContact = "SourceContact";
     private static final String S_SourceEmail = "SourceEmail";
-    private static final String S_CREATOR = "creator";
+    private static final String S_Creator = "creator";
     private static final String S_MD5HASH = "md5hash";
     private static final String[] removeEntries = {
         "coreUri",
@@ -47,14 +47,14 @@ public class MappedRecordJson extends JSONObject {
              record.getCoreUri());
     }
 
-    public void init(String latitude, String longitude, String title, String md5hash, String uri) {
+    public void init(String latitude, String longitude, String creator, String md5hash, String uri) {
 
         setWhere(latitude, longitude);
         parseUrl(uri);
         this.put(S_Source, "Saber JSON Adapter");
         this.put(S_SourceHost, this.host);
         this.put(S_SourceURL, uri);
-        this.put(S_CREATOR, title);
+        this.put(S_Creator, creator);
         this.put(S_MD5HASH, md5hash);
         clearUp();
     }
@@ -93,7 +93,7 @@ public class MappedRecordJson extends JSONObject {
 
     public String getCreator() {
 
-        return (String) this.get(S_CREATOR);
+        return (String) this.get(S_Creator);
     }
 
     public String getPrimaryKey() {

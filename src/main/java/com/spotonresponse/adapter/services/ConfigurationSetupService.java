@@ -2,7 +2,6 @@ package com.spotonresponse.adapter.services;
 
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.process.ConfigFileParser;
-import com.spotonresponse.adapter.repo.ConfigurationRepo;
 import com.spotonresponse.adapter.repo.ConfigurationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
@@ -57,6 +55,7 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
+        //
         initConfiguration();
 
         startConfigurationDirectoryMonitorThread();
@@ -67,9 +66,8 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     private void initConfiguration() {
 
         try {
-            ConfigurationRepo configRepo = new ConfigurationRepo();
 
-            logger.debug("Configuration Path: {}", configPath);
+            logger.info("Configuration Path: {}", configPath);
 
             // to use configPath as the resource to find the configuration path
             File[] files = resourceLoader.getResource(configPath).getFile().listFiles();
@@ -84,16 +82,12 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
                 List<Configuration> configurationList = configFileParser.getConfigurationList();
                 configurationList.forEach(configuration -> {
+
                     // configRepo.add(configuration);
-                    // configurationRepository.save(configuration);
+                    configurationRepository.save(configuration);
                     if (configuration.getJson_ds() != null) {
-                        logger.debug("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
-                                     configuration.getId(),
-                                     configuration.getJson_ds(),
-                                     cronSchedule);
-                        scheduleMap.put(configuration.getId(),
-                                        threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration),
-                                                                         new CronTrigger(cronSchedule)));
+                        logger.debug("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]", configuration.getId(), configuration.getJson_ds(), cronSchedule);
+                        scheduleMap.put(configuration.getId(), threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration), new CronTrigger(cronSchedule)));
                     }
                 });
             }
@@ -107,9 +101,9 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
         // register directory and process its events
         // Path configDirectory = resourceLoader.getResource(configPath);
+        logger.info("Start the Configuration Watcher: {}", testConfigPath);
         try {
-            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()),
-                                         false).processEvents();
+            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()), false).processEvents();
         } catch (Exception e) {
             // TODO
             e.printStackTrace();

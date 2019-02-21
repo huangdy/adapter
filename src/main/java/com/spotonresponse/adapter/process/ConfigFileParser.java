@@ -1,7 +1,6 @@
 package com.spotonresponse.adapter.process;
 
 import com.spotonresponse.adapter.model.Configuration;
-import com.spotonresponse.adapter.model.CoreConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,6 @@ public class ConfigFileParser {
     private static final Logger logger = LoggerFactory.getLogger(ConfigFileParser.class);
 
     private List<Configuration> configurationList = new ArrayList<Configuration>();
-    private CoreConfiguration coreConfiguration;
 
     public ConfigFileParser() {
 
@@ -84,7 +82,6 @@ public class ConfigFileParser {
                 } else if (line.equalsIgnoreCase(Configuration.N_Configuration_End)) {
                     logger.debug("Configuration: .. end ...");
                     if (configuration.isValid()) {
-                        coreConfiguration = new CoreConfiguration(configuration.getJson_ds(), configuration.getUsername(), configuration.getPassword());
                         configurationList.add(configuration);
                         configuration = null;
                         continue;
@@ -106,7 +103,6 @@ public class ConfigFileParser {
             }
             if (configuration != null) {
                 if (configuration.isValid()) {
-                    coreConfiguration = new CoreConfiguration(configuration.getJson_ds(), configuration.getUsername(), configuration.getPassword());
                     configurationList.add(configuration);
                 } else {
                     throw new Exception("Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());
@@ -125,13 +121,5 @@ public class ConfigFileParser {
 
     public void setConfigurationList(List<Configuration> configurationList) {
         this.configurationList = configurationList;
-    }
-
-    public CoreConfiguration getCoreConfiguration() {
-        return coreConfiguration;
-    }
-
-    public void setCoreConfiguration(CoreConfiguration coreConfiguration) {
-        this.coreConfiguration = coreConfiguration;
     }
 }
