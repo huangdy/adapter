@@ -56,14 +56,14 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
         //
-        initConfiguration();
+        startConfigurationDirectory();
 
         startConfigurationDirectoryMonitorThread();
 
         return;
     }
 
-    private void initConfiguration() {
+    private void startConfigurationDirectory() {
 
         try {
 
@@ -86,8 +86,13 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
                     // configRepo.add(configuration);
                     configurationRepository.save(configuration);
                     if (configuration.getJson_ds() != null) {
-                        logger.debug("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]", configuration.getId(), configuration.getJson_ds(), cronSchedule);
-                        scheduleMap.put(configuration.getId(), threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration), new CronTrigger(cronSchedule)));
+                        logger.debug("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
+                                     configuration.getId(),
+                                     configuration.getJson_ds(),
+                                     cronSchedule);
+                        scheduleMap.put(configuration.getId(),
+                                        threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration),
+                                                                         new CronTrigger(cronSchedule)));
                     }
                 });
             }
@@ -103,7 +108,8 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
         // Path configDirectory = resourceLoader.getResource(configPath);
         logger.info("Start the Configuration Watcher: {}", testConfigPath);
         try {
-            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()), false).processEvents();
+            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()),
+                                         false).processEvents();
         } catch (Exception e) {
             // TODO
             e.printStackTrace();

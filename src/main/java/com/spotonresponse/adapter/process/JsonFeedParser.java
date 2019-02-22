@@ -70,8 +70,8 @@ public class JsonFeedParser {
         // - calculate the bounding box
         // - find out whether the object is within the bounding box
         if (configuration.getDistance() != null &&
-            (configuration.getDistanceFilterText() == null || configuration.getDistanceFilterText().equalsIgnoreCase(
-                configuration.getFilterText()))) {
+            (configuration.getDistanceFilterText() == null ||
+             configuration.getDistanceFilterText().equalsIgnoreCase(configuration.getFilterText()))) {
             Double[][] boundingBox = calculateBoundingBox(recordList, configuration.getDistance());
             for (MappedRecord record : recordList) {
                 if (Util.IsInsideBoundingBox(boundingBox, record.getLatitude(), record.getLongitude()) == false) {

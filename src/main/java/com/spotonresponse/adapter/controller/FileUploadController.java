@@ -1,4 +1,4 @@
-package com.spotonresponse.adapter.process;
+package com.spotonresponse.adapter.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -10,31 +10,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class JsonController {
 
+    private DynamoDBRepository dynamoDBRepository;
+
+    public JsonController() { this.dynamoDBRepository = new DynamoDBRepository(); }
+
     @RequestMapping(value = "/query", produces = "application/json")
     public String query(@RequestParam(value = "config", defaultValue = "xcore") String config) {
 
-        DynamoDBRepository dynamoDBRepository = new DynamoDBRepository();
         JSONArray resultArray = dynamoDBRepository.query(config);
 
         int size = resultArray.length();
-        JSONObject object = new JSONObject();
-        object.put("Configuration", config);
-        object.put("Count", size);
-        object.put("Data", resultArray);
-
+        JSONObject object = new JSONObject().put("Configuration", config)
+                                            .put("Count", size)
+                                            .put("Content", resultArray);
         return object.toString();
     }
 
     @RequestMapping(value = "/delete", produces = "application/json")
     public String delete(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
 
-        DynamoDBRepository dynamoDBRepository = new DynamoDBRepository();
-        boolean isSuccess = dynamoDBRepository.removeByCreator(creator);
+        int count = dynamoDBRepository.removeByCreator(creator);
 
         JSONObject object = new JSONObject();
-        object.put("Configuration", creator);
-        object.put("Status", (isSuccess ? "true" : false));
-
+        object.put("Configuration", creator).put("Count", count);
         return object.toString();
     }
 

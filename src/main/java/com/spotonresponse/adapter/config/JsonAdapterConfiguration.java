@@ -24,27 +24,30 @@ import javax.sql.DataSource;
 public class JsonAdapterConfiguration {
 
     private final static String packageName = "com.spotonresponse.adapter";
-    
+
     private final static String S_AWS_ACCESS_KEY = "aws.access.key.id";
     private final static String S_AWS_SECRET_KEY = "aws.secret.access.key";
 
     @Autowired
     Environment environment;
-
+    DynamoDBRepository repo = new DynamoDBRepository();
     @Value("${amazon.endpoint}")
     private String amazon_endpoint;
     @Value("${amazon.region}")
     private String amazon_region;
     @Value("${nosql.table.name}")
     private String dynamoDBTableName;
-
     private int pollerCount = 3;
 
     @Bean
     public DynamoDBRepository dynamoDBRepository() {
 
         DynamoDBRepository repo = new DynamoDBRepository();
-        repo.init(environment.getProperty(S_AWS_ACCESS_KEY), environment.getProperty(S_AWS_SECRET_KEY), amazon_endpoint, amazon_region, dynamoDBTableName);
+        repo.init(environment.getProperty(S_AWS_ACCESS_KEY),
+                  environment.getProperty(S_AWS_SECRET_KEY),
+                  amazon_endpoint,
+                  amazon_region,
+                  dynamoDBTableName);
         return repo;
     }
 

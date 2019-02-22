@@ -22,11 +22,6 @@ public class DynamoDBRepository {
     public static final String S_Title = "title";
     private static final Logger logger = LogManager.getLogger(DynamoDBRepository.class);
 
-    private static String aws_access_key_id;
-    private static String aws_secret_access_key;
-    private static String amazon_engpoint;
-    private static String amazon_region;
-    private static String dynamoDBTableName;
     private static DynamoDB dynamoDBClient = null;
     private static Table table = null;
 
@@ -38,12 +33,6 @@ public class DynamoDBRepository {
                      String amazon_region,
                      String dynamoDBTableName) {
 
-        aws_access_key_id = aws_access_key_id;
-        aws_secret_access_key = aws_secret_access_key;
-        amazon_endpoint = amazon_endpoint;
-        amazon_region = amazon_region;
-        dynamoDBTableName = dynamoDBTableName;
-
         if (aws_access_key_id == null ||
             aws_secret_access_key == null ||
             amazon_endpoint == null ||
@@ -52,16 +41,23 @@ public class DynamoDBRepository {
             return;
         }
 
+        logger.info("Init: dynamoDBRepository: ... start ...");
+
         BasicAWSCredentials credentials = new BasicAWSCredentials(aws_access_key_id, aws_secret_access_key);
 
         try {
             AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
-                                                                       .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                                                                       .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazon_endpoint, amazon_region))
+                                                                       .withCredentials(new AWSStaticCredentialsProvider(
+                                                                           credentials))
+                                                                       .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
+                                                                           amazon_endpoint,
+                                                                           amazon_region))
                                                                        .build();
+
+            logger.debug("Setting up DynamoDB client: Region: [{}], Endpoint: [{}]", amazon_region, amazon_endpoint);
             dynamoDBClient = new DynamoDB(amazonDynamoDB);
 
-            logger.debug("Setting up DynamoDB client");
+            logger.debug("Setting up DynamoDB table: [{}]");
             table = dynamoDBClient.getTable(dynamoDBTableName);
         } catch (Throwable e) {
             logger.error("Cannot create NOSQL Table: " + e.getMessage());
@@ -76,25 +72,29 @@ public class DynamoDBRepository {
                                              .withValueMap(new ValueMap().with(":v_title", title));
 
         ItemCollection<QueryOutcome> items = table.query(querySpec);
+        logger.debug("query: {}, count: {}", title, items.getAccumulatedItemCount());
         Iterator iterator = items.iterator();
         JSONArray resultArray = new JSONArray();
         while (iterator.hasNext()) {
             Item item = (Item) iterator.next();
             resultArray.put(item.get("item"));
-            logger.debug("Item: [{}]", item);
+            logger.debug("query: Item: [{}]", item);
         }
 
         return resultArray;
     }
 
-    public boolean createAllEntries(List<MappedRecordJson> recordList) {
-        recordList.forEach(record -> {
+    public int createAllEntries(List<MappedRecordJson> recordList) {
+
+        int count = 0;
+        for (MappedRecordJson record : recordList) {
             createEntry(record);
-        });
-        return true;
+            count++;
+        }
+        return count;
     }
 
-    public boolean removeByCreator(String title) {
+    public int removeByCreator(String title) {
 
         return deleteAllEntries(title, queryHashList(title));
     }
@@ -126,32 +126,33 @@ public class DynamoDBRepository {
         }
     }
 
-    public boolean deleteAllEntries(String creator, List<String> hashList) {
+    public int deleteAllEntries(String creator, List<String> hashList) {
 
-        if (hashList.size() == 0) return true;
+        if (hashList.size() == 0) { return 0; }
 
-        try {
-            hashList.forEach(hash -> {
+        int count = 0;
+        for (String hash : hashList) {
+            try {
                 deleteEntry(new AbstractMap.SimpleImmutableEntry(creator, hash));
-            });
-        } catch (Exception e) {
-            logger.error("delete: error: {}", e.getMessage());
+                count++;
+            } catch (Exception e) {
+                // TODO continue is right thing ???
+            }
         }
-        return true;
+        return count;
     }
 
     public boolean deleteEntry(Map.Entry key) {
 
-        if (table == null) {
-            return false;
-        }
+        if (table == null) { return false; }
 
         try {
             logger.debug("deleteEntry: Title: [{}] & MD5Hash: [{}]", key.getKey(), key);
-            DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(new PrimaryKey(S_Title, key.getKey(), S_MD5HASH, key
-                .getValue()));
+            DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(new PrimaryKey(S_Title,
+                                                                                               key.getKey(),
+                                                                                               S_MD5HASH,
+                                                                                               key.getValue()));
             table.deleteItem(deleteItemSpec);
-            logger.debug("eleteEntry: ... successful ...");
         } catch (Exception e) {
             logger.error("deleteEntry: Title: [{}] & MD5Hash: [{}]: Error: [{}]", key.getKey(), key, e.getMessage());
             return false;
@@ -163,27 +164,24 @@ public class DynamoDBRepository {
 
         logger.debug("updateEntry: ... start ...");
         boolean isSuccess = this.deleteEntry(item.getMapEntry()) && this.createEntry(item);
-        logger.debug("updateEntry: ... end ... [" + (isSuccess ? "Successful" : " Failure") + "]");
         return isSuccess;
     }
 
     public boolean createEntry(MappedRecordJson item) {
 
-        if (table == null) {
-            return false;
-        }
+        if (table == null) { return false; }
 
         logger.debug("createEntry: Creator: [{}] MD5HASH: [{}]", item.getCreator(), item.getPrimaryKey());
         try {
             table.putItem(new Item().withPrimaryKey(S_MD5HASH, item.getPrimaryKey(), S_Title, item.getCreator())
                                     .withJSON("item", item.toString()));
-            logger.debug("createEntry: ... successful ...");
-
         } catch (Exception e) {
-            logger.error("Error: {}", e.getMessage());
+            logger.error("createEntry: Creator: [{}] MD5HASH: [{}], Error: [{}]",
+                         item.getCreator(),
+                         item.getPrimaryKey(),
+                         e.getMessage());
             return false;
         }
-
         return true;
     }
 }

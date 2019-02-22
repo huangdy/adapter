@@ -9,6 +9,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static java.nio.file.StandardWatchEventKinds.*;
@@ -22,7 +23,8 @@ public class ConfigurationFileWatcher {
     private final WatchService watcher;
     private final Map<WatchKey, Path> keys;
     private final boolean recursive;
-    private final Map<String, Date> lastAccessTimestamp = new HashMap<String, Date>();
+    private final Map<String, Long> lastAccessTimestamp = new HashMap<String, Long>();
+    private final Map<String, ScheduledFuture> jobMap = new HashMap<String, ScheduledFuture>();
 
     /**
      * Creates a WatchService and registers the given directory
@@ -52,6 +54,7 @@ public class ConfigurationFileWatcher {
         Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+
                 logger.debug("register: {}", dir);
                 register(dir);
                 return FileVisitResult.CONTINUE;
@@ -87,8 +90,7 @@ public class ConfigurationFileWatcher {
             WatchKey key;
             try {
                 key = watcher.take();
-            }
-            catch (InterruptedException x) {
+            } catch (InterruptedException x) {
                 return;
             }
 
@@ -111,11 +113,15 @@ public class ConfigurationFileWatcher {
                 Path name = ev.context();
                 Path child = dir.resolve(name);
 
-                if (lastAccessTimestamp.get(child.toString()) == null || !isDuplicate(child.toString())) {
-                    // print out event
-                    logger.info("Event: {}, file: {}\n", event.kind().name(), child);
-                    lastAccessTimestamp.put(child.toString(), new Date());
+                if (lastAccessTimestamp.get(child.toString()) != null &&
+                    new Date().getTime() - lastAccessTimestamp.get(child.toString()) < 1000) {
+                    continue;
                 }
+                // print out event
+                logger.info("Record last access time for Event: {}, file: {}, name: {}", kind, child, name);
+                lastAccessTimestamp.put(child.toString(), new Date().getTime());
+
+                logger.info("Filename: {} is {}", child, kind);
 
                 // if directory is created, and watching recursively, then
                 // register it and its sub-directories
@@ -124,8 +130,7 @@ public class ConfigurationFileWatcher {
                         if (Files.isDirectory(child, NOFOLLOW_LINKS)) {
                             registerAll(child);
                         }
-                    }
-                    catch (IOException x) {
+                    } catch (IOException x) {
                         // ignore to keep sample readbale
                     }
                 }
@@ -142,14 +147,6 @@ public class ConfigurationFileWatcher {
                 }
             }
         }
-    }
-
-    private boolean isDuplicate(String child) {
-
-        Date lastAccessTime = lastAccessTimestamp.get(child);
-        Date currentTime = new Date();
-        logger.debug("LastAccessTime: {}, Current time: {}", lastAccessTime, currentTime);
-        return lastAccessTime.equals(currentTime);
     }
 
     @SuppressWarnings("unchecked")
