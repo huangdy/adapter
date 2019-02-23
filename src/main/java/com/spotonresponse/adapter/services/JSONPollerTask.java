@@ -23,6 +23,7 @@ public class JSONPollerTask implements Runnable {
     private Configuration configuration;
 
     public JSONPollerTask(Configuration configuration) {
+
         this.configuration = configuration;
         this.dynamoDBRepository = new DynamoDBRepository();
     }
@@ -53,12 +54,12 @@ public class JSONPollerTask implements Runnable {
             }
 
             // use the input stream to generate records
-            List<MappedRecordJson> recordList = new JsonFeedParser(
-                this.configuration,
-                content.toString()).getRecordList();
-
+            List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration,
+                                                                   content.toString()).getRecordList();
+            logger.info("record#: {}", recordList.size());
             dynamoDBRepository.removeByCreator(configuration.getId());
             dynamoDBRepository.createAllEntries(recordList);
+            logger.info("after create all ...");
 
             // close the reader
             reader.close();

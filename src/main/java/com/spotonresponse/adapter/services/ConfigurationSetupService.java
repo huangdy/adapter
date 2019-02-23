@@ -55,7 +55,6 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-        //
         startConfigurationDirectory();
 
         startConfigurationDirectoryMonitorThread();
@@ -67,7 +66,7 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
         try {
 
-            logger.info("Configuration Path: {}", configPath);
+            logger.info("startConfigurationDirectory: Path: {}", configPath);
 
             // to use configPath as the resource to find the configuration path
             File[] files = resourceLoader.getResource(configPath).getFile().listFiles();
@@ -106,10 +105,10 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
 
         // register directory and process its events
         // Path configDirectory = resourceLoader.getResource(configPath);
-        logger.info("Start the Configuration Watcher: {}", testConfigPath);
+        logger.info("Start the Configuration Directory Watcher: {}", testConfigPath);
         try {
-            new ConfigurationFileWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()),
-                                         false).processEvents();
+            new ConfigurationDirectoryWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()),
+                                              threadPoolTaskScheduler).processEvents();
         } catch (Exception e) {
             // TODO
             e.printStackTrace();

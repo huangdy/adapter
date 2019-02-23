@@ -86,11 +86,13 @@ public class DynamoDBRepository {
 
     public int createAllEntries(List<MappedRecordJson> recordList) {
 
+        logger.info("createAllEntries: count#: {}", recordList.size());
         int count = 0;
         for (MappedRecordJson record : recordList) {
             createEntry(record);
             count++;
         }
+        logger.info("createAllEntries: created: {}", count);
         return count;
     }
 
@@ -130,6 +132,7 @@ public class DynamoDBRepository {
 
         if (hashList.size() == 0) { return 0; }
 
+        logger.info("deleteAllEntries: {}, counts: {}", creator, hashList.size());
         int count = 0;
         for (String hash : hashList) {
             try {
@@ -139,6 +142,7 @@ public class DynamoDBRepository {
                 // TODO continue is right thing ???
             }
         }
+        logger.info("deleteAllEntries: deleted: {} ", creator, count);
         return count;
     }
 

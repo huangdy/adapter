@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="LOG_HOME" value="c:\\tmp\\adapter\\logs"/>
+    <property name="LOG_HOME" value="/tmp/adapter/logs"/>
 
     <appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
 
@@ -44,7 +44,7 @@
         </layout>
     </appender>
 
-    <logger name="com.spotonresponse.adapter" level="debug" additivity="false">
+    <logger name="com.spotonresponse.adapter" level="info" additivity="false">
         <appender-ref ref="FILE-THREAD"/>
         <!-- <appender-ref ref="STDOUT"/> -->
     </logger>

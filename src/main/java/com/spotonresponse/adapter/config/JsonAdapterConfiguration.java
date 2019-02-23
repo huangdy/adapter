@@ -1,6 +1,7 @@
 package com.spotonresponse.adapter.config;
 
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
+import com.spotonresponse.adapter.services.ConfigurationDirectoryWatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.nio.file.Path;
 
 @PropertySource("classpath:dynamodb.properties")
 @Configuration
@@ -30,7 +32,7 @@ public class JsonAdapterConfiguration {
 
     @Autowired
     Environment environment;
-    DynamoDBRepository repo = new DynamoDBRepository();
+
     @Value("${amazon.endpoint}")
     private String amazon_endpoint;
     @Value("${amazon.region}")
@@ -39,6 +41,16 @@ public class JsonAdapterConfiguration {
     private String dynamoDBTableName;
     private int pollerCount = 3;
 
+    /*
+    @Bean
+    public ConfigurationDirectoryWatcher configurationDirectoryWatcher(Path path, ThreadPoolTaskScheduler scheduler) {
+
+        ConfigurationDirectoryWatcher bean = new ConfigurationDirectoryWatcher();
+        bean.setDir(path);
+        bean.setScheduler(scheduler);
+        return bean;
+    }
+*/
     @Bean
     public DynamoDBRepository dynamoDBRepository() {
 
@@ -56,16 +68,9 @@ public class JsonAdapterConfiguration {
 
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(pollerCount);
+        threadPoolTaskScheduler.initialize();
         return threadPoolTaskScheduler;
     }
-
-    /*
-    @Bean
-    public MappedRecordDao mappedRecordDao() {
-
-        return new MappedRecordDao();
-    }
-    */
 
     @Bean
     public DataSource dataSource() {
