@@ -1,14 +1,5 @@
 package com.spotonresponse.adapter.model;
 
-import javax.xml.bind.DatatypeConverter;
-import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;
@@ -18,9 +9,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class Util {
 
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
+
         Map<String, Object> retMap = new HashMap<String, Object>();
 
         if (json != JSONObject.NULL) {
@@ -38,14 +39,14 @@ public class Util {
             for (String key : keys) {
                 keyValueMap.put(key, String.valueOf(map.get(key)).trim());
             }
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return keyValueMap;
     }
 
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
+
         Map<String, Object> map = new HashMap<String, Object>();
 
         Iterator<String> keysItr = object.keys();
@@ -64,6 +65,7 @@ public class Util {
     }
 
     public static List<Object> toList(JSONArray array) throws JSONException {
+
         List<Object> list = new ArrayList<Object>();
         for (int i = 0; i < array.length(); i++) {
             Object value = array.get(i);
@@ -85,6 +87,21 @@ public class Util {
         return contains(boundingBox, point);
     }
 
+    public static String ToHash(String key) {
+
+        byte[] bytes = key.getBytes();
+
+        MessageDigest md5hash = null;
+        try {
+            md5hash = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            return null;
+        }
+        md5hash.update(bytes);
+        byte[] digest = md5hash.digest();
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
+
     private static boolean contains(Double[][] bb, Point point) {
 
         final LinearRing bbLinerRing = new GeometryFactory().createLinearRing(getCoordinateArray(bb));
@@ -98,22 +115,6 @@ public class Util {
         for (final Double[] coord : coords)
             coordianteList.add(new Coordinate(coord[0], coord[1]));
         return coordianteList.toArray(new Coordinate[coordianteList.size()]);
-    }
-
-    public static String ToHash(String key) {
-
-        byte[] bytes = key.getBytes();
-
-        MessageDigest md5hash = null;
-        try {
-            md5hash = MessageDigest.getInstance("MD5");
-        }
-        catch (Exception e) {
-            return null;
-        }
-        md5hash.update(bytes);
-        byte[] digest = md5hash.digest();
-        return DatatypeConverter.printHexBinary(digest).toUpperCase();
     }
 
 }

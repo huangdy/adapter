@@ -3,9 +3,12 @@ package com.spotonresponse.adapter.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.rmi.ConnectIOException;
 import java.util.Date;
 
 @Entity
@@ -106,8 +109,6 @@ public class MappedRecord implements Serializable {
     public String getTitle() { return this.title; }
 
     public void setTitle(String title) { this.title = title; }
-
-    public String getMD5Hash() { return Util.ToHash(this.index); }
 
     public String getContent() { return this.content; }
 

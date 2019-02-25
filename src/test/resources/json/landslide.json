@@ -17,5 +17,24 @@
                 "pos": "40.75352 -82.00622"
             }
         }
+    },
+    {
+        "creator": "test.landslide",
+        "SourceURL": "https://bayquakealliance.org/fieldnotes/features.json.php",
+        "Mapping Category": "null",
+        "description": "<br/><b>damage: <\/b><br/><b>synced: <\/b><br/><b>stories: <\/b><br/><b>notes: <\/b><br/><b>timezone: <\/b>GST<br/><b>use: <\/b><br/><b>igid: <\/b><br/><b>description: <\/b><br/><b>accuracy: <\/b>50.93<br/><b>Latitude: <\/b>35.7006<br/><b>recorded: <\/b>2017-11-15 16:43:17 UTC<br/><b>type: <\/b><br/><b>Longitude: <\/b>51.35069<br/><b>operator: <\/b>mahsuli@gmail.com<br/><b>site: <\/b>hff<br/><b>form: <\/b>Building<br/><b>attachment: <\/b>https://bayquakealliance.org/fieldnotes/uploads/1510764196750.jpg<br/><b>safety: <\/b><br/><b>investigation: <\/b><br/><b>zaccuracy: <\/b>7.31<br/><b>timestamp: <\/b>Wed, Nov 15 2017 8:11pm",
+        "index": "35.7006:51.35069",
+        "md5hash": "45845421F0E71B6BF40409FB07D3AC33",
+        "content": "[::::GST::::50.93:35.7006:2017-11-15 16:43:17 UTC::51.35069:mahsuli@gmail.com:hff:Building:https://bayquakealliance.org/fieldnotes/uploads/1510764196750.jpg:::7.31:Wed, Nov 15 2017 8:11pm]",
+        "Source": "Saber JSON Adapter",
+        "SourceHost": "bayquakealliance.org",
+        "Mapping Title": "null:null",
+        "filter": "",
+        "lastUpdated": "Feb 24, 2019 9:51:01 PM",
+        "where": {
+            "Point": {
+                "pos": "35.7006 51.35069"
+            }
+        }
     }
 ]

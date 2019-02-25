@@ -9,14 +9,21 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
-import static java.nio.file.StandardWatchEventKinds.*;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 /**
  * Example to watch a directory (or tree) for changes to files.
@@ -24,25 +31,28 @@ import static java.nio.file.StandardWatchEventKinds.*;
 public class ConfigurationDirectoryWatcher {
 
     private static Logger logger = LoggerFactory.getLogger(ConfigurationDirectoryWatcher.class);
+
     private final Map<String, Long> lastAccessTimestamp = new HashMap<String, Long>();
     private final Map<String, ScheduledFuture> scheduleMap = new HashMap<String, ScheduledFuture>();
-    private final WatchService watcher;
-    private final Map<WatchKey, Path> keys;
+    private final Map<WatchKey, Path> keys = new HashMap<WatchKey, Path>();
+    private WatchService watcher = null;
     private ThreadPoolTaskScheduler scheduler;
 
     /**
      * Creates a WatchService and registers the given directory
      */
-    public ConfigurationDirectoryWatcher(Path dir, ThreadPoolTaskScheduler scheduler) throws IOException {
+    public ConfigurationDirectoryWatcher(Path dir, ThreadPoolTaskScheduler scheduler) {
 
         logger.info("ConfigurationDirectoryWatcher: Directory: {}", dir.getFileName());
-        this.watcher = FileSystems.getDefault().newWatchService();
-        this.keys = new HashMap<WatchKey, Path>();
-        this.scheduler = scheduler;
-
-        logger.debug("Register: ... {} ...\n", dir);
-        register(dir);
-        logger.debug("Register: ... done ...");
+        try {
+            this.scheduler = scheduler;
+            this.watcher = FileSystems.getDefault().newWatchService();
+            logger.debug("Register: ... {} ...\n", dir);
+            register(dir);
+            logger.debug("Register: ... done ...");
+        } catch (Exception e) {
+            //TODO
+        }
     }
 
     /**
@@ -142,13 +152,12 @@ public class ConfigurationDirectoryWatcher {
                 // configRepo.add(configuration);
                 // configurationRepository.save(configuration);
                 if (configuration.getJson_ds() != null) {
+                    configuration.setId("test." + configuration.getId());
                     Date currentTimestamp = new Date();
-                    long oneSecondLater = currentTimestamp.getTime() + 1000;
+                    long oneSecondLater = currentTimestamp.getTime() + 10000;
                     logger.info("current: {}, scheduled time: {}", currentTimestamp, new Date(oneSecondLater));
-                    logger.info("Start JSON poller Thread for [{}], URL: [{}], schedule: [{}]",
-                                configuration.getId(),
-                                configuration.getJson_ds(),
-                                new Date(oneSecondLater));
+                    logger.info("Start JSON poller Thread for [{}], URL: [{}]", configuration.getId(),
+                                configuration.getJson_ds());
                     scheduleMap.put(filename,
                                     scheduler.schedule(new JSONPollerTask(configuration), new Date(oneSecondLater)));
                 }

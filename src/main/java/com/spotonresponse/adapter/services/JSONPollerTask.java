@@ -19,13 +19,13 @@ public class JSONPollerTask implements Runnable {
 
     static Logger logger = LoggerFactory.getLogger(JSONPollerTask.class);
 
-    private DynamoDBRepository dynamoDBRepository;
+    private DynamoDBRepository repo;
     private Configuration configuration;
 
     public JSONPollerTask(Configuration configuration) {
 
         this.configuration = configuration;
-        this.dynamoDBRepository = new DynamoDBRepository();
+        this.repo = new DynamoDBRepository();
     }
 
     @Override
@@ -57,15 +57,15 @@ public class JSONPollerTask implements Runnable {
             List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration,
                                                                    content.toString()).getRecordList();
             logger.info("record#: {}", recordList.size());
-            dynamoDBRepository.removeByCreator(configuration.getId());
-            dynamoDBRepository.createAllEntries(recordList);
+            repo.removeByCreator(configuration.getId());
+            repo.createAllEntries(recordList);
             logger.info("after create all ...");
 
             // close the reader
             reader.close();
         } catch (Exception e) {
             // TODO
-            logger.error("Exception: {}", e.getMessage());
+            logger.error("JSONPollerTask: Exception: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             MDC.remove("logFileName");

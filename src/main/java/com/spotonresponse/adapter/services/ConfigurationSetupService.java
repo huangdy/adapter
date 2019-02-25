@@ -3,6 +3,7 @@ package com.spotonresponse.adapter.services;
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.process.ConfigFileParser;
 import com.spotonresponse.adapter.repo.ConfigurationRepository;
+import com.spotonresponse.adapter.repo.DynamoDBRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,10 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     private ConfigurationRepository configurationRepository;
 
     @Autowired
-    private ThreadPoolTaskScheduler threadPoolTaskScheduler;
+    private ThreadPoolTaskScheduler taskScheduler;
+
+    @Autowired
+    private DynamoDBRepository repo;
 
     /**
      * This event is executed as late as conceivably possible to indicate that
@@ -85,13 +89,10 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
                     // configRepo.add(configuration);
                     configurationRepository.save(configuration);
                     if (configuration.getJson_ds() != null) {
-                        logger.debug("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
-                                     configuration.getId(),
-                                     configuration.getJson_ds(),
-                                     cronSchedule);
-                        scheduleMap.put(configuration.getId(),
-                                        threadPoolTaskScheduler.schedule(new JSONPollerTask(configuration),
-                                                                         new CronTrigger(cronSchedule)));
+                        logger.info("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
+                                    configuration.getId(), configuration.getJson_ds(), cronSchedule);
+                        scheduleMap.put(configuration.getId(), taskScheduler.schedule(new JSONPollerTask(configuration),
+                                                                                      new CronTrigger(cronSchedule)));
                     }
                 });
             }
@@ -108,7 +109,7 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
         logger.info("Start the Configuration Directory Watcher: {}", testConfigPath);
         try {
             new ConfigurationDirectoryWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()),
-                                              threadPoolTaskScheduler).processEvents();
+                                              taskScheduler).processEvents();
         } catch (Exception e) {
             // TODO
             e.printStackTrace();

@@ -19,6 +19,7 @@ public class XCoreJsonTest {
 
     @Test
     public void testXCoreJsonParse() {
+
         try {
             ClassLoader classLoader = getClass().getClassLoader();
             File file = new File(classLoader.getResource("json/xcore.json").getFile());
@@ -34,8 +35,7 @@ public class XCoreJsonTest {
                 String lonLat = (String) geo.get(S_coordinates);
                 System.out.println("Record: [\n" + features.get(i) + "\n]");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO
         }
     }

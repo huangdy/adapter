@@ -1,8 +1,10 @@
 package com.spotonresponse.adapter.controller;
 
+import com.spotonresponse.adapter.model.QueryResult;
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,30 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class JsonController {
 
-    private DynamoDBRepository dynamoDBRepository;
-
-    public JsonController() { this.dynamoDBRepository = new DynamoDBRepository(); }
+    @Autowired
+    private DynamoDBRepository repo;
 
     @RequestMapping(value = "/query", produces = "application/json")
-    public String query(@RequestParam(value = "config", defaultValue = "xcore") String config) {
+    public QueryResult query(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
 
-        JSONArray resultArray = dynamoDBRepository.query(config);
+        JSONArray resultArray = repo.query(creator);
 
-        int size = resultArray.length();
-        JSONObject object = new JSONObject().put("Configuration", config)
-                                            .put("Count", size)
-                                            .put("Content", resultArray);
-        return object.toString();
+        return new QueryResult(creator, resultArray.length(), resultArray);
     }
 
     @RequestMapping(value = "/delete", produces = "application/json")
-    public String delete(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
+    public QueryResult delete(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
 
-        int count = dynamoDBRepository.removeByCreator(creator);
-
-        JSONObject object = new JSONObject();
-        object.put("Configuration", creator).put("Count", count);
-        return object.toString();
+        int count = repo.removeByCreator(creator);
+        return new QueryResult(creator, count, null);
     }
 
     @RequestMapping(value = "/test", produces = "application/json")

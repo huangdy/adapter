@@ -28,7 +28,8 @@ public class ConfigFileParser {
         super();
 
         int index = configFilename.indexOf("/");
-        final String creator = configFilename.substring(configFilename.lastIndexOf((index == -1 ? "\\" : "/")) + 1, configFilename.lastIndexOf("."));
+        final String creator = configFilename.substring(configFilename.lastIndexOf((index == -1 ? "\\" : "/")) + 1,
+                                                        configFilename.lastIndexOf("."));
         logger.debug("Creator: " + creator);
 
         int startCount = 0;
@@ -50,8 +51,7 @@ public class ConfigFileParser {
                     continue;
                 }
             }
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             throw new Exception(e.getMessage());
         }
 
@@ -86,7 +86,8 @@ public class ConfigFileParser {
                         configuration = null;
                         continue;
                     } else {
-                        throw new Exception("Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());
+                        throw new Exception(
+                            "Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());
                     }
                 }
                 if (configuration == null) {
@@ -105,21 +106,23 @@ public class ConfigFileParser {
                 if (configuration.isValid()) {
                     configurationList.add(configuration);
                 } else {
-                    throw new Exception("Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());
+                    throw new Exception(
+                        "Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());
                 }
             }
             reader.close();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             throw new Exception("Configuration File: " + configFilename + ", Error: " + e.getMessage());
         }
     }
 
     public List<Configuration> getConfigurationList() {
+
         return configurationList;
     }
 
     public void setConfigurationList(List<Configuration> configurationList) {
+
         this.configurationList = configurationList;
     }
 }

@@ -1,10 +1,10 @@
 package com.spotonresponse.adapter.config;
 
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
-import com.spotonresponse.adapter.services.ConfigurationDirectoryWatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -19,10 +19,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.nio.file.Path;
 
 @PropertySource("classpath:dynamodb.properties")
 @Configuration
+@ComponentScan("com.spotonresponse.adapter")
 public class JsonAdapterConfiguration {
 
     private final static String packageName = "com.spotonresponse.adapter";
@@ -39,27 +39,33 @@ public class JsonAdapterConfiguration {
     private String amazon_region;
     @Value("${nosql.table.name}")
     private String dynamoDBTableName;
-    private int pollerCount = 3;
+
+    private int pollerCount = 10;
 
     /*
     @Bean
-    public ConfigurationDirectoryWatcher configurationDirectoryWatcher(Path path, ThreadPoolTaskScheduler scheduler) {
-
-        ConfigurationDirectoryWatcher bean = new ConfigurationDirectoryWatcher();
-        bean.setDir(path);
-        bean.setScheduler(scheduler);
-        return bean;
+    public ConfigurationDirectoryWatcher watcher() {
+        ConfigurationDirectoryWatcher watcher = new ConfigurationDirectoryWatcher();
+        watcher.setScheduler(threadPoolTaskScheduler());
+        return watcher;
     }
-*/
+
+    @Bean
+    public JSONPollerTask jsonPollerTask() {
+
+        JSONPollerTask jsonPollerTask = new JSONPollerTask();
+        jsonPollerTask.setRepo(dynamoDBRepository());
+        return jsonPollerTask;
+    }
+    */
+
     @Bean
     public DynamoDBRepository dynamoDBRepository() {
 
         DynamoDBRepository repo = new DynamoDBRepository();
-        repo.init(environment.getProperty(S_AWS_ACCESS_KEY),
-                  environment.getProperty(S_AWS_SECRET_KEY),
-                  amazon_endpoint,
-                  amazon_region,
-                  dynamoDBTableName);
+
+        repo.init(environment.getProperty(S_AWS_ACCESS_KEY), environment.getProperty(S_AWS_SECRET_KEY), amazon_endpoint,
+                  amazon_region, dynamoDBTableName);
         return repo;
     }
 
@@ -68,7 +74,6 @@ public class JsonAdapterConfiguration {
 
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(pollerCount);
-        threadPoolTaskScheduler.initialize();
         return threadPoolTaskScheduler;
     }
 
@@ -90,7 +95,7 @@ public class JsonAdapterConfiguration {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-                                                                       JpaVendorAdapter jpaVendorAdapter) {
+        JpaVendorAdapter jpaVendorAdapter) {
 
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
