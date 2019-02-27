@@ -40,8 +40,7 @@ public class MappedRecordJson extends JSONObject {
 
         super(new GsonBuilder().setPrettyPrinting().create().toJson(record));
 
-        init(record.getLatitude(), record.getLongitude(), record.getCreator(), Util.ToHash(record.getContent()),
-             // Util.ToHash(record.getIndex()),
+        init(record.getLatitude(), record.getLongitude(), record.getCreator(), Util.ToHash(record.getIndex()),
              record.getCoreUri());
     }
 

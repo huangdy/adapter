@@ -6,7 +6,6 @@ import com.spotonresponse.adapter.model.MappedRecordJson;
 import com.spotonresponse.adapter.model.Util;
 import com.spotonresponse.adapter.services.JSONPollerTask;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,9 +90,6 @@ public class JsonFeedParser {
 
         for (MappedRecord record : recordList) {
             MappedRecordJson mappedRecordJson = new MappedRecordJson(record);
-            if (configuration.getMappingColumns() != null) {
-                mapRecord(mappedRecordJson);
-            }
             logger.debug("record: {}", mappedRecordJson);
             recordJsonList.add(mappedRecordJson);
         }
@@ -111,21 +107,29 @@ public class JsonFeedParser {
         record.setCoreUri(configuration.getJson_ds());
         record.setLastUpdated(new Date());
 
-        Set<String> keys = configuration.getMap().keySet();
-        keys.forEach(key -> {
+        Set<String> columnNames = configuration.getMap().keySet();
+        columnNames.forEach(columnName -> {
             StringBuffer sb = new StringBuffer();
-            List<String> columns = configuration.getMap().get(key);
-            int isFirstColumn = 0;
-            for (String column : columns) {
-                if (isFirstColumn++ > 0) {
-                    sb.append(S_TokenSeparator);
+            List<String> columns = configuration.getMap().get(columnName);
+            if (columnName.equalsIgnoreCase(Configuration.FN_Description) && !isFullDescription) {
+                for (String column : columns) {
+                    String newKeyName = getMappedName(column);
+                    sb.append("<br/>");
+                    sb.append("<b>");
+                    sb.append(newKeyName + ": ");
+                    sb.append("</b>");
+                    sb.append(row.get(column));
                 }
-                sb.append(row.get(column));
+            } else {
+                int isFirstColumn = 0;
+                for (String column : columns) {
+                    if (isFirstColumn++ > 0) {
+                        sb.append(S_TokenSeparator);
+                    }
+                    sb.append(row.get(column));
+                }
             }
-            if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
-
-            }
-            record.put(key, sb.toString().trim());
+            record.put(columnName, sb.toString().trim());
         });
 
         // check whether filter match the filter text
@@ -152,11 +156,12 @@ public class JsonFeedParser {
 
         if (isFullDescription) {
             sb = new StringBuffer();
-            keys = row.keySet();
-            for (String key : keys) {
+            columnNames = row.keySet();
+            for (String key : columnNames) {
+                String theKey = getMappedName(key);
                 sb.append("<br/>");
                 sb.append("<b>");
-                sb.append(key + ": ");
+                sb.append(theKey + ": ");
                 sb.append("</b>");
                 sb.append(row.get(key));
             }
@@ -205,22 +210,13 @@ public class JsonFeedParser {
         return isMatched && negativeExpression == false || isMatched == false && negativeExpression == true;
     }
 
-    private void mapRecord(MappedRecordJson record) {
+    private String getMappedName(String name) {
 
         Map<String, String> mappingColumns = this.configuration.getMappingColumns();
+        if (mappingColumns == null) { return name; }
 
-        Set<String> columns = mappingColumns.keySet();
-        for (String column : columns) {
-            Object value;
-            try {
-                value = record.get(column);
-            } catch (JSONException e) {
-                // TODO
-                continue;
-            }
-            record.put(mappingColumns.get(column), value);
-            record.remove(column);
-        }
+        String mappedName = mappingColumns.get(name);
+        return mappedName != null ? mappedName : name;
     }
 
     private Double[][] calculateBoundingBox(Collection<MappedRecord> records, String distanceText) {
