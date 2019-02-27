@@ -9,8 +9,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
@@ -49,9 +52,23 @@ public class ConfigurationDirectoryWatcher {
             this.watcher = FileSystems.getDefault().newWatchService();
             logger.debug("Register: ... {} ...\n", dir);
             register(dir);
+            initialize(dir);
             logger.debug("Register: ... done ...");
         } catch (Exception e) {
-            //TODO
+            logger.error("ConfigurationDirectoryWatcher: Error: {}", e.getMessage());
+        }
+    }
+
+    private void initialize(Path dir) {
+
+        try {
+            DirectoryStream<Path> files = Files.newDirectoryStream(dir);
+            for (Path file : files) {
+                logger.info("initalize File: [{}]", file.toString());
+                createSchedule(file.toString());
+            }
+        } catch (Exception e) {
+            logger.error("initialize: Error: {}", e.getMessage());
         }
     }
 
@@ -155,7 +172,7 @@ public class ConfigurationDirectoryWatcher {
                     configuration.setId("test." + configuration.getId());
                     Date currentTimestamp = new Date();
                     long oneSecondLater = currentTimestamp.getTime() + 10000;
-                    logger.info("current: {}, scheduled time: {}", currentTimestamp, new Date(oneSecondLater));
+                    logger.info("current time: [{}], scheduled time: [{}]", currentTimestamp, new Date(oneSecondLater));
                     logger.info("Start JSON poller Thread for [{}], URL: [{}]", configuration.getId(),
                                 configuration.getJson_ds());
                     scheduleMap.put(filename,
