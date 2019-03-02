@@ -57,13 +57,9 @@ public class DynamoDBRepository {
         BasicAWSCredentials credentials = new BasicAWSCredentials(aws_access_key_id, aws_secret_access_key);
 
         try {
-            AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
-                                                                       .withCredentials(new AWSStaticCredentialsProvider(
-                                                                           credentials))
-                                                                       .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
-                                                                           amazon_endpoint,
-                                                                           amazon_region))
-                                                                       .build();
+            AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(
+                credentials)).withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazon_endpoint,
+                                                                                                   amazon_region)).build();
 
             logger.debug("Setting up DynamoDB client: Region: [{}], Endpoint: [{}]", amazon_region, amazon_endpoint);
             dynamoDBClient = new DynamoDB(amazonDynamoDB);
@@ -81,10 +77,9 @@ public class DynamoDBRepository {
             return new JSONArray();
         }
 
-        QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("title = :v_title").withValueMap(new ValueMap()
-                                                                                                              .with(
-                                                                                                                  ":v_title",
-                                                                                                                  title));
+        QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("title = :v_title").withValueMap(new ValueMap().with(
+            ":v_title",
+            title));
 
         ItemCollection<QueryOutcome> items = table.query(querySpec);
         logger.debug("query: {}, count: {}", title, items.getAccumulatedItemCount());
@@ -126,10 +121,9 @@ public class DynamoDBRepository {
             return hashList;
         }
 
-        QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("title = :v_title").withValueMap(new ValueMap()
-                                                                                                              .with(
-                                                                                                                  ":v_title",
-                                                                                                                  title));
+        QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("title = :v_title").withValueMap(new ValueMap().with(
+            ":v_title",
+            title));
 
         ItemCollection<QueryOutcome> items = table.query(querySpec);
         Iterator iterator = items.iterator();
@@ -206,8 +200,10 @@ public class DynamoDBRepository {
 
         logger.debug("createEntry: Creator: [{}] MD5HASH: [{}]", item.getCreator(), item.getPrimaryKey());
         try {
-            table.putItem(new Item().withPrimaryKey(S_MD5HASH, item.getPrimaryKey(), S_Title, item.getCreator())
-                                    .withJSON("item", item.toString()));
+            table.putItem(new Item().withPrimaryKey(S_MD5HASH,
+                                                    item.getPrimaryKey(),
+                                                    S_Title,
+                                                    item.getCreator()).withJSON("item", item.toString()));
         } catch (Exception e) {
             logger.error("createEntry: Creator: [{}] MD5HASH: [{}]\nItem: [{}]\n Error: [{}]",
                          item.getCreator(),

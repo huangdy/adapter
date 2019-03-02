@@ -169,7 +169,9 @@ public class ConfigurationDirectoryWatcher {
             ConfigFileParser configFileParser = new ConfigFileParser(file.getPath(), new FileInputStream(file));
             List<Configuration> configurationList = configFileParser.getConfigurationList();
             for (Configuration configuration : configurationList) {
-                if (configuration.getJson_ds() == null) { continue;}
+                if (configuration.getJson_ds() == null) {
+                    continue;
+                }
                 String basename = FilenameUtils.getBaseName(file.getName());
                 if (basename.startsWith("test.")) {
                     Date currentTimestamp = new Date();

@@ -89,9 +89,12 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
                     configurationRepository.save(configuration);
                     if (configuration.getJson_ds() != null) {
                         logger.info("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
-                                    configuration.getId(), configuration.getJson_ds(), cronSchedule);
-                        scheduleMap.put(configuration.getId(), taskScheduler.schedule(new JSONPollerTask(configuration),
-                                                                                      new CronTrigger(cronSchedule)));
+                                    configuration.getId(),
+                                    configuration.getJson_ds(),
+                                    cronSchedule);
+                        scheduleMap.put(configuration.getId(),
+                                        taskScheduler.schedule(new JSONPollerTask(configuration),
+                                                               new CronTrigger(cronSchedule)));
                     }
                 });
             }
@@ -106,7 +109,8 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
         logger.info("Start Configuration Directory Watcher: {}", configPath);
         try {
             new ConfigurationDirectoryWatcher(Paths.get(resourceLoader.getResource(configPath).getFile().getPath()),
-                                              taskScheduler, cronSchedule).process();
+                                              taskScheduler,
+                                              cronSchedule).process();
         } catch (Exception e) {
             // TODO
             e.printStackTrace();

@@ -43,5 +43,8 @@ public class UrlReader {
 
     }
 
-    public String getContent() { return content; }
+    public String getContent() {
+
+        return content;
+    }
 }

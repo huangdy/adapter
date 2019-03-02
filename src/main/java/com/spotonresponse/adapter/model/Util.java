@@ -20,9 +20,10 @@ import java.util.Set;
 
 public class Util {
 
-    public static void nullToNA(JSONObject json) {
+    public static JSONObject nullToNA(JSONObject json) {
+
         Set<String> keySet = json.keySet();
-        for (String key: keySet) {
+        for (String key : keySet) {
             Object value = json.get(key);
             if (value instanceof String) {
                 if (((String) value).length() == 0) {
@@ -30,6 +31,7 @@ public class Util {
                 }
             }
         }
+        return json;
     }
 
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {

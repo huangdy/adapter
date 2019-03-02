@@ -55,7 +55,9 @@ public class MappedRecord implements Serializable {
 
     private Date lastUpdated;
 
-    public MappedRecord() {}
+    public MappedRecord() {
+
+    }
 
     public void put(String key, String value) {
 
@@ -98,71 +100,170 @@ public class MappedRecord implements Serializable {
         }
     }
 
-    public String getCategory() { return this.category; }
+    public String getCategory() {
 
-    public void setCategory(String category) { this.category = category; }
+        return this.category;
+    }
 
-    public String getDescription() { return this.description; }
+    public void setCategory(String category) {
 
-    public void setDescription(String description) { this.description = description; }
+        this.category = category;
+    }
 
-    public String getTitle() { return this.title; }
+    public String getDescription() {
 
-    public void setTitle(String title) { this.title = title; }
+        return this.description;
+    }
 
-    public String getContent() { return this.content; }
+    public void setDescription(String description) {
 
-    public void setContent(String content) { this.content = content; }
+        this.description = description;
+    }
 
-    public String getCoreUri() { return coreUri; }
+    public String getTitle() {
 
-    public void setCoreUri(String uri) { this.coreUri = uri; }
+        return this.title;
+    }
 
-    public String getCreator() { return this.creator; }
+    public void setTitle(String title) {
 
-    public void setCreator(String creator) { this.creator = creator; }
+        this.title = title;
+    }
 
-    public String getDistance() { return this.distance; }
+    public String getContent() {
 
-    public void setDistance(String distance) { this.distance = distance; }
+        return this.content;
+    }
 
-    public String getDistanceFilterText() { return this.distanceFilterText; }
+    public void setContent(String content) {
 
-    public void setDistanceFilterText(String distanceFilterText) { this.distanceFilterText = distanceFilterText; }
+        this.content = content;
+    }
 
-    public String getFilter() { return this.filter; }
+    public String getCoreUri() {
 
-    public void setFilter(String filter) { this.filter = filter; }
+        return coreUri;
+    }
 
-    public Integer getId() { return this.id; }
+    public void setCoreUri(String uri) {
 
-    public void setId(Integer id) { this.id = id; }
+        this.coreUri = uri;
+    }
 
-    public String getIgID() { return this.igID; }
+    public String getCreator() {
 
-    public void setIgID(String igID) { this.igID = igID; }
+        return this.creator;
+    }
 
-    public String getIndex() { return this.index; }
+    public void setCreator(String creator) {
 
-    public void setIndex(String index) { this.index = index; }
+        this.creator = creator;
+    }
 
-    public String getKey() { return this.index + this.coreUri; }
+    public String getDistance() {
 
-    public Date getLastUpdated() { return this.lastUpdated; }
+        return this.distance;
+    }
 
-    public void setLastUpdated(Date lastUpdated) { this.lastUpdated = lastUpdated; }
+    public void setDistance(String distance) {
 
-    public String getLatitude() { return this.latitude; }
+        this.distance = distance;
+    }
 
-    public void setLatitude(String latitude) { this.latitude = latitude; }
+    public String getDistanceFilterText() {
 
-    public String getLongitude() { return this.longitude; }
+        return this.distanceFilterText;
+    }
 
-    public void setLongitude(String longitude) { this.longitude = longitude; }
+    public void setDistanceFilterText(String distanceFilterText) {
 
-    public String getWorkProductID() { return this.workProductID; }
+        this.distanceFilterText = distanceFilterText;
+    }
 
-    public void setWorkProductID(String workProductID) { this.workProductID = workProductID; }
+    public String getFilter() {
+
+        return this.filter;
+    }
+
+    public void setFilter(String filter) {
+
+        this.filter = filter;
+    }
+
+    public Integer getId() {
+
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+
+        this.id = id;
+    }
+
+    public String getIgID() {
+
+        return this.igID;
+    }
+
+    public void setIgID(String igID) {
+
+        this.igID = igID;
+    }
+
+    public String getIndex() {
+
+        return this.index;
+    }
+
+    public void setIndex(String index) {
+
+        this.index = index;
+    }
+
+    public String getKey() {
+
+        return this.index + this.coreUri;
+    }
+
+    public Date getLastUpdated() {
+
+        return this.lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+
+        this.lastUpdated = lastUpdated;
+    }
+
+    public String getLatitude() {
+
+        return this.latitude;
+    }
+
+    public void setLatitude(String latitude) {
+
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+
+        return this.longitude;
+    }
+
+    public void setLongitude(String longitude) {
+
+        this.longitude = longitude;
+    }
+
+    public String getWorkProductID() {
+
+        return this.workProductID;
+    }
+
+    public void setWorkProductID(String workProductID) {
+
+        this.workProductID = workProductID;
+    }
 
     @Override
     public String toString() {

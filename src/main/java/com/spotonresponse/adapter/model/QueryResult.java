@@ -12,7 +12,11 @@ public class QueryResult {
 
         this.configName = configName;
         this.count = count;
-        if (content == null) { this.content = new JSONArray(); } else { this.content = content; }
+        if (content == null) {
+            this.content = new JSONArray();
+        } else {
+            this.content = content;
+        }
     }
 
     public String getConfigName() {

@@ -85,8 +85,10 @@ public class ConfigFileParser {
                         configuration = null;
                         continue;
                     } else {
-                        throw new Exception(
-                            "Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());
+                        throw new Exception("Configuration File: " +
+                                            configFilename +
+                                            ": " +
+                                            configuration.getMissingAttributes());
                     }
                 }
                 if (configuration == null) {
@@ -105,8 +107,10 @@ public class ConfigFileParser {
                 if (configuration.isValid()) {
                     configurationList.add(configuration);
                 } else {
-                    throw new Exception(
-                        "Configuration File: " + configFilename + ": " + configuration.getMissingAttributes());
+                    throw new Exception("Configuration File: " +
+                                        configFilename +
+                                        ": " +
+                                        configuration.getMissingAttributes());
                 }
             }
             reader.close();

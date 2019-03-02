@@ -121,7 +121,9 @@ public class Configuration implements Serializable {
 
     public Map<String, String> getMappingColumns() {
 
-        if (this.mappingColumns == null) { return null; }
+        if (this.mappingColumns == null) {
+            return null;
+        }
 
         Map<String, String> map = new HashMap<String, String>();
 
