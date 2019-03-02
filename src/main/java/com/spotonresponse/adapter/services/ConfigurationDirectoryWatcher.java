@@ -2,9 +2,11 @@ package com.spotonresponse.adapter.services;
 
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.process.ConfigFileParser;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +15,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
@@ -40,15 +41,17 @@ public class ConfigurationDirectoryWatcher {
     private final Map<WatchKey, Path> keys = new HashMap<WatchKey, Path>();
     private WatchService watcher = null;
     private ThreadPoolTaskScheduler scheduler;
+    private String cronSchedule;
 
     /**
      * Creates a WatchService and registers the given directory
      */
-    public ConfigurationDirectoryWatcher(Path dir, ThreadPoolTaskScheduler scheduler) {
+    public ConfigurationDirectoryWatcher(Path dir, ThreadPoolTaskScheduler scheduler, String cronSchedule) {
 
         logger.info("ConfigurationDirectoryWatcher: Directory: {}", dir.getFileName());
         try {
             this.scheduler = scheduler;
+            this.cronSchedule = cronSchedule;
             this.watcher = FileSystems.getDefault().newWatchService();
             logger.debug("Register: ... {} ...\n", dir);
             register(dir);
@@ -92,7 +95,7 @@ public class ConfigurationDirectoryWatcher {
     /**
      * Process all events for keys queued to the watcher
      */
-    void processEvents() {
+    void process() {
 
         while (true) {
 
@@ -124,8 +127,8 @@ public class ConfigurationDirectoryWatcher {
                 Path child = dir.resolve(name);
 
                 // logger.info("Filename: {}, Event: {}, @{}", child, kind, new Date());
-                if (lastAccessTimestamp.get(child.toString()) != null &&
-                    new Date().getTime() - lastAccessTimestamp.get(child.toString()) < 3000) {
+                if (lastAccessTimestamp.get(child.toString()) != null && new Date().getTime() - lastAccessTimestamp.get(
+                    child.toString()) < 3000) {
                     continue;
                 }
                 // print out event
@@ -166,17 +169,26 @@ public class ConfigurationDirectoryWatcher {
             ConfigFileParser configFileParser = new ConfigFileParser(file.getPath(), new FileInputStream(file));
             List<Configuration> configurationList = configFileParser.getConfigurationList();
             for (Configuration configuration : configurationList) {
-                // configRepo.add(configuration);
-                // configurationRepository.save(configuration);
-                if (configuration.getJson_ds() != null) {
-                    configuration.setId("test." + configuration.getId());
+                if (configuration.getJson_ds() == null) { continue;}
+                String basename = FilenameUtils.getBaseName(file.getName());
+                if (basename.startsWith("test.")) {
                     Date currentTimestamp = new Date();
                     long oneSecondLater = currentTimestamp.getTime() + 10000;
                     logger.info("current time: [{}], scheduled time: [{}]", currentTimestamp, new Date(oneSecondLater));
-                    logger.info("Start JSON poller Thread for [{}], URL: [{}]", configuration.getId(),
+                    logger.info("Start JSON poller Thread for [{}], URL: [{}]",
+                                configuration.getId(),
                                 configuration.getJson_ds());
                     scheduleMap.put(filename,
                                     scheduler.schedule(new JSONPollerTask(configuration), new Date(oneSecondLater)));
+                } else {
+                    logger.info("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
+                                configuration.getId(),
+                                configuration.getJson_ds(),
+                                cronSchedule);
+                    scheduleMap.put(configuration.getId(),
+                                    scheduler.schedule(new JSONPollerTask(configuration),
+                                                       new CronTrigger(cronSchedule)));
+
                 }
             }
         } catch (Exception e) {

@@ -59,9 +59,8 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-        startConfigurationDirectory();
-
-        startConfigurationDirectoryMonitorThread();
+        // startConfigurationDirectory();
+        startConfigurationDirectoryWatcherThread();
 
         return;
     }
@@ -102,17 +101,16 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
         }
     }
 
-    private void startConfigurationDirectoryMonitorThread() {
+    public void startConfigurationDirectoryWatcherThread() {
 
-        // register directory and process its events
-        // Path configDirectory = resourceLoader.getResource(configPath);
-        logger.info("Start the Configuration Directory Watcher: {}", testConfigPath);
+        logger.info("Start Configuration Directory Watcher: {}", configPath);
         try {
-            new ConfigurationDirectoryWatcher(Paths.get(resourceLoader.getResource(testConfigPath).getFile().getPath()),
-                                              taskScheduler).processEvents();
+            new ConfigurationDirectoryWatcher(Paths.get(resourceLoader.getResource(configPath).getFile().getPath()),
+                                              taskScheduler, cronSchedule).process();
         } catch (Exception e) {
             // TODO
             e.printStackTrace();
         }
+        logger.info("Done: Configuration Directory Watcher: {}", configPath);
     }
 }

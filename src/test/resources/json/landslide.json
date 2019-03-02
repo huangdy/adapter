@@ -1,40 +1,22 @@
 [
-    {
-        "creator": "landslide",
-        "SourceURL": "https://bayquakealliance.org/fieldnotes/features.json.php",
-        "Mapping Category": "Buildings",
-        "description": "<br/><b>area: <\/b><br/><b>synced: <\/b><br/><b>notes: <\/b><br/><b>timezone: <\/b>EST<br/><b>igid: <\/b><br/><b>description: <\/b>40.75352, -82.00622<br/><b>accuracy: <\/b>152.77<br/><b>Latitude: <\/b>40.75352<br/><b>recorded: <\/b>2011-12-24 18:10:29 UTC<br/><b>type: <\/b>Fall<br/><b>Longitude: <\/b>-82.00622<br/><b>operator: <\/b>lblair@usgs.gov<br/><b>site: <\/b><br/><b>form: <\/b>Landslide<br/><b>attachment: <\/b><br/><b>material: <\/b><br/><b>facilities: <\/b>Buildings<br/><b>zaccuracy: <\/b>11.38<br/><b>timestamp: <\/b>Sat, Dec 24 2011 2:10pm",
-        "index": "40.75352:-82.00622",
-        "md5hash": "657F21C7263B726CC8859E62368863B2",
-        "content": "[:::EST::40.75352, -82.00622:152.77:40.75352:2011-12-24 18:10:29 UTC:Fall:-82.00622:lblair@usgs.gov::Landslide:::Buildings:11.38:Sat, Dec 24 2011 2:10pm]",
-        "Source": "Saber JSON Adapter",
-        "SourceHost": "bayquakealliance.org",
-        "Mapping Title": ":Buildings",
-        "filter": "Fall",
-        "lastUpdated": "Feb 19, 2019 9:09:23 PM",
-        "where": {
-            "Point": {
-                "pos": "40.75352 -82.00622"
-            }
+    [
+        {
+            "creator": "test.landslide",
+            "SourceURL": "https://bayquakealliance.org/fieldnotes/features.json.php",
+            "description": "<br/><b>damage: <\/b> <br/><b>synced: <\/b> <br/><b>stories: <\/b> <br/><b>notes: <\/b> <br/><b>timezone: <\/b>PDT<br/><b>use: <\/b> <br/><b>igid: <\/b> <br/><b>description: <\/b> <br/><b>accuracy: <\/b>65.00<br/><b>Latitude: <\/b>37.45648<br/><b>recorded: <\/b>2014-05-07 20:08:07 UTC<br/><b>type: <\/b> <br/><b>Longitude: <\/b>-122.17131<br/><b>operator: <\/b>lblair@usgs.gov<br/><b>Mapping Site: <\/b>usgs<br/><b>Mapping Form: <\/b>Building<br/><b>attachment: <\/b> <br/><b>safety: <\/b> <br/><b>investigation: <\/b>no<br/><b>zaccuracy: <\/b>10.00<br/><b>timestamp: <\/b>Wed, May 7 2014 1:07pm",
+            "index": "37.45648:-122.17131",
+            "md5hash": "DAFEA7061E6D0AF3A8639949B40D664C",
+            "title": "null:null",
+            "content": "[ : : : :PDT: : : :65.00:37.45648:2014-05-07 20:08:07 UTC: :-122.17131:lblair@usgs.gov:usgs:Building: : :no:10.00:Wed, May 7 2014 1:07pm]",
+            "Source": "Saber JSON Adapter",
+            "SourceHost": "bayquakealliance.org",
+            "filter": "",
+            "lastUpdated": "Mar 1, 2019 6:41:18 PM",
+            "where": {
+                "Point": {
+                    "pos": "37.45648 -122.17131"
+                }
+            },
+            "category": "null"
         }
-    },
-    {
-        "creator": "test.landslide",
-        "SourceURL": "https://bayquakealliance.org/fieldnotes/features.json.php",
-        "Mapping Category": "null",
-        "description": "<br/><b>damage: <\/b><br/><b>synced: <\/b><br/><b>stories: <\/b><br/><b>notes: <\/b><br/><b>timezone: <\/b>GST<br/><b>use: <\/b><br/><b>igid: <\/b><br/><b>description: <\/b><br/><b>accuracy: <\/b>50.93<br/><b>Latitude: <\/b>35.7006<br/><b>recorded: <\/b>2017-11-15 16:43:17 UTC<br/><b>type: <\/b><br/><b>Longitude: <\/b>51.35069<br/><b>operator: <\/b>mahsuli@gmail.com<br/><b>site: <\/b>hff<br/><b>form: <\/b>Building<br/><b>attachment: <\/b>https://bayquakealliance.org/fieldnotes/uploads/1510764196750.jpg<br/><b>safety: <\/b><br/><b>investigation: <\/b><br/><b>zaccuracy: <\/b>7.31<br/><b>timestamp: <\/b>Wed, Nov 15 2017 8:11pm",
-        "index": "35.7006:51.35069",
-        "md5hash": "45845421F0E71B6BF40409FB07D3AC33",
-        "content": "[::::GST::::50.93:35.7006:2017-11-15 16:43:17 UTC::51.35069:mahsuli@gmail.com:hff:Building:https://bayquakealliance.org/fieldnotes/uploads/1510764196750.jpg:::7.31:Wed, Nov 15 2017 8:11pm]",
-        "Source": "Saber JSON Adapter",
-        "SourceHost": "bayquakealliance.org",
-        "Mapping Title": "null:null",
-        "filter": "",
-        "lastUpdated": "Feb 24, 2019 9:51:01 PM",
-        "where": {
-            "Point": {
-                "pos": "35.7006 51.35069"
-            }
-        }
-    }
-]
+    ]

@@ -2,6 +2,8 @@ package com.spotonresponse.adapter.model;
 
 import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,11 +32,11 @@ public class MappedRecordJson extends JSONObject {
         "latitude",
         // "workProductID",
     };
+    private static Logger logger = LoggerFactory.getLogger(MappedRecordJson.class);
 
-    private String host;
-    private String path;
+    public MappedRecordJson() {
 
-    public MappedRecordJson() { }
+    }
 
     public MappedRecordJson(MappedRecord record) {
 
@@ -49,8 +51,6 @@ public class MappedRecordJson extends JSONObject {
         setWhere(latitude, longitude);
         parseUrl(uri);
         this.put(S_Source, "Saber JSON Adapter");
-        this.put(S_SourceHost, this.host);
-        this.put(S_SourceURL, uri);
         this.put(S_Creator, creator);
         this.put(S_MD5HASH, md5hash);
         clearUp();
@@ -58,13 +58,17 @@ public class MappedRecordJson extends JSONObject {
 
     private void parseUrl(String url) {
 
+        String host = "";
+        String path = "";
         try {
             URL aURL = new URL(url);
-            this.host = aURL.getHost();
-            this.path = aURL.getPath();
+            host = aURL.getHost();
+            path = aURL.getPath();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        this.put(S_SourceHost, host);
+        this.put(S_SourceURL, path);
     }
 
     private void clearUp() {
@@ -98,8 +102,14 @@ public class MappedRecordJson extends JSONObject {
         return (String) this.get(S_MD5HASH);
     }
 
-    public String getLatitude() { return (String) this.get(Configuration.FN_Latitude); }
+    public String getLatitude() {
 
-    public String getLongitude() { return (String) this.get(Configuration.FN_Longitude); }
+        return (String) this.get(Configuration.FN_Latitude);
+    }
+
+    public String getLongitude() {
+
+        return (String) this.get(Configuration.FN_Longitude);
+    }
 }
 

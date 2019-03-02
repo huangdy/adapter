@@ -1,6 +1,7 @@
 package com.spotonresponse.adapter.process;
 
 import com.spotonresponse.adapter.model.Configuration;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,10 +28,8 @@ public class ConfigFileParser {
 
         super();
 
-        int index = configFilename.indexOf("/");
-        final String creator = configFilename.substring(configFilename.lastIndexOf((index == -1 ? "\\" : "/")) + 1,
-                                                        configFilename.lastIndexOf("."));
-        logger.debug("Creator: " + creator);
+        final String creator = FilenameUtils.getBaseName(configFilename);
+        logger.info("start parsing {} and creator: {}", configFilename, creator);
 
         int startCount = 0;
         int endCount = 0;
@@ -111,6 +110,7 @@ public class ConfigFileParser {
                 }
             }
             reader.close();
+            logger.info("done parsing [{}]", configFilename);
         } catch (final Exception e) {
             throw new Exception("Configuration File: " + configFilename + ", Error: " + e.getMessage());
         }

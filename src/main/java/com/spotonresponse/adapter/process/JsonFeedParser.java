@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class JsonFeedParser {
 
     private static Logger logger = LoggerFactory.getLogger(JSONPollerTask.class);
 
-    private final List<MappedRecordJson> recordJsonList = new ArrayList<MappedRecordJson>();
+    private final List<MappedRecordJson> recordJsonList = new ArrayList<>();
 
     private Configuration configuration;
 
@@ -66,7 +67,10 @@ public class JsonFeedParser {
             rowData.put("Latitude", String.valueOf(lonLat.get(1)));
 
             // call the toRecord to convert the row of data into the JSON record
-            recordList.add(toRecord(rowData));
+            MappedRecord record = toRecord(rowData);
+            if (record != null) {
+                recordList.add(record);
+            }
         }
 
         List<MappedRecord> mismatched = new ArrayList<MappedRecord>();
@@ -74,8 +78,8 @@ public class JsonFeedParser {
         // - calculate the bounding box
         // - find out whether the object is within the bounding box
         if (configuration.getDistance() != null &&
-            (configuration.getDistanceFilterText() == null ||
-             configuration.getDistanceFilterText().equalsIgnoreCase(configuration.getFilterText()))) {
+            (configuration.getDistanceFilterText() == null || configuration.getDistanceFilterText().equalsIgnoreCase(
+                configuration.getFilterText()))) {
             Double[][] boundingBox = calculateBoundingBox(recordList, configuration.getDistance());
             for (MappedRecord record : recordList) {
                 if (Util.IsInsideBoundingBox(boundingBox, record.getLatitude(), record.getLongitude()) == false) {
@@ -88,10 +92,17 @@ public class JsonFeedParser {
             }
         }
 
+        Map<String, MappedRecordJson> map = new HashMap<String, MappedRecordJson>();
+        logger.info("before hash: count: {}", recordList.size());
         for (MappedRecord record : recordList) {
             MappedRecordJson mappedRecordJson = new MappedRecordJson(record);
-            logger.debug("record: {}", mappedRecordJson);
-            recordJsonList.add(mappedRecordJson);
+            Util.nullToNA(mappedRecordJson);
+            map.put(mappedRecordJson.getPrimaryKey(), mappedRecordJson);
+        }
+        logger.debug("after hash: count: {}", map.size());
+
+        for (MappedRecordJson record : map.values()) {
+            recordJsonList.add(record);
         }
     }
 
@@ -108,7 +119,7 @@ public class JsonFeedParser {
         record.setLastUpdated(new Date());
 
         Set<String> columnNames = configuration.getMap().keySet();
-        columnNames.forEach(columnName -> {
+        for (String columnName : columnNames) {
             StringBuffer sb = new StringBuffer();
             List<String> columns = configuration.getMap().get(columnName);
             if (columnName.equalsIgnoreCase(Configuration.FN_Description) && !isFullDescription) {
@@ -130,7 +141,7 @@ public class JsonFeedParser {
                 }
             }
             record.put(columnName, sb.toString().trim());
-        });
+        }
 
         // check whether filter match the filter text
         String filter = record.getFilter();
@@ -138,7 +149,9 @@ public class JsonFeedParser {
         logger.trace("Filter: [{}] Matched: [{}]", filter, isMatched ? "YES" : "NO");
 
         // if the filter mis-match then we don't need to continue
-        if (!isMatched) { return null; }
+        if (!isMatched) {
+            return null;
+        }
 
         // fill the content with every columns
         StringBuffer sb = new StringBuffer();
@@ -202,6 +215,10 @@ public class JsonFeedParser {
 
     private boolean isMatchFilter(String filter) {
 
+        if (filter == null || filter.length() == 0) {
+            return false;
+        }
+
         boolean negativeExpression = configuration.getFilterText().startsWith("!");
         String filterText = negativeExpression ? filter.substring(1) : filter;
         String pattern = PatternPrefix + filterText + PatternPostfix;
@@ -213,7 +230,9 @@ public class JsonFeedParser {
     private String getMappedName(String name) {
 
         Map<String, String> mappingColumns = this.configuration.getMappingColumns();
-        if (mappingColumns == null) { return name; }
+        if (mappingColumns == null) {
+            return name;
+        }
 
         String mappedName = mappingColumns.get(name);
         return mappedName != null ? mappedName : name;
@@ -234,10 +253,18 @@ public class JsonFeedParser {
             double lon = Double.parseDouble(record.getLongitude());
             west = lon > 0 ? lon < west ? lon : west : lon > west ? west : lon;
             east = lon > 0 ? lon > east ? lon : east : lon < east ? east : lon;
-            if (south == 0) { south = north; }
-            if (north == 0) { north = south; }
-            if (east == 0) { east = west; }
-            if (west == 0) { west = east; }
+            if (south == 0) {
+                south = north;
+            }
+            if (north == 0) {
+                north = south;
+            }
+            if (east == 0) {
+                east = west;
+            }
+            if (west == 0) {
+                west = east;
+            }
         }
 
         /*
@@ -271,5 +298,8 @@ public class JsonFeedParser {
         return boundingBox;
     }
 
-    public List<MappedRecordJson> getRecordList() { return this.recordJsonList; }
+    public List<MappedRecordJson> getRecordList() {
+
+        return this.recordJsonList;
+    }
 }

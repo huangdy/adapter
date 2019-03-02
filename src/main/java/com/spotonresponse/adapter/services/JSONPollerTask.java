@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class JSONPollerTask implements Runnable {
@@ -33,47 +34,20 @@ public class JSONPollerTask implements Runnable {
 
         MDC.put("logFileName", this.configuration.getId());
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        logger.info("Current DateTime is {}, JSON URL: {}", localDateTime, configuration.getJson_ds());
+        logger.info("JSONPollerTask starts @ [{}] with URL: [{}]", new Date(), configuration.getJson_ds());
         if (configuration.getJson_ds() == null) {
             // TODO fatal error
             System.exit(-1);
         }
-        BufferedReader reader;
-        HttpURLConnection con = null;
-        try {
-            URL url = new URL(configuration.getJson_ds());
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            // int status = con.getResponseCode();
-            reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = reader.readLine()) != null) {
-                content.append(inputLine);
-            }
 
-            // use the input stream to generate records
-            List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration,
-                                                                   content.toString()).getRecordList();
-            logger.info("record#: {}", recordList.size());
-            repo.removeByCreator(configuration.getId());
-            repo.createAllEntries(recordList);
-            logger.info("after create all ...");
+        String content = new UrlReader(configuration.getJson_ds()).getContent();
 
-            // close the reader
-            reader.close();
-        } catch (Exception e) {
-            // TODO
-            logger.error("JSONPollerTask: Exception: {}", e.getMessage());
-            e.printStackTrace();
-        } finally {
-            MDC.remove("logFileName");
+        // use the input stream to generate records
+        List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration, content).getRecordList();
 
-            // close the url connection
-            if (con != null) {
-                con.disconnect();
-            }
-        }
+        logger.info("record count: {}", recordList.size());
+        repo.removeByCreator(configuration.getId());
+        repo.createAllEntries(recordList);
+        logger.info("... done ...");
     }
 }
