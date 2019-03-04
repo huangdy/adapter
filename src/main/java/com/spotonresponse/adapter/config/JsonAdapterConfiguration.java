@@ -29,12 +29,13 @@ public class JsonAdapterConfiguration {
 
     private final static String packageName = "com.spotonresponse.adapter";
 
-    private final static String S_AWS_ACCESS_KEY = "aws.access.key.id";
-    private final static String S_AWS_SECRET_KEY = "aws.secret.access.key";
-
     @Autowired
     Environment environment;
 
+    @Value("${aws.access.key.id}")
+    private String aws_access_key_id;
+    @Value("${aws.secret.access.key}")
+    private String aws_secret_access_key;
     @Value("${amazon.endpoint}")
     private String amazon_endpoint;
     @Value("${amazon.region}")
@@ -47,11 +48,11 @@ public class JsonAdapterConfiguration {
 
         DynamoDBRepository repo = new DynamoDBRepository();
 
-        repo.init(environment.getProperty(S_AWS_ACCESS_KEY),
-                  environment.getProperty(S_AWS_SECRET_KEY),
-                  amazon_endpoint,
-                  amazon_region,
-                  dynamoDBTableName);
+        repo.init(System.getenv(aws_access_key_id),
+                  System.getenv(aws_secret_access_key),
+                  System.getenv(amazon_endpoint),
+                  System.getenv(amazon_region),
+                  System.getenv(dynamoDBTableName));
         return repo;
     }
 

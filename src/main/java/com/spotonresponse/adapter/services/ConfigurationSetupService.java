@@ -31,9 +31,6 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     @Value("${jsonpoller.cron.schedule}")
     private String cronSchedule;
 
-    @Value("${test.config.path}")
-    private String testConfigPath;
-
     @Value("${config.path}")
     private String configPath;
 
