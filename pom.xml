@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.spotonresponse</groupId>
     <artifactId>adapter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>jsonadapter</name>
     <description>JSON Adapter project for Spring Boot</description>
 
