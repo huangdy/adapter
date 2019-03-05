@@ -1,12 +1,9 @@
 package com.spotonresponse.adapter.config;
 
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -22,15 +19,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.concurrent.Executor;
 
-@PropertySource("classpath:dynamodb.properties")
 @Configuration
 @EnableAsync
 public class JsonAdapterConfiguration {
 
     private final static String packageName = "com.spotonresponse.adapter";
-
-    @Autowired
-    Environment environment;
 
     @Value("${aws.access.key.id}")
     private String aws_access_key_id;
@@ -40,19 +33,15 @@ public class JsonAdapterConfiguration {
     private String amazon_endpoint;
     @Value("${amazon.region}")
     private String amazon_region;
-    @Value("${nosql.table.name}")
-    private String dynamoDBTableName;
+    @Value("${db.table.name}")
+    private String db_table_name;
 
     @Bean
     public DynamoDBRepository dynamoDBRepository() {
 
         DynamoDBRepository repo = new DynamoDBRepository();
 
-        repo.init(System.getenv(aws_access_key_id),
-                  System.getenv(aws_secret_access_key),
-                  System.getenv(amazon_endpoint),
-                  System.getenv(amazon_region),
-                  System.getenv(dynamoDBTableName));
+        repo.init(aws_access_key_id, aws_secret_access_key, amazon_endpoint, amazon_region, db_table_name);
         return repo;
     }
 
@@ -73,6 +62,7 @@ public class JsonAdapterConfiguration {
     public ThreadPoolTaskScheduler taskScheduler() {
 
         ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+        taskScheduler.setThreadNamePrefix("JsonAdapterTask-");
         taskScheduler.setPoolSize(10);
 
         return taskScheduler;

@@ -5,7 +5,12 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
+import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
@@ -14,7 +19,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class DynamoDBRepository {
 
@@ -30,13 +39,14 @@ public class DynamoDBRepository {
     }
 
     public void init(String aws_access_key_id,
-                     String aws_secret_access_key,
-                     String amazon_endpoint,
-                     String amazon_region,
-                     String dynamoDBTableName) {
+        String aws_secret_access_key,
+        String amazon_endpoint,
+        String amazon_region,
+        String dynamoDBTableName) {
 
         logger.info("Init: dynamoDBRepository: ... start ...");
-        logger.info("[{}], [{}], [{}], [{}], [{}]",
+        logger.info("aws_access_key_id: [{}], aws_secret_access_key: [{}], amazon_region: [{}], amazon_endpoint: " +
+                    "[{}], db_table_name: [{}]",
                     aws_access_key_id,
                     aws_secret_access_key,
                     amazon_endpoint,
