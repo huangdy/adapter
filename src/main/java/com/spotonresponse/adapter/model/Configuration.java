@@ -1,19 +1,24 @@
 package com.spotonresponse.adapter.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.Table;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Data
+@NoArgsConstructor
 @Entity
-public class Configuration implements Serializable {
+@Table(name = "configuration")
+public class Configuration {
 
     public static final String N_Configuration_Start = "configuration:start";
     public static final String N_Configuration_End = "configuration:end";
@@ -54,14 +59,10 @@ public class Configuration implements Serializable {
         FN_Description,
         FN_Content,
         };
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+
     private static final Logger logger = LoggerFactory.getLogger(Configuration.class);
 
     @Id
-    @Column
     private String id;
     private String title;
     private String titlePrefix = null;
@@ -89,36 +90,6 @@ public class Configuration implements Serializable {
     private boolean fullDescription = false;
     private String redirectUrl = "http://www.google.com";
 
-    public String getUri() {
-
-        return uri;
-    }
-
-    public void setUri(String uri) {
-
-        this.uri = uri;
-    }
-
-    public String getUsername() {
-
-        return username;
-    }
-
-    public void setUsername(String username) {
-
-        this.username = username;
-    }
-
-    public String getPassword() {
-
-        return password;
-    }
-
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
-
     public Map<String, String> getMappingColumns() {
 
         if (this.mappingColumns == null) {
@@ -140,204 +111,10 @@ public class Configuration implements Serializable {
         return map;
     }
 
-    public void setMappingColumns(String mappingColumns) {
-
-        this.mappingColumns = mappingColumns;
-    }
-
-    public String getCategory() {
-
-        return this.category;
-    }
-
-    public void setCategory(String category) {
-
-        this.category = category;
-    }
-
-    public String getCategoryFixed() {
-
-        return this.categoryFixed;
-    }
-
-    public void setCategoryFixed(String categoryFixed) {
-
-        this.categoryFixed = categoryFixed;
-    }
-
-    public String getCategoryPrefix() {
-
-        return this.categoryPrefix;
-    }
-
-    public void setCategoryPrefix(String categoryPrefix) {
-
-        this.categoryPrefix = categoryPrefix;
-    }
-
-    public String getCategorySuffix() {
-
-        return categorySuffix;
-    }
-
-    public void setCategorySuffix(String categorySuffix) {
-
-        this.categorySuffix = categorySuffix;
-    }
-
-    public String getDescription() {
-
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-
-        this.description = description;
-    }
-
-    public String getDistance() {
-
-        return this.distance;
-    }
-
-    public void setDistance(String distance) {
-
-        this.distance = distance;
-    }
-
-    public String getDistanceFilterText() {
-
-        return this.distanceFilterText;
-    }
-
-    public void setDistanceFilterText(String distanceFilterText) {
-
-        this.distanceFilterText = distanceFilterText;
-    }
-
-    public String getFilter() {
-
-        return this.filter;
-    }
-
-    public void setFilter(String filter) {
-
-        this.filter = filter;
-    }
-
-    public String getFilterText() {
-
-        return this.filterText;
-    }
-
-    public void setFilterText(String filterText) {
-
-        this.filterText = filterText;
-    }
-
-    public String getId() {
-
-        return this.id;
-    }
-
-    public void setId(String id) {
-
-        this.id = id;
-    }
-
-    public String getIndex() {
-
-        return this.index;
-    }
-
-    public void setIndex(String index) {
-
-        this.index = index;
-    }
-
-    public String getLatitude() {
-
-        return this.latitude;
-    }
-
-    public void setLatitude(String latitude) {
-
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-
-        return this.longitude;
-    }
-
-    public void setLongitude(String longitude) {
-
-        this.longitude = longitude;
-    }
-
-    public String getRedirectUrl() {
-
-        return this.redirectUrl;
-    }
-
-    public void setRedirectUrl(String redirectUrl) {
-
-        this.redirectUrl = redirectUrl;
-    }
-
-    public String getTitle() {
-
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-
-        this.title = title;
-    }
-
-    public String getTitlePrefix() {
-
-        return this.titlePrefix;
-    }
-
-    public void setTitlePrefix(String titlePrefix) {
-
-        this.titlePrefix = titlePrefix;
-    }
-
-    public String getTitleSuffix() {
-
-        return titleSuffix;
-    }
-
-    public void setTitleSuffix(String titleSuffix) {
-
-        this.titleSuffix = titleSuffix;
-    }
-
-    public boolean isFullDescription() {
-
-        return this.fullDescription;
-    }
-
     public void setFullDescription(String fullDescription) {
 
         if (fullDescription.toLowerCase().trim().equals("true")) {
             this.fullDescription = true;
-        }
-    }
-
-    public String getFieldValue(String columnName) {
-
-        try {
-            return (String) this.getClass().getDeclaredField(columnName).get(this);
-        } catch (final Throwable e) {
-            if (e instanceof NoSuchFieldException) {
-                return "";
-            } else {
-                logger.error("getFieldValue: " + columnName + ": " + e.getMessage());
-                return null;
-            }
         }
     }
 
@@ -366,11 +143,6 @@ public class Configuration implements Serializable {
         } else {
             return null;
         }
-    }
-
-    public boolean isAutoClose() {
-
-        return autoClose;
     }
 
     private void setAutoClose(String ac) {
@@ -527,15 +299,5 @@ public class Configuration implements Serializable {
         errorMessage = errorMessage.substring(0, errorMessage.lastIndexOf(", "));
 
         return "Missing Attribute: [ " + errorMessage + " ]";
-    }
-
-    public String getJson_ds() {
-
-        return this.json_ds;
-    }
-
-    public void setJson_ds(String json_ds) {
-
-        this.json_ds = json_ds;
     }
 }

@@ -1,6 +1,7 @@
 package com.spotonresponse.adapter.repo;
 
 import com.spotonresponse.adapter.model.Configuration;
+import org.assertj.core.api.OptionalAssert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,12 @@ public class ConfigurationRepositoryTest {
         configuration.setId("CVS");
         configuration.setCategory("CVS-Category");
         configurationRepository.save(configuration);
+        configuration = new Configuration();
+        configuration.setId("Costco");
+        configurationRepository.save(configuration);
 
         Optional<Configuration> config = configurationRepository.findById("CVS");
+        List<String> idList = configurationRepository.listIds();
         List<Configuration> configurationList = configurationRepository.findAll();
     }
 

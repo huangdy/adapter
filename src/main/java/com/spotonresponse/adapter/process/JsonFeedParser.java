@@ -220,7 +220,8 @@ public class JsonFeedParser {
         }
 
         boolean negativeExpression = configuration.getFilterText().startsWith("!");
-        String filterText = negativeExpression ? configuration.getFilterText().substring(1) : configuration.getFilterText();
+        String filterText = negativeExpression ? configuration.getFilterText()
+                                                              .substring(1) : configuration.getFilterText();
         String pattern = PatternPrefix + filterText + PatternPostfix;
         logger.trace("Filter Pattern: " + pattern);
         boolean isMatched = filter.matches(pattern);

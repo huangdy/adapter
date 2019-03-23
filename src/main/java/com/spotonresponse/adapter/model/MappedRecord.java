@@ -1,5 +1,6 @@
 package com.spotonresponse.adapter.model;
 
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,10 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 @Entity
+@Table(name = "mapped_record")
 public class MappedRecord implements Serializable {
 
     /**
