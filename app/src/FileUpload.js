@@ -8,9 +8,20 @@ class FileUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedFile: null
+      selectedFile: null,
+      isConfig: this.props.type === null ? true : false
     };
   }
+
+  /*
+  componentDidMount() {
+    if (!this.state.isConfig) {
+      axios.get("http://localhost:8088/api/listConfig").then(res => {
+        console.log("Config Files: " + res.data);
+      });
+    }
+  }
+  */
 
   onChangeHandler = event => {
     this.setState({

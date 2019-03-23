@@ -1,9 +1,6 @@
 import React from "react";
-// import { render } from "react-dom";
-
 import Tabs from "./Tabs";
-import ConfigFileUpload from "./ConfigFileUpload";
-import CSVFileUpload from "./CSVFileUpload";
+import FileUpload from "./FileUpload";
 require("./Tab.css");
 
 function App() {
@@ -12,10 +9,10 @@ function App() {
       <h1>Saber Adapter</h1>
       <Tabs>
         <div label="Configuration File Upload">
-          <ConfigFileUpload />
+          <FileUpload />
         </div>
         <div label="CSV File Upload">
-          <CSVFileUpload />
+          <FileUpload type="csv" />
         </div>
         <div label="Query">
           Nothing to see here, this tab is <em>extinct</em>!
