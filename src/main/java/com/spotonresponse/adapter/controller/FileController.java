@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/api")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -34,7 +34,7 @@ public class FileController {
     private FileStorageService fileStorageService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path = "/config", produces = "application/json")
+    @PostMapping(path = "/uploadConfig", produces = "application/json")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 
         String fileName = fileStorageService.storeFile(file);
@@ -46,7 +46,7 @@ public class FileController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/configs")
+    @PostMapping("/uploadMultiConfig")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
 
         return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
