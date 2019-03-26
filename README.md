@@ -5,9 +5,17 @@ generate data with Title as landslide so it can be queried easier. Each configur
 of every 6 hours which is defined as cron sechedule in application.properties.
 
 For the testing purpose, you can place the test configuration file which file name is prefixed as 'test.',
-for example, 'test.landslide.config' the this configuration will be run only once after the file is copied into
-directory defined by 'config.path'.
+for example, 'test.landslide.config' then this configuration will be run only once after the file is updated.
 
-This application also provide simple REST services for query the data and delete data. The web console can be
-accessed by http://localhost:8088/query?config=landslide for query the data stored in NoSQL. And, you can delete
-the whole set of data by accessing http://localhost:8080/delete?config=landslide.
+To upload a configuration, you can use browser to access http://localhost/. You can use 'Configuration File Upload' tab to upload the configuration file into adapter.
+
+Currently, you can use browser to VIEW the content for the configuration file, xcore.config by
+http://hostname/query?config=xcore
+
+you can use browser to DELETE the content for the configuration file: xcore.config by
+http://hostname/delete?config=xcore
+
+you can see the uploaded configuration using browser by
+http://hostname/api/configurations
+
+Only the file upload is coded as web application, will integrate the rest into the web application later.
