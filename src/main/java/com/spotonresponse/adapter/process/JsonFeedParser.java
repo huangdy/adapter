@@ -1,5 +1,6 @@
 package com.spotonresponse.adapter.process;
 
+import com.spotonresponse.adapter.model.ConfigHelper;
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.model.MappedRecord;
 import com.spotonresponse.adapter.model.MappedRecordJson;
@@ -47,11 +48,11 @@ public class JsonFeedParser {
         JSONArray features = (JSONArray) jsonObject.get(S_Features);
 
         // features: [
-        //     {
-        //         properties -> row of data
-        //         geometry -> latitude/longitude
-        //     }
-        //  ]
+        // {
+        // properties -> row of data
+        // geometry -> latitude/longitude
+        // }
+        // ]
         for (int i = 0; i < features.length(); i++) {
 
             JSONObject feature = (JSONObject) features.get(i);
@@ -77,9 +78,8 @@ public class JsonFeedParser {
         // to apply the distance filter/distance
         // - calculate the bounding box
         // - find out whether the object is within the bounding box
-        if (configuration.getDistance() != null &&
-            (configuration.getDistanceFilterText() == null || configuration.getDistanceFilterText().equalsIgnoreCase(
-                configuration.getFilterText()))) {
+        if (configuration.getDistance() != null && (configuration.getDistanceFilterText() == null
+                || configuration.getDistanceFilterText().equalsIgnoreCase(configuration.getFilterText()))) {
             Double[][] boundingBox = calculateBoundingBox(recordList, configuration.getDistance());
             for (MappedRecord record : recordList) {
                 if (Util.IsInsideBoundingBox(boundingBox, record.getLatitude(), record.getLongitude()) == false) {
@@ -118,11 +118,11 @@ public class JsonFeedParser {
         record.setCoreUri(configuration.getJson_ds());
         record.setLastUpdated(new Date());
 
-        Set<String> columnNames = configuration.getMap().keySet();
+        Set<String> columnNames = ConfigHelper.getMap(configuration).keySet();
         for (String columnName : columnNames) {
             StringBuffer sb = new StringBuffer();
-            List<String> columns = configuration.getMap().get(columnName);
-            if (columnName.equalsIgnoreCase(Configuration.FN_Description) && !isFullDescription) {
+            List<String> columns = ConfigHelper.getMap(configuration).get(columnName);
+            if (columnName.equalsIgnoreCase(ConfigHelper.FN_Description) && !isFullDescription) {
                 for (String column : columns) {
                     String newKeyName = getMappedName(column);
                     sb.append("<br/>");
@@ -187,7 +187,7 @@ public class JsonFeedParser {
             record.setCategory(configuration.getCategoryFixed());
         } else {
             if (configuration.getCategoryPrefix() != null || configuration.getCategorySuffix() != null) {
-                String category = record.get(Configuration.FN_FilterName);
+                String category = record.get(ConfigHelper.FN_FilterName);
                 if (configuration.getCategoryPrefix() != null) {
                     category = configuration.getCategoryPrefix() + category;
                 }
@@ -220,8 +220,8 @@ public class JsonFeedParser {
         }
 
         boolean negativeExpression = configuration.getFilterText().startsWith("!");
-        String filterText = negativeExpression ? configuration.getFilterText()
-                                                              .substring(1) : configuration.getFilterText();
+        String filterText = negativeExpression ? configuration.getFilterText().substring(1)
+                : configuration.getFilterText();
         String pattern = PatternPrefix + filterText + PatternPostfix;
         logger.trace("Filter Pattern: " + pattern);
         boolean isMatched = filter.matches(pattern);
@@ -230,7 +230,7 @@ public class JsonFeedParser {
 
     private String getMappedName(String name) {
 
-        Map<String, String> mappingColumns = this.configuration.getMappingColumns();
+        Map<String, String> mappingColumns = ConfigHelper.getMappingColumns(name);
         if (mappingColumns == null) {
             return name;
         }
@@ -269,10 +269,10 @@ public class JsonFeedParser {
         }
 
         /*
-         * Earth’s radius, sphere R=6378137
-         * offsets in meters dn = 100 de = 100
+         * Earth’s radius, sphere R=6378137 offsets in meters dn = 100 de = 100
          * Coordinate offsets in radians dLat = dn/R dLon =de/(R*Cos(Pi*lat/180))
-         * OffsetPosition, decimal degrees latO = lat + dLat * 180/Pi lonO = lon + dLon * 180/Pi
+         * OffsetPosition, decimal degrees latO = lat + dLat * 180/Pi lonO = lon + dLon
+         * * 180/Pi
          */
         double d = distance * 1000.0;
         double deltaLat = d / Radius * 180 / Pi;

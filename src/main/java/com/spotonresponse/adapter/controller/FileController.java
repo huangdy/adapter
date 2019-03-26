@@ -1,6 +1,11 @@
 package com.spotonresponse.adapter.controller;
 
 import com.spotonresponse.adapter.services.FileStorageService;
+import com.spotonresponse.adapter.services.JsonScheduler;
+import com.spotonresponse.adapter.model.Configuration;
+import com.spotonresponse.adapter.process.ConfigFileParser;
+import com.spotonresponse.adapter.repo.ConfigurationRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +38,25 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    private ConfigurationRepository configurationRepository;
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/uploadConfig", produces = "application/json")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 
         String fileName = fileStorageService.storeFile(file);
+        ConfigFileParser parser;
+        try {
+            parser = new ConfigFileParser(fileName, file.getInputStream());
+            List<Configuration> configurationList = parser.getConfigurationList();
+            for (Configuration configuration : configurationList) {
+                configurationRepository.save(configuration);
+                JsonScheduler.getInstance().setSchedule(configuration);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
                 .path(fileName).toUriString();

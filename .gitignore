@@ -1,10 +1,11 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 *.log*
-/logs/
-/data/
-/uploads/
-/config/
+logs/
+data/
+uploads/
+config/
+/app/node
 
 ### STS ###
 .apt_generated

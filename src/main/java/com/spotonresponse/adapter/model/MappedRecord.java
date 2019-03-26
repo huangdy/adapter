@@ -65,21 +65,21 @@ public class MappedRecord implements Serializable {
 
     public void put(String key, String value) {
 
-        if (key.equalsIgnoreCase(Configuration.FN_Title)) {
+        if (key.equalsIgnoreCase(ConfigHelper.FN_Title)) {
             setTitle(value);
-        } else if (key.equalsIgnoreCase(Configuration.FN_Description)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Description)) {
             setDescription(value);
-        } else if (key.equalsIgnoreCase(Configuration.FN_Category)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Category)) {
             setCategory(value);
-        } else if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_FilterName)) {
             setFilter(value);
-        } else if (key.equalsIgnoreCase(Configuration.FN_Index)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Index)) {
             setIndex(value);
-        } else if (key.equalsIgnoreCase(Configuration.FN_Content)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Content)) {
             setContent(value);
-        } else if (key.equalsIgnoreCase(Configuration.FN_Latitude)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Latitude)) {
             setLatitude(value);
-        } else if (key.equalsIgnoreCase(Configuration.FN_Longitude)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Longitude)) {
             setLongitude(value);
         } else {
             logger.error("MapperRecord.put: key: [{}], value: [{}]", key, value);
@@ -88,15 +88,15 @@ public class MappedRecord implements Serializable {
 
     public String get(String key) {
 
-        if (key.equalsIgnoreCase(Configuration.FN_Title)) {
+        if (key.equalsIgnoreCase(ConfigHelper.FN_Title)) {
             return getTitle();
-        } else if (key.equalsIgnoreCase(Configuration.FN_Description)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Description)) {
             return getDescription();
-        } else if (key.equalsIgnoreCase(Configuration.FN_Category)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Category)) {
             return getCategory();
-        } else if (key.equalsIgnoreCase(Configuration.FN_FilterName)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_FilterName)) {
             return getTitle();
-        } else if (key.equalsIgnoreCase(Configuration.FN_Content)) {
+        } else if (key.equalsIgnoreCase(ConfigHelper.FN_Content)) {
             return getContent();
         } else {
             logger.error("MapperRecord.get: key: [{}]", key);

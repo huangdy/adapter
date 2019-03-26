@@ -13,11 +13,11 @@ import java.util.Map;
 public class MappedRecordJson extends JSONObject {
 
     /*
-    Source -> {The name of your program}
-    SourceHost -> {Where your program is running}
-    SourceURL -> {URL to view/manage source (if applicable)}
-    SourceContact -> {Name of person or group to contact about source data if needed (if applicable)}
-    SourceEmail -> {Email of SourceContact (if applicable)}
+     * Source -> {The name of your program} SourceHost -> {Where your program is
+     * running} SourceURL -> {URL to view/manage source (if applicable)}
+     * SourceContact -> {Name of person or group to contact about source data if
+     * needed (if applicable)} SourceEmail -> {Email of SourceContact (if
+     * applicable)}
      */
     private static final String S_Source = "Source";
     private static final String S_SourceHost = "SourceHost";
@@ -26,11 +26,8 @@ public class MappedRecordJson extends JSONObject {
     private static final String S_SourceEmail = "SourceEmail";
     private static final String S_Creator = "creator";
     private static final String S_MD5HASH = "md5hash";
-    private static final String[] removeEntries = {
-        "coreUri",
-        "longitude",
-        "latitude",
-        // "workProductID",
+    private static final String[] removeEntries = { "coreUri", "longitude", "latitude",
+            // "workProductID",
     };
     private static Logger logger = LoggerFactory.getLogger(MappedRecordJson.class);
 
@@ -42,11 +39,8 @@ public class MappedRecordJson extends JSONObject {
 
         super(new GsonBuilder().setPrettyPrinting().create().toJson(record));
 
-        init(record.getLatitude(),
-             record.getLongitude(),
-             record.getCreator(),
-             Util.ToHash(record.getIndex()),
-             record.getCoreUri());
+        init(record.getLatitude(), record.getLongitude(), record.getCreator(), Util.ToHash(record.getIndex()),
+                record.getCoreUri());
     }
 
     public void init(String latitude, String longitude, String creator, String md5hash, String uri) {
@@ -107,12 +101,11 @@ public class MappedRecordJson extends JSONObject {
 
     public String getLatitude() {
 
-        return (String) this.get(Configuration.FN_Latitude);
+        return (String) this.get(ConfigHelper.FN_Latitude);
     }
 
     public String getLongitude() {
 
-        return (String) this.get(Configuration.FN_Longitude);
+        return (String) this.get(ConfigHelper.FN_Longitude);
     }
 }
-

@@ -2,9 +2,12 @@ package com.spotonresponse.adapter.services;
 
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.process.ConfigFileParser;
+import com.spotonresponse.adapter.repo.ConfigurationRepository;
+
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 
@@ -35,6 +38,9 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 public class ConfigurationDirectoryWatcher {
 
     private static Logger logger = LoggerFactory.getLogger(ConfigurationDirectoryWatcher.class);
+
+    @Autowired
+    private ConfigurationRepository configRepo;
 
     private final Map<String, Long> lastAccessTimestamp = new HashMap<String, Long>();
     private final Map<String, ScheduledFuture> scheduleMap = new HashMap<String, ScheduledFuture>();
@@ -127,12 +133,13 @@ public class ConfigurationDirectoryWatcher {
                 Path child = dir.resolve(name);
 
                 // logger.info("Filename: {}, Event: {}, @{}", child, kind, new Date());
-                if (lastAccessTimestamp.get(child.toString()) != null && new Date().getTime() - lastAccessTimestamp.get(
-                    child.toString()) < 3000) {
+                if (lastAccessTimestamp.get(child.toString()) != null
+                        && new Date().getTime() - lastAccessTimestamp.get(child.toString()) < 3000) {
                     continue;
                 }
                 // print out event
-                // logger.info("Record last access time for Event: {}, file: {}, name: {}", kind, child, name);
+                // logger.info("Record last access time for Event: {}, file: {}, name: {}",
+                // kind, child, name);
                 lastAccessTimestamp.put(child.toString(), new Date().getTime());
 
                 logger.info("{} -> Filename: {}", kind, child);
@@ -169,6 +176,7 @@ public class ConfigurationDirectoryWatcher {
             ConfigFileParser configFileParser = new ConfigFileParser(file.getPath(), new FileInputStream(file));
             List<Configuration> configurationList = configFileParser.getConfigurationList();
             for (Configuration configuration : configurationList) {
+                configRepo.save(configuration);
                 if (configuration.getJson_ds() == null) {
                     continue;
                 }
@@ -177,24 +185,20 @@ public class ConfigurationDirectoryWatcher {
                     Date currentTimestamp = new Date();
                     long oneSecondLater = currentTimestamp.getTime() + 10000;
                     logger.info("current time: [{}], scheduled time: [{}]", currentTimestamp, new Date(oneSecondLater));
-                    logger.info("Start JSON poller Thread for [{}], URL: [{}]",
-                                configuration.getId(),
-                                configuration.getJson_ds());
+                    logger.info("Start JSON poller Thread for [{}], URL: [{}]", configuration.getId(),
+                            configuration.getJson_ds());
                     scheduleMap.put(filename,
-                                    scheduler.schedule(new JSONPollerTask(configuration), new Date(oneSecondLater)));
+                            scheduler.schedule(new JSONPollerTask(configuration), new Date(oneSecondLater)));
                 } else {
-                    logger.info("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]",
-                                configuration.getId(),
-                                configuration.getJson_ds(),
-                                cronSchedule);
+                    logger.info("Start JSON poller Thread: ID: [{}], URL: [{}], schedule: [{}]", configuration.getId(),
+                            configuration.getJson_ds(), cronSchedule);
                     scheduleMap.put(configuration.getId(),
-                                    scheduler.schedule(new JSONPollerTask(configuration),
-                                                       new CronTrigger(cronSchedule)));
+                            scheduler.schedule(new JSONPollerTask(configuration), new CronTrigger(cronSchedule)));
 
                 }
             }
         } catch (Exception e) {
-            //TODO
+            // TODO
             logger.error("createSchedule: open fis: {}", e.getMessage());
         }
     }

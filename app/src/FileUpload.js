@@ -33,7 +33,7 @@ class FileUpload extends Component {
   onClickHandler = () => {
     const data = new FormData();
     for (var i = 0; i < this.state.selectedFile.length; i++) {
-      data.append("file", this.state.selectedFile[i]);
+      data.append("files", this.state.selectedFile[i]);
     }
 
     axios
@@ -46,7 +46,7 @@ class FileUpload extends Component {
       })
       .then(res => {
         // then print response status
-        console.log(res.statusText);
+        console.log(res);
       });
   };
 

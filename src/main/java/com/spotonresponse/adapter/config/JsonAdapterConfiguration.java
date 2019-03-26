@@ -4,8 +4,6 @@ import com.spotonresponse.adapter.repo.DynamoDBRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -69,12 +67,6 @@ public class JsonAdapterConfiguration {
     }
 
     @Bean
-    public DataSource dataSource() {
-
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
-    }
-
-    @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
 
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
@@ -86,7 +78,7 @@ public class JsonAdapterConfiguration {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-        JpaVendorAdapter jpaVendorAdapter) {
+            JpaVendorAdapter jpaVendorAdapter) {
 
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);

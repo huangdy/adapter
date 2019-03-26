@@ -1,6 +1,7 @@
 package com.spotonresponse.adapter.process;
 
 import com.spotonresponse.adapter.model.Configuration;
+import com.spotonresponse.adapter.model.ConfigHelper;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,10 +43,10 @@ public class ConfigFileParser {
                 if (line.startsWith("#") || line.length() == 0) {
                     continue;
                 }
-                if (line.equalsIgnoreCase(Configuration.N_Configuration_Start)) {
+                if (line.equalsIgnoreCase(ConfigHelper.FN_Configuration_Start)) {
                     startCount++;
                     continue;
-                } else if (line.equalsIgnoreCase(Configuration.N_Configuration_End)) {
+                } else if (line.equalsIgnoreCase(ConfigHelper.FN_Configuration_End)) {
                     endCount++;
                     continue;
                 }
@@ -73,22 +74,20 @@ public class ConfigFileParser {
                 if (line.startsWith("#") || line.length() == 0) {
                     continue;
                 }
-                if (line.equalsIgnoreCase(Configuration.N_Configuration_Start)) {
+                if (line.equalsIgnoreCase(ConfigHelper.FN_Configuration_Start)) {
                     logger.debug("Configuration: .. start ...");
                     configuration = new Configuration();
                     configuration.setId(creator);
                     continue;
-                } else if (line.equalsIgnoreCase(Configuration.N_Configuration_End)) {
+                } else if (line.equalsIgnoreCase(ConfigHelper.FN_Configuration_End)) {
                     logger.debug("Configuration: .. end ...");
-                    if (configuration.isValid()) {
+                    if (ConfigHelper.isValid(configuration)) {
                         configurationList.add(configuration);
                         configuration = null;
                         continue;
                     } else {
-                        throw new Exception("Configuration File: " +
-                                            configFilename +
-                                            ": " +
-                                            configuration.getMissingAttributes());
+                        throw new Exception("Configuration File: " + configFilename + ": "
+                                + ConfigHelper.getMissingAttributes(configuration));
                     }
                 }
                 if (configuration == null) {
@@ -101,16 +100,14 @@ public class ConfigFileParser {
                 }
                 tokens[0] = tokens[0].trim().toLowerCase();
                 tokens[1] = tokens[1].trim();
-                configuration.setKeyValue(tokens);
+                setKeyValue(configuration, tokens);
             }
             if (configuration != null) {
-                if (configuration.isValid()) {
+                if (ConfigHelper.isValid(configuration)) {
                     configurationList.add(configuration);
                 } else {
-                    throw new Exception("Configuration File: " +
-                                        configFilename +
-                                        ": " +
-                                        configuration.getMissingAttributes());
+                    throw new Exception("Configuration File: " + configFilename + ": "
+                            + ConfigHelper.getMissingAttributes(configuration));
                 }
             }
             reader.close();
@@ -128,5 +125,60 @@ public class ConfigFileParser {
     public void setConfigurationList(List<Configuration> configurationList) {
 
         this.configurationList = configurationList;
+    }
+
+    private void setKeyValue(Configuration configuration, final String[] keyAndValue) {
+
+        // logger.debug("key/value: [" + keyAndValue[0] + "/" + keyAndValue[1] + "]");
+
+        if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Category)) {
+            configuration.setCategory(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Title)) {
+            configuration.setTitle(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_TitlePrefix)) {
+            configuration.setTitlePrefix(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_TitleSuffix)) {
+            configuration.setTitleSuffix(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Latitude)) {
+            configuration.setLatitude(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Longitude)) {
+            configuration.setLongitude(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_FilterName)) {
+            configuration.setFilter(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_FilterText)) {
+            configuration.setFilterText(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Index)) {
+            configuration.setIndex(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Description)) {
+            configuration.setDescription(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_URLHost)) {
+            configuration.setUri(keyAndValue[1] + ConfigHelper.S_UrlHost);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Username)) {
+            configuration.setUsername(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Password)) {
+            configuration.setPassword(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_RedirectUrl)) {
+            configuration.setRedirectUrl(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_CategoryPrefix)) {
+            configuration.setCategoryPrefix(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_CategorySuffix)) {
+            configuration.setCategorySuffix(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_CategoryFixed)) {
+            configuration.setCategoryFixed(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_Distance)) {
+            configuration.setDistance(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_DistanceFilterText)) {
+            configuration.setDistanceFilterText(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_AutoClose)) {
+            configuration.setAutoClose(ConfigHelper.getBooleanValue(keyAndValue[1]));
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_MappingColumns)) {
+            configuration.setMappingColumns(keyAndValue[1]);
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_FullDescription)) {
+            configuration.setFullDescription(ConfigHelper.getBooleanValue(keyAndValue[1]));
+        } else if (keyAndValue[0].equalsIgnoreCase(ConfigHelper.FN_JsonDataSource)) {
+            configuration.setJson_ds(keyAndValue[1]);
+        } else {
+            logger.warn("Invalid Key/Value: [" + keyAndValue[0] + "/" + keyAndValue[1] + "]");
+        }
     }
 }
