@@ -17,6 +17,6 @@ public interface ConfigurationRepository extends JpaRepository<Configuration, St
     @Query("SELECT c FROM Configuration c WHERE c.id=(:id)")
     Optional<Configuration> findById(@Param("id") String id);
 
-    @Query("SELECT c.id FROM Configuration c")
-    List<String> listIds();
+    @Query("SELECT c.id FROM Configuration c WHERE c.json_ds=null")
+    List<String> listCSVConfigurationName();
 }

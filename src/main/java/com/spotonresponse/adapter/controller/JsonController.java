@@ -1,24 +1,51 @@
 package com.spotonresponse.adapter.controller;
 
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.model.QueryResult;
+import com.spotonresponse.adapter.repo.ConfigurationRepository;
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class JsonController {
 
     @Autowired
-    private DynamoDBRepository repo;
+    private DynamoDBRepository dynamoDBRepository;
+
+    @Autowired
+    private ConfigurationRepository configurationRepository;
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/listConfigurationName", produces = "applicaiton/json")
+    public String listCSVConfigurationName() {
+
+        return new Gson().toJson(configurationRepository.listCSVConfigurationName());
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/listConfiguration", produces = "application/json")
+    public List<Configuration> listConfiguration() {
+
+        return configurationRepository.findAll();
+    }
 
     @RequestMapping(value = "/query", produces = "application/json")
     public QueryResult query(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
 
-        JSONArray resultArray = repo.query(creator);
+        JSONArray resultArray = dynamoDBRepository.query(creator);
 
         return new QueryResult(creator, resultArray.length(), resultArray);
     }
@@ -26,7 +53,7 @@ public class JsonController {
     @RequestMapping(value = "/delete", produces = "application/json")
     public QueryResult delete(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
 
-        int count = repo.removeByCreator(creator);
+        int count = dynamoDBRepository.removeByCreator(creator);
         return new QueryResult(creator, count, null);
     }
 

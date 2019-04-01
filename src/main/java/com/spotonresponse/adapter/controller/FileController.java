@@ -41,8 +41,8 @@ public class FileController {
     @Autowired
     private ConfigurationRepository configurationRepository;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/uploadConfig", produces = "application/json")
+    @CrossOrigin(origins = "http://localhost:3000")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 
         String fileName = fileStorageService.storeFile(file);
@@ -67,6 +67,14 @@ public class FileController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/uploadMultiConfig")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+
+        return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/uploadMultiCSVFile")
+    public List<UploadFileResponse> uploadMultipleCSVFiles(@RequestParam("configuration_name") String cvsConfigName,
+            @RequestParam("files") MultipartFile[] files) {
 
         return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
     }

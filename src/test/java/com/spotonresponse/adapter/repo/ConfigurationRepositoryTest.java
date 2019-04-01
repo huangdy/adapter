@@ -30,7 +30,7 @@ public class ConfigurationRepositoryTest {
         configurationRepository.save(configuration);
 
         Optional<Configuration> config = configurationRepository.findById("CVS");
-        List<String> idList = configurationRepository.listIds();
+        List<String> idList = configurationRepository.listCSVConfigurationName();
         List<Configuration> configurationList = configurationRepository.findAll();
     }
 
