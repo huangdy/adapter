@@ -1,5 +1,6 @@
 package com.spotonresponse.adapter.controller;
 
+import com.spotonresponse.adapter.services.CSVToJSON;
 import com.spotonresponse.adapter.services.FileStorageService;
 import com.spotonresponse.adapter.services.JsonScheduler;
 import com.spotonresponse.adapter.model.Configuration;
@@ -71,12 +72,21 @@ public class FileController {
         return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
     }
 
+    @PostMapping("/uploadCSVFile")
+    public UploadFileResponse uploadCSVFile(@RequestParam("file") MultipartFile file, String csvConfigName) {
+        // convert MultipartFile into Map
+        CSVToJSON.parse(file, configurationName);
+        // retrieve the configuration
+        // parse the map with configuration
+    }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/uploadMultiCSVFile")
     public List<UploadFileResponse> uploadMultipleCSVFiles(@RequestParam("configuration_name") String cvsConfigName,
             @RequestParam("files") MultipartFile[] files) {
 
-        return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
+        return Arrays.asList(files).stream().map(file -> uploadCSVFile(file, csvConfigName))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/downloadFile/{fileName:.+}")
