@@ -73,19 +73,25 @@ public class FileController {
     }
 
     @PostMapping("/uploadCSVFile")
-    public UploadFileResponse uploadCSVFile(@RequestParam("file") MultipartFile file, String csvConfigName) {
+    public UploadFileResponse uploadCSVFile(@RequestParam("file") MultipartFile file, String csvConfiugrationName) {
         // convert MultipartFile into Map
-        CSVToJSON.parse(file, configurationName);
+        try {
+            CSVToJSON.parse(file, csvConfiugrationName);
+        } catch (Exception e) {
+
+        }
         // retrieve the configuration
         // parse the map with configuration
+        return new UploadFileResponse(csvConfiugrationName, "fileDownloadUri", "csv", 0);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/uploadMultiCSVFile")
-    public List<UploadFileResponse> uploadMultipleCSVFiles(@RequestParam("configuration_name") String cvsConfigName,
+    public List<UploadFileResponse> uploadMultipleCSVFiles(
+            @RequestParam("configuration_name") String csvConfiugrationName,
             @RequestParam("files") MultipartFile[] files) {
 
-        return Arrays.asList(files).stream().map(file -> uploadCSVFile(file, csvConfigName))
+        return Arrays.asList(files).stream().map(file -> uploadCSVFile(file, csvConfiugrationName))
                 .collect(Collectors.toList());
     }
 
