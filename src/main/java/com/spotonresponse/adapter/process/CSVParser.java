@@ -6,8 +6,7 @@ import com.spotonresponse.adapter.model.MappedRecord;
 import com.spotonresponse.adapter.model.MappedRecordJson;
 import com.spotonresponse.adapter.model.Util;
 import com.spotonresponse.adapter.services.JSONPollerTask;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,10 +20,6 @@ import java.util.Set;
 
 public class CSVParser {
 
-    public static final String S_Features = "features";
-    public static final String S_Properties = "properties";
-    public static final String S_Geometry = "geometry";
-    public static final String S_coordinates = "coordinates";
     public static final String S_TokenSeparator = ":";
     public static final String PatternPrefix = "(?i:.*";
     public static final String PatternPostfix = ".*)";
@@ -37,41 +32,16 @@ public class CSVParser {
 
     private Configuration configuration;
 
-    public CSVParser(Configuration configuration, String contentText) {
+    public CSVParser(Configuration configuration, List<Map<String, Object>> rows) {
 
         this.configuration = configuration;
-        JSONObject jsonObject = new JSONObject(contentText);
 
         List<MappedRecord> recordList = new ArrayList<MappedRecord>();
 
-        // features is array of records
-        JSONArray features = (JSONArray) jsonObject.get(S_Features);
-
-        // features: [
-        // {
-        // properties -> row of data
-        // geometry -> latitude/longitude
-        // }
-        // ]
-        for (int i = 0; i < features.length(); i++) {
-
-            JSONObject feature = (JSONObject) features.get(i);
-
-            // convert properties into a row of data
-            JSONObject properties = (JSONObject) feature.get(S_Properties);
-            Map<String, String> rowData = Util.convertKeyValue(Util.toMap(properties));
-
-            // convert the geometry to latitude and longitude
-            JSONObject geo = (JSONObject) feature.get(S_Geometry);
-            JSONArray lonLat = (JSONArray) geo.get(S_coordinates);
-            rowData.put("Longitude", String.valueOf(lonLat.get(0)));
-            rowData.put("Latitude", String.valueOf(lonLat.get(1)));
-
-            // call the toRecord to convert the row of data into the JSON record
-            MappedRecord record = toRecord(rowData);
-            if (record != null) {
+        for (int i = 0; i < rows.size(); i++) {
+            MappedRecord record = toRecord(Util.convertKeyValue(rows.get(i)));
+            if (record != null)
                 recordList.add(record);
-            }
         }
 
         List<MappedRecord> mismatched = new ArrayList<MappedRecord>();

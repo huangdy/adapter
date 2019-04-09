@@ -18,6 +18,10 @@ class FileUpload extends Component {
         if (!this.state.isConfig) this.getCSVConfigurationName();
     }
 
+    onSelectCSVConfig(name) {
+        this.setState({ csvConfigurationName: name });
+    }
+
     getCSVConfigurationName() {
         axios.get("http://localhost:8088/api/listConfigurationName").then(res => {
             var list = [];
@@ -81,29 +85,29 @@ class FileUpload extends Component {
 
     render() {
         return (
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <form method="post" action="#" id="#">
-                            <div class="form-group files">
-                                <label>Upload Configuration File(s)</label>
-                                <input type="file" class="form-control" multiple onChange={this.onChangeHandler} />
+            <div class='container'>
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <form method='post' action='#' id='#'>
+                            <div class='form-group files'>
+                                <label>Upload {this.state.isConfig ? "Configuration" : "CSV"} File(s)</label>
+                                <input type='file' class='form-control' multiple onChange={this.onChangeHandler} />
                             </div>
                         </form>
-                        <div class="form-group">
-                            <Progress max="100" color="success" value={this.state.loaded}>
+                        <div class='form-group'>
+                            <Progress max='100' color='success' value={this.state.loaded}>
                                 {Math.round(this.state.loaded, 2)}%
                             </Progress>
                         </div>
-                        <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>
+                        <button type='button' class='btn btn-success btn-block' onClick={this.onClickHandler}>
                             Upload
                         </button>
                     </div>
                 </div>
                 <div>
                     {this.state.listCSVConfigurationName.length === 0 ? null : (
-                        <div class="row">
-                            <div class="col-md-6">
+                        <div class='row'>
+                            <div class='col-md-6'>
                                 <div>
                                     <h3>CSV Configuration</h3>
                                     <div style={{ margin: "16px", position: "relative" }} />

@@ -4,6 +4,7 @@ import com.spotonresponse.adapter.services.CSVToJSON;
 import com.spotonresponse.adapter.services.FileStorageService;
 import com.spotonresponse.adapter.services.JsonScheduler;
 import com.spotonresponse.adapter.model.Configuration;
+import com.spotonresponse.adapter.process.CSVParser;
 import com.spotonresponse.adapter.process.ConfigFileParser;
 import com.spotonresponse.adapter.repo.ConfigurationRepository;
 
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -77,16 +79,16 @@ public class FileController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/uploadCSVFile")
     public UploadFileResponse uploadCSVFile(@RequestParam("file") MultipartFile file, String csvConfiugrationName) {
-        
+
         try {
             // convert MultipartFile into Map
-            JSONObject csvObject = CSVToJSON.parse(file);
             // retrieve the configuration
             Optional<Configuration> configuration = configurationRepository.findById(csvConfiugrationName);
+            CSVParser csvParser = new CSVParser(configuration.get(), CSVToJSON.parse(file));
         } catch (Exception e) {
 
         }
-        
+
         // parse the map with configuration
         return new UploadFileResponse(csvConfiugrationName, "xyz", "csv", 0);
     }

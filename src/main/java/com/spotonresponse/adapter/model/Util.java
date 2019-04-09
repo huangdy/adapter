@@ -5,6 +5,8 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
+
+import org.apache.tomcat.util.collections.CaseInsensitiveKeyMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +48,7 @@ public class Util {
 
     public static Map<String, String> convertKeyValue(Map<String, Object> map) {
 
-        Map<String, String> keyValueMap = new HashMap<String, String>();
+        Map<String, String> keyValueMap = new CaseInsensitiveKeyMap();
 
         Set<String> keys = map.keySet();
         try {
