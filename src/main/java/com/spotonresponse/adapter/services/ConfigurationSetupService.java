@@ -22,9 +22,6 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     @Value("${jsonpoller.cron.schedule}")
     private String cronSchedule;
 
-    @Value("${config.path}")
-    private String configPath;
-
     @Autowired
     private ConfigurationRepository configurationRepository;
 
@@ -40,12 +37,14 @@ public class ConfigurationSetupService implements ApplicationListener<Applicatio
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
+        logger.info("ConfigurationSetupService: ... init ...");
         JsonScheduler.getInstance().setCronSchedule(cronSchedule);
         JsonScheduler.getInstance().setTaskScheduler(taskScheduler);
         List<Configuration> configurationList = configurationRepository.findAll();
         for (Configuration configuration : configurationList) {
             JsonScheduler.getInstance().setSchedule(configuration);
         }
+        logger.info("ConfigurationSetupService: ... done ...");
 
         return;
     }

@@ -38,7 +38,7 @@ public class JSONPollerTask implements Runnable {
         String content = new UrlReader(configuration.getJson_ds()).getContent();
 
         // use the input stream to generate records
-        List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration, content).getRecordList();
+        List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration, content).getJsonRecordList();
 
         logger.info("record count: {}", recordList.size());
         repo.removeByCreator(configuration.getId());

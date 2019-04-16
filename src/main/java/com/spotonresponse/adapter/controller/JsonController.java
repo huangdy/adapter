@@ -3,7 +3,6 @@ package com.spotonresponse.adapter.controller;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.model.QueryResult;
 import com.spotonresponse.adapter.repo.ConfigurationRepository;

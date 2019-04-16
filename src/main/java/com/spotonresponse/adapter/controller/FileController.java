@@ -4,11 +4,11 @@ import com.spotonresponse.adapter.services.CSVToJSON;
 import com.spotonresponse.adapter.services.FileStorageService;
 import com.spotonresponse.adapter.services.JsonScheduler;
 import com.spotonresponse.adapter.model.Configuration;
+import com.spotonresponse.adapter.model.MappedRecordJson;
 import com.spotonresponse.adapter.process.CSVParser;
 import com.spotonresponse.adapter.process.ConfigFileParser;
 import com.spotonresponse.adapter.repo.ConfigurationRepository;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -85,6 +84,7 @@ public class FileController {
             // retrieve the configuration
             Optional<Configuration> configuration = configurationRepository.findById(csvConfiugrationName);
             CSVParser csvParser = new CSVParser(configuration.get(), CSVToJSON.parse(file));
+            List<MappedRecordJson> records = csvParser.getRecordList();
         } catch (Exception e) {
 
         }

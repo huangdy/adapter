@@ -35,8 +35,8 @@ public class JsonScheduler {
 
         if (configuration == null || configuration.getJson_ds() == null)
             return;
-
         String name = configuration.getId();
+        logger.info("setSchedule: name: [{}}]", name);
         ScheduledFuture schedule = scheduleMap.remove(name);
         if (schedule != null) {
             logger.info("Cancel schedule for {}", name);

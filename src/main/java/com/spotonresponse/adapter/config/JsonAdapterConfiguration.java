@@ -35,10 +35,15 @@ public class JsonAdapterConfiguration {
     private String db_table_name;
 
     @Bean
+    public com.spotonresponse.adapter.model.Configuration configuration() {
+
+        return new com.spotonresponse.adapter.model.Configuration();
+    }
+
+    @Bean
     public DynamoDBRepository dynamoDBRepository() {
 
         DynamoDBRepository repo = new DynamoDBRepository();
-
         repo.init(aws_access_key_id, aws_secret_access_key, amazon_endpoint, amazon_region, db_table_name);
         return repo;
     }

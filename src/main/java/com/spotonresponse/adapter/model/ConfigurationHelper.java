@@ -8,7 +8,7 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConfigHelper {
+public class ConfigurationHelper {
     public static final String FN_Configuration_Start = "configuration:start";
     public static final String FN_Configuration_End = "configuration:end";
     public static final String FN_Latitude = "latitude";
@@ -42,7 +42,7 @@ public class ConfigHelper {
     public static final String[] DefinedColumnNames = new String[] { FN_Title, FN_Category, FN_Latitude, FN_Longitude,
             FN_FilterName, FN_Index, FN_Description, FN_Content, };
 
-    public final static Logger logger = LoggerFactory.getLogger(ConfigHelper.class);
+    public final static Logger logger = LoggerFactory.getLogger(ConfigurationHelper.class);
 
     public final static boolean isValid(Configuration configuration) {
 

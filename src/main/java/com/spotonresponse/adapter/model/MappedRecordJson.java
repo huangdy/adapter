@@ -12,23 +12,9 @@ import java.util.Map;
 
 public class MappedRecordJson extends JSONObject {
 
-    /*
-     * Source -> {The name of your program} SourceHost -> {Where your program is
-     * running} SourceURL -> {URL to view/manage source (if applicable)}
-     * SourceContact -> {Name of person or group to contact about source data if
-     * needed (if applicable)} SourceEmail -> {Email of SourceContact (if
-     * applicable)}
-     */
-    private static final String S_Source = "Source";
-    private static final String S_SourceHost = "SourceHost";
-    private static final String S_SourceURL = "SourceURL";
-    private static final String S_SourceContact = "SourceContact";
-    private static final String S_SourceEmail = "SourceEmail";
     private static final String S_Creator = "creator";
     private static final String S_MD5HASH = "md5hash";
-    private static final String[] removeEntries = { "coreUri", "longitude", "latitude",
-            // "workProductID",
-    };
+    private static final String[] removeEntries = { "longitude", "latitude" };
     private static Logger logger = LoggerFactory.getLogger(MappedRecordJson.class);
 
     public MappedRecordJson() {
@@ -39,33 +25,8 @@ public class MappedRecordJson extends JSONObject {
 
         super(new GsonBuilder().setPrettyPrinting().create().toJson(record));
 
-        init(record.getLatitude(), record.getLongitude(), record.getCreator(), Util.ToHash(record.getIndex()),
-                record.getCoreUri());
-    }
-
-    public void init(String latitude, String longitude, String creator, String md5hash, String uri) {
-
-        setWhere(latitude, longitude);
-        parseUrl(uri);
-        this.put(S_Source, "Saber JSON Adapter");
-        this.put(S_Creator, creator);
-        this.put(S_MD5HASH, md5hash);
+        setWhere(record.getLatitude(), record.getLongitude());
         clearUp();
-    }
-
-    private void parseUrl(String url) {
-
-        String host = "";
-        String path = "";
-        try {
-            URL aURL = new URL(url);
-            host = aURL.getHost();
-            path = aURL.getPath();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        this.put(S_SourceHost, host);
-        this.put(S_SourceURL, path);
     }
 
     private void clearUp() {
@@ -101,11 +62,11 @@ public class MappedRecordJson extends JSONObject {
 
     public String getLatitude() {
 
-        return (String) this.get(ConfigHelper.FN_Latitude);
+        return (String) this.get(ConfigurationHelper.FN_Latitude);
     }
 
     public String getLongitude() {
 
-        return (String) this.get(ConfigHelper.FN_Longitude);
+        return (String) this.get(ConfigurationHelper.FN_Longitude);
     }
 }

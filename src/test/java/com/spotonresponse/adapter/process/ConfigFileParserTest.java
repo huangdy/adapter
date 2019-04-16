@@ -45,7 +45,7 @@ public class ConfigFileParserTest {
                     if (configuration.getJson_ds() != null) {
                         String content = new UrlReader(configuration.getJson_ds()).getContent();
                         JsonFeedParser parser = new JsonFeedParser(configuration, content);
-                        List<MappedRecordJson> list = parser.getRecordList();
+                        List<MappedRecordJson> list = parser.getJsonRecordList();
                         list.forEach(record -> {
                             logger.debug(record.toString());
                         });
