@@ -36,7 +36,10 @@ public class CSVParser {
             listOfRow.add(Util.convertKeyValue(row));
         }
         parser = new TheCSVParser(configuration, listOfRow);
+    }
 
+    public String getId() {
+        return parser.getId();
     }
 
     public List<MappedRecord> getRecordList() {

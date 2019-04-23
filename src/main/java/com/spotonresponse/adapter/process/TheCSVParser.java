@@ -75,6 +75,10 @@ public class TheCSVParser {
         }
     }
 
+    public String getId() {
+        return configuration.getId();
+    }
+
     public List<MappedRecord> getRecordList() {
         return mappedRecordList;
     }

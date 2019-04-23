@@ -15,13 +15,13 @@ public class JSONPollerTask implements Runnable {
 
     static Logger logger = LoggerFactory.getLogger(JSONPollerTask.class);
 
-    private DynamoDBRepository repo;
+    private DynamoDBRepository dynamoDBRepository;
     private Configuration configuration;
 
     public JSONPollerTask(Configuration configuration) {
 
         this.configuration = configuration;
-        this.repo = new DynamoDBRepository();
+        this.dynamoDBRepository = new DynamoDBRepository();
     }
 
     @Override
@@ -41,8 +41,8 @@ public class JSONPollerTask implements Runnable {
         List<MappedRecordJson> recordList = new JsonFeedParser(this.configuration, content).getJsonRecordList();
 
         logger.info("record count: {}", recordList.size());
-        repo.removeByCreator(configuration.getId());
-        repo.createAllEntries(recordList);
+        dynamoDBRepository.removeByCreator(configuration.getId());
+        dynamoDBRepository.createAllEntries(recordList);
         logger.info("... done ...");
     }
 }

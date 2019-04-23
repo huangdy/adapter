@@ -71,4 +71,4 @@ public class Configuration {
     private boolean fullDescription = false;
     private boolean enableXCore = false;
     private String redirectUrl = "http://www.google.com";
- }
+}

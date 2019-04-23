@@ -40,7 +40,7 @@ public class ConfigurationDirectoryWatcher {
     private static Logger logger = LoggerFactory.getLogger(ConfigurationDirectoryWatcher.class);
 
     @Autowired
-    private ConfigurationRepository configRepo;
+    private ConfigurationRepository configurationRepository;
 
     private final Map<String, Long> lastAccessTimestamp = new HashMap<String, Long>();
     private final Map<String, ScheduledFuture> scheduleMap = new HashMap<String, ScheduledFuture>();
@@ -176,7 +176,7 @@ public class ConfigurationDirectoryWatcher {
             ConfigFileParser configFileParser = new ConfigFileParser(file.getPath(), new FileInputStream(file));
             List<Configuration> configurationList = configFileParser.getConfigurationList();
             for (Configuration configuration : configurationList) {
-                configRepo.save(configuration);
+                configurationRepository.save(configuration);
                 if (configuration.getJson_ds() == null) {
                     continue;
                 }

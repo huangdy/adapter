@@ -18,6 +18,7 @@ import com.spotonresponse.adapter.model.MappedRecordJson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
+import org.springframework.stereotype.Service;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class DynamoDBRepository {
 
     public static final String S_MD5HASH = "md5hash";

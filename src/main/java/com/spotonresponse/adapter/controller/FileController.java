@@ -8,6 +8,8 @@ import com.spotonresponse.adapter.model.MappedRecordJson;
 import com.spotonresponse.adapter.process.CSVParser;
 import com.spotonresponse.adapter.process.ConfigFileParser;
 import com.spotonresponse.adapter.repo.ConfigurationRepository;
+import com.spotonresponse.adapter.repo.DynamoDBRepository;
+import com.spotonresponse.adapter.controller.UploadFileResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +46,9 @@ public class FileController {
 
     @Autowired
     private ConfigurationRepository configurationRepository;
+
+    @Autowired
+    private DynamoDBRepository dynamoDBRepository;
 
     @PostMapping(path = "/uploadConfig", produces = "application/json")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -83,10 +88,14 @@ public class FileController {
             // convert MultipartFile into Map
             // retrieve the configuration
             Optional<Configuration> configuration = configurationRepository.findById(csvConfiugrationName);
-            CSVParser csvParser = new CSVParser(configuration.get(), CSVToJSON.parse(file));
-            List<MappedRecordJson> records = csvParser.getRecordList();
+            CSVParser parser = new CSVParser(configuration.get(), CSVToJSON.parse(file));
+            List<MappedRecordJson> recordList = parser.getJsonRecordList();
+            logger.info("record count: {}", recordList.size());
+            dynamoDBRepository.removeByCreator(parser.getId());
+            dynamoDBRepository.createAllEntries(recordList);
+            logger.info("... done ...");
         } catch (Exception e) {
-
+            // TODO Error Handling
         }
 
         // parse the map with configuration
