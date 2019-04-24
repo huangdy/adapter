@@ -12,7 +12,7 @@ function App() {
           <FileUpload />
         </div>
         <div label="CSV File Upload">
-          <FileUpload type="csv" />
+          Work In Progress
         </div>
         <div label="Query">
           Nothing to see here, this tab is <em>extinct</em>!
