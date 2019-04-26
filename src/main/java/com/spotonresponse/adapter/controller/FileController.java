@@ -57,6 +57,7 @@ public class FileController {
         String fileName = fileStorageService.storeFile(file);
         ConfigFileParser parser;
         try {
+            logger.info("Upload file: {} ...", fileName);
             parser = new ConfigFileParser(fileName, file.getInputStream());
             List<Configuration> configurationList = parser.getConfigurationList();
             for (Configuration configuration : configurationList) {

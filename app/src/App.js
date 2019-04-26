@@ -1,7 +1,8 @@
 import React from "react";
-import Tabs from "./Tabs";
-import FileUpload from "./FileUpload";
-require("./Tab.css");
+import Tabs from "./features/tab/Tabs";
+import FileUpload from "./components/FileUpload";
+import Query from "./components/Query";
+import './features/tab/Tab.css'
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <FileUpload type="csv" />
         </div>
         <div label="Query">
-          Nothing to see here, this tab is <em>extinct</em>!
+          <Query />
         </div>
       </Tabs>
     </div>

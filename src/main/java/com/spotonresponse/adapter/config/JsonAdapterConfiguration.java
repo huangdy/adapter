@@ -43,8 +43,11 @@ public class JsonAdapterConfiguration {
     @Bean
     public DynamoDBRepository dynamoDBRepository() {
 
-        DynamoDBRepository repo = new DynamoDBRepository();
-        repo.init(aws_access_key_id, aws_secret_access_key, amazon_endpoint, amazon_region, db_table_name);
+        DynamoDBRepository repo = new DynamoDBRepository(aws_access_key_id,
+                                                         aws_secret_access_key,
+                                                         amazon_endpoint,
+                                                         amazon_region,
+                                                         db_table_name);
         return repo;
     }
 
@@ -82,8 +85,7 @@ public class JsonAdapterConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-            JpaVendorAdapter jpaVendorAdapter) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
 
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);

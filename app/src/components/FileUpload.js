@@ -3,7 +3,7 @@ import { Component } from "react";
 import { Progress } from "reactstrap";
 import axios from "axios";
 import "./FileUpload.css";
-import SelectBox from "./features/select-box";
+import SelectBox from "../features/select-box";
 
 class FileUpload extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class FileUpload extends Component {
     }
 
     getCSVConfigurationName() {
-        axios.get("http://localhost:8088/api/listConfigurationName").then(res => {
+        axios.get("http://localhost:8088/api/listCSVConfigurationName").then(res => {
             var list = [];
             for (var i = 0; i < res.data.length; i++) list[i] = { value: res.data[i], id: i + 1 };
             // console.log("listCSVConfigurationName: ", list);
@@ -109,9 +109,10 @@ class FileUpload extends Component {
                         <div class='row'>
                             <div class='col-md-6'>
                                 <div>
-                                    <h3>CSV Configuration</h3>
-                                    <div style={{ margin: "16px", position: "relative" }} />
-                                    <SelectBox items={this.state.listCSVConfigurationName} />
+                                    <div style={{ margin: "16px", position: "relative" }}>
+                                        <h3>CSV Configuration</h3>
+                                        <SelectBox items={this.state.listCSVConfigurationName} />
+                                    </div>
                                 </div>
                             </div>
                         </div>

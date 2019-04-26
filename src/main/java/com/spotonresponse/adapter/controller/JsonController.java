@@ -28,17 +28,24 @@ public class JsonController {
     private ConfigurationRepository configurationRepository;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping(path = "/listConfigurationName", produces = "applicaiton/json")
+    @GetMapping(path = "/listCSVConfigurationName", produces = "applicaiton/json")
     public String listCSVConfigurationName() {
 
         return new Gson().toJson(configurationRepository.listCSVConfigurationName());
+    }
+
+     @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/listConfigurationName", produces = "applicaiton/json")
+    public String listConfigurationName() {
+
+        return new Gson().toJson(configurationRepository.listConfigurationName());
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/listConfiguration", produces = "application/json")
     public List<Configuration> listConfiguration() {
 
-        return configurationRepository.findAll();
+       return configurationRepository.findAll();
     }
 
     @RequestMapping(value = "/query", produces = "application/json")
