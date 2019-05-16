@@ -105,9 +105,8 @@ public class FileController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/uploadMultiCSVFile")
-    public List<UploadFileResponse> uploadMultipleCSVFiles(
-            @RequestParam("configuration_name") String csvConfiugrationName,
-            @RequestParam("files") MultipartFile[] files) {
+    public List<UploadFileResponse> uploadMultipleCSVFiles(@RequestParam("files") MultipartFile[] files,
+            @RequestParam("config_name") String csvConfiugrationName) {
 
         return Arrays.asList(files).stream().map(file -> uploadCSVFile(file, csvConfiugrationName))
                 .collect(Collectors.toList());

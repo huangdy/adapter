@@ -6,7 +6,8 @@ class SelectBox extends React.Component {
     state = {
         items: this.props.items || [],
         showItems: false,
-        selectedItem: this.props.items[0] || this.props.selectedItem
+        selectedItem: this.props.items[0] || this.props.selectedItem,
+        onSelectItem: this.props.onSelectItem
     };
 
     dropDown = () => {
@@ -20,6 +21,7 @@ class SelectBox extends React.Component {
             selectedItem: item,
             showItems: false
         });
+        this.state.onSelectItem(item.value);
     };
 
     render() {
@@ -32,7 +34,7 @@ class SelectBox extends React.Component {
                             <span
                                 className={`${
                                     this.state.showItems ? "select-box--arrow-up" : "select-box--arrow-down"
-                                }`}
+                                    }`}
                             />
                         </div>
                     </div>

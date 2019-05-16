@@ -13,21 +13,37 @@ class FileUpload extends Component {
             configurations: null,
             isConfig: this.props.type === "csv" ? false : true,
             csvConfigurationName: "cvs",
-            listCSVConfigurationName: []
+            listConfigurationName: []
         };
-        if (!this.state.isConfig) this.getCSVConfigurationName();
+        this.getConfigurationNameList(this.state.isConfig);
     }
 
-    onSelectCSVConfig(name) {
-        this.setState({ csvConfigurationName: name });
+    onSelectConfig = (name) => {
+        if (this.setState.isConfig) {
+            console.log("onSelectConfig: Config: ", name);
+            this.getConfiguration(name);
+        } else {
+            console.log("onSelectConfig: Config: ", name);
+            this.setState({ csvConfigurationName: name });
+        }
     }
 
-    getCSVConfigurationName() {
-        axios.get("http://localhost:8088/api/listCSVConfigurationName").then(res => {
+    getConfiguration(name) {
+        var url = "http://localhost:8088/api/configuration/" + name;
+        console.log("getConfiguration: " + url);
+        axios.get(url).then(res => {
+            console.log(res.data);
+        });
+    }
+
+    getConfigurationNameList(isCSVType) {
+        var url = isCSVType ? "http://localhost:8088/api/listCSVConfigurationName" : "http://localhost:8088/api/listConfigurationName";
+        axios.get(url).then(res => {
             var list = [];
-            for (var i = 0; i < res.data.length; i++) list[i] = { value: res.data[i], id: i + 1 };
-            // console.log("listCSVConfigurationName: ", list);
-            this.setState({ listCSVConfigurationName: list });
+            for (var i = 0; i < res.data.length; i++) {
+                list[i] = { value: res.data[i], id: i + 1 };
+            }
+            this.setState({ listConfigurationName: list });
         });
     }
 
@@ -36,7 +52,7 @@ class FileUpload extends Component {
         if (!this.state.isConfig) {
             this.getCSVConfigurationName();
         } else {
-            this.setState({ listCSVConfigurationName: [] });
+            this.setState({ listConfigurationName: [] });
         }
     }
 
@@ -48,34 +64,32 @@ class FileUpload extends Component {
     };
 
     onClickHandler = () => {
-        const data = new FormData();
+        var data = new FormData();
         for (var i = 0; i < this.state.selectedFile.length; i++) {
             data.append("files", this.state.selectedFile[i]);
         }
 
         if (this.state.isConfig) {
-            axios
-                .post("http://localhost:8088/api/uploadMultiConfig", data, {
-                    onUploadProgress: ProgressEvent => {
-                        this.setState({
-                            loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
-                        });
-                    }
-                })
+            axios.post("http://localhost:8088/api/uploadMultiConfig", data, {
+                onUploadProgress: ProgressEvent => {
+                    this.setState({
+                        loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
+                    });
+                }
+            })
                 .then(res => {
                     // then print response status
                     console.log(res);
                 });
         } else {
-            data.append("configuration_name", "cvs");
-            axios
-                .post("http://localhost:8088/api/uploadMultiCSVFile", data, {
-                    onUploadProgress: ProgressEvent => {
-                        this.setState({
-                            loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
-                        });
-                    }
-                })
+            data.append("config_name", this.state.csvConfigurationName);
+            axios.post("http://localhost:8088/api/uploadMultiCSVFile", data, {
+                onUploadProgress: ProgressEvent => {
+                    this.setState({
+                        loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
+                    });
+                }
+            })
                 .then(res => {
                     // then print response status
                     console.log(res);
@@ -85,38 +99,58 @@ class FileUpload extends Component {
 
     render() {
         return (
-            <div class='container'>
-                <div class='row'>
-                    <div class='col-md-6'>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-md-6'>
                         <form method='post' action='#' id='#'>
-                            <div class='form-group files'>
+                            <div className='form-group files'>
                                 <label>Upload {this.state.isConfig ? "Configuration" : "CSV"} File(s)</label>
-                                <input type='file' class='form-control' multiple onChange={this.onChangeHandler} />
+                                <input type='file' className='form-control' multiple onChange={this.onChangeHandler} />
                             </div>
                         </form>
-                        <div class='form-group'>
+                        <div className='form-group'>
                             <Progress max='100' color='success' value={this.state.loaded}>
                                 {Math.round(this.state.loaded, 2)}%
                             </Progress>
                         </div>
-                        <button type='button' class='btn btn-success btn-block' onClick={this.onClickHandler}>
+                        <button type='button' className='btn btn-success btn-block' onClick={this.onClickHandler}>
                             Upload
                         </button>
                     </div>
                 </div>
                 <div>
-                    {this.state.listCSVConfigurationName.length === 0 ? null : (
-                        <div class='row'>
-                            <div class='col-md-6'>
+                    {this.state.isConfig ? (
+                        <div className="row">
+                            <div className='col-md-6'>
                                 <div>
-                                    <div style={{ margin: "16px", position: "relative" }}>
-                                        <h3>CSV Configuration</h3>
-                                        <SelectBox items={this.state.listCSVConfigurationName} />
-                                    </div>
+                                    {this.state.listConfigurationName.length === 0 ? null : (
+                                        <div style={{ margin: "16px", position: "relative" }}>
+                                            <h3>Configuration Name</h3>
+                                            <SelectBox items={this.state.listConfigurationName}
+                                                onSelectItem={this.onSelectConfig}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
-                    )}
+                    ) : (
+                            <div className='row'>
+                                <div className='col-md-6'>
+                                    <div>
+                                        {this.state.listConfigurationName.length === 0 ? null : (
+                                            <div style={{ margin: "16px", position: "relative" }}>
+                                                <h3>CSV Configuration</h3>
+                                                <SelectBox
+                                                    items={this.state.listConfigurationName}
+                                                    onSelectItem={this.onSelectConfig}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                 </div>
             </div>
         );

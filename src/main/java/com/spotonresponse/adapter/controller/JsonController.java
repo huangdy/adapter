@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class JsonController {
         return new Gson().toJson(configurationRepository.listCSVConfigurationName());
     }
 
-     @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/listConfigurationName", produces = "applicaiton/json")
     public String listConfigurationName() {
 
@@ -42,10 +43,17 @@ public class JsonController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/configuration/{name}", produces = "application/json")
+    public Configuration getConfiguration(@PathVariable String name) {
+
+        return configurationRepository.findById(name).get();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/listConfiguration", produces = "application/json")
     public List<Configuration> listConfiguration() {
 
-       return configurationRepository.findAll();
+        return configurationRepository.findAll();
     }
 
     @RequestMapping(value = "/query", produces = "application/json")

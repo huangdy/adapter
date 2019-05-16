@@ -16,7 +16,7 @@ function App() {
           <FileUpload type="csv" />
         </div>
         <div label="Query">
-          <Query />
+          Under Construction
         </div>
       </Tabs>
     </div>

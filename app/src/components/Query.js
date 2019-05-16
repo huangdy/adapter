@@ -22,29 +22,30 @@ class Query extends Component {
     getConfigurationName() {
         axios.get("http://localhost:8088/api/listConfigurationName").then(res => {
             var list = [];
-            for (var i = 0; i < res.data.length; i++)
+            for (var i = 0; i < res.data.length; i++) {
+                console.log("Configuration: ", res.data[i]);
                 list[i] = {
                     value: res.data[i],
                     id: i + 1
                 };
-            console.log("listConfigurationName: ", list);
+            }
+            //console.log("listConfigurationName: ", list);
             this.setState({ listConfigurationName: list });
         });
     }
 
     render() {
         return (
-            <div class='container'>
-                <div class='row'>
-                    <div class='col-md-6'>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-md-6'>
                         <div>
-                            <div style={{ margin: "16px", position: "relative" }}>
-                                <h3>Configuration Name</h3>
-                                <SelectBox items={this.state.listConfigurationName} />
-                            </div>
-                        </div>
-                        <div>
-
+                            {this.state.listConfigurationName.length === 0 ? null : (
+                                <div style={{ margin: "16px", position: "relative" }}>
+                                    <h3>Configuration Name</h3>
+                                    <SelectBox items={this.state.listConfigurationName} />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
