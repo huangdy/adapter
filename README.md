@@ -1,5 +1,7 @@
 This is adapter for SpotOnResponse which will pull JSON data from json_ds which is defined in configuration.
 
+Table Of Content
+
 Each configuration's file name will be used as index for the data in NoSQL, for example, landslide.config will
 generate data with Title as landslide so it can be queried easier. Each configuration will be running at the rate
 of every 6 hours which is defined as cron sechedule in application.properties.
