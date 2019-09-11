@@ -62,6 +62,7 @@ public class Configuration {
     private String uri;
     private String username;
     private String password;
+    @Column(columnDefinition = "VARCHAR(4096)")
     private String mappingColumns;
     @Column(columnDefinition = "VARCHAR(65536)")
     private String description = "title.category";

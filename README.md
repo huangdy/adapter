@@ -12,10 +12,10 @@ for example, 'test.landslide.config' then this configuration will be run only on
 To upload a configuration, you can use browser to access http://localhost/. You can use 'Configuration File Upload' tab to upload the configuration file into adapter.
 
 Currently, you can use browser to VIEW the content for the configuration file, xcore.config by
-http://hostname/query?config=xcore
+http://hostname/api/query?config=xcore
 
 you can use browser to DELETE the content for the configuration file: xcore.config by
-http://hostname/delete?config=xcore
+http://hostname/api/delete?config=xcore
 
 you can see the uploaded configuration using browser by
 http://hostname/api/configurations
