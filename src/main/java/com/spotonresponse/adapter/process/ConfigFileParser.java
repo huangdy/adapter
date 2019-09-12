@@ -98,8 +98,9 @@ public class ConfigFileParser {
                     logger.error("Configuration File: " + configFilename + "Invalid formated Line: [" + line + "]");
                     continue;
                 }
+
                 tokens[0] = tokens[0].trim().toLowerCase();
-                tokens[1] = tokens[1].trim();
+                tokens[1] = tokens[1].trim().replaceAll("~@~", " ");
                 setKeyValue(configuration, tokens);
             }
             if (configuration != null) {
