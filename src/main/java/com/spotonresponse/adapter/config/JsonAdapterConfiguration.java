@@ -1,5 +1,6 @@
 package com.spotonresponse.adapter.config;
 
+import com.google.cloud.datastore.*;
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,16 +24,15 @@ public class JsonAdapterConfiguration {
 
     private final static String packageName = "com.spotonresponse.adapter";
 
-    @Value("${aws.access.key.id}")
+    @Value("${DynamoDbUUID}")
+    private String DynamoDbUUID;
+
     private String aws_access_key_id;
-    @Value("${aws.secret.access.key}")
     private String aws_secret_access_key;
-    @Value("${amazon.endpoint}")
     private String amazon_endpoint;
-    @Value("${amazon.region}")
     private String amazon_region;
-    @Value("${db.table.name}")
     private String db_table_name;
+
 
     @Bean
     public com.spotonresponse.adapter.model.Configuration configuration() {
@@ -43,11 +43,28 @@ public class JsonAdapterConfiguration {
     @Bean
     public DynamoDBRepository dynamoDBRepository() {
 
-        DynamoDBRepository repo = new DynamoDBRepository(aws_access_key_id,
-                                                         aws_secret_access_key,
-                                                         amazon_endpoint,
-                                                         amazon_region,
-                                                         db_table_name);
+        try {
+            Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+            Query<Entity> query = Query.newEntityQueryBuilder()
+                    .setKind("Credentials")
+                    .setFilter(StructuredQuery.PropertyFilter.eq("UUID", DynamoDbUUID))
+                    .build();
+
+            QueryResults<Entity> results = datastore.run(query);
+            Entity entity = results.next();
+            aws_access_key_id = entity.getString("username");
+            aws_secret_access_key = entity.getString("password");
+            amazon_endpoint = entity.getString("Endpoint");
+            amazon_region = entity.getString("Region");
+            db_table_name = entity.getString("TableName");
+
+        } catch (Exception ex) {
+            //logger.fine("Error: " + ex);
+
+        }
+        DynamoDBRepository repo = new DynamoDBRepository();
+
+        repo.init(aws_access_key_id, aws_secret_access_key, amazon_endpoint, amazon_region, db_table_name);
         return repo;
     }
 
