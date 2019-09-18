@@ -1,7 +1,10 @@
 package com.spotonresponse.adapter.config;
 
 import com.google.cloud.datastore.*;
+import com.spotonresponse.adapter.controller.FileController;
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +26,8 @@ import java.util.concurrent.Executor;
 public class JsonAdapterConfiguration {
 
     private final static String packageName = "com.spotonresponse.adapter";
+
+    private static final Logger logger = LoggerFactory.getLogger(JsonAdapterConfiguration.class);
 
     @Value("${DynamoDbUUID}")
     private String DynamoDbUUID;
@@ -57,6 +62,9 @@ public class JsonAdapterConfiguration {
             amazon_endpoint = entity.getString("Endpoint");
             amazon_region = entity.getString("Region");
             db_table_name = entity.getString("TableName");
+
+            logger.info("**** Got AWS Creds for table: " + db_table_name);
+
 
         } catch (Exception ex) {
             //logger.fine("Error: " + ex);

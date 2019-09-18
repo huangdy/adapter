@@ -97,6 +97,7 @@ public class FileController {
             logger.info("... done ...");
         } catch (Exception e) {
             // TODO Error Handling
+            e.printStackTrace();
         }
 
         // parse the map with configuration
