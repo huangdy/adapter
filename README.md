@@ -1,6 +1,13 @@
-This is adapter for SpotOnResponse which will pull JSON data from json_ds which is defined in configuration.
+This is adapter for SpotOnResponse and will allow upload of configuration files to process JSON and CSV files and 
+put them into XCBD (XChangecore Big Data)
 
-Table Of Content
+
+This is a Spring Boot project, deployment is as simple as executing the jar:
+java -jar xcbdadapter-1.0.1.jar
+
+
+
+Table Of Contents:
 
 Each configuration's file name will be used as index for the data in NoSQL, for example, landslide.config will
 generate data with Title as landslide so it can be queried easier. Each configuration will be running at the rate

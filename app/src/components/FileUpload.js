@@ -29,7 +29,7 @@ class FileUpload extends Component {
     }
 
     getConfiguration(name) {
-        var url = "http://localhost:8088/api/configuration/" + name;
+        var url = "/api/configuration/" + name;
         console.log("getConfiguration: " + url);
         axios.get(url).then(res => {
             console.log(res.data);
@@ -37,7 +37,7 @@ class FileUpload extends Component {
     }
 
     getConfigurationNameList(isCSVType) {
-        var url = isCSVType ? "http://localhost:8088/api/listCSVConfigurationName" : "http://localhost:8088/api/listConfigurationName";
+        var url = isCSVType ? "/api/listCSVConfigurationName" : "/api/listConfigurationName";
         axios.get(url).then(res => {
             var list = [];
             for (var i = 0; i < res.data.length; i++) {
@@ -70,7 +70,7 @@ class FileUpload extends Component {
         }
 
         if (this.state.isConfig) {
-            axios.post("http://localhost:8088/api/uploadMultiConfig", data, {
+            axios.post("/api/uploadMultiConfig", data, {
                 onUploadProgress: ProgressEvent => {
                     this.setState({
                         loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
@@ -83,7 +83,7 @@ class FileUpload extends Component {
                 });
         } else {
             data.append("config_name", this.state.csvConfigurationName);
-            axios.post("http://localhost:8088/api/uploadMultiCSVFile", data, {
+            axios.post("/api/uploadMultiCSVFile", data, {
                 onUploadProgress: ProgressEvent => {
                     this.setState({
                         loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100

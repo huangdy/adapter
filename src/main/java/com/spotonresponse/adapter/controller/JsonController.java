@@ -29,35 +29,30 @@ public class JsonController {
     private ConfigurationRepository configurationRepository;
 
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @GetMapping(path = "/listCSVConfigurationName", produces = "applicaiton/json")
     public String listCSVConfigurationName() {
 
         return new Gson().toJson(configurationRepository.listCSVConfigurationName());
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @GetMapping(path = "/listConfigurationName", produces = "applicaiton/json")
     public String listConfigurationName() {
 
         return new Gson().toJson(configurationRepository.listConfigurationName());
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @GetMapping(path = "/configuration/{name}", produces = "application/json")
     public Configuration getConfiguration(@PathVariable String name) {
 
         return configurationRepository.findById(name).get();
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @GetMapping(path = "/listConfiguration", produces = "application/json")
     public List<Configuration> listConfiguration() {
 
         return configurationRepository.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @RequestMapping(value = "/query", produces = "application/json")
     public QueryResult query(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
 
@@ -66,7 +61,6 @@ public class JsonController {
         return new QueryResult(creator, resultArray.length(), resultArray);
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @RequestMapping(value = "/delete", produces = "application/json")
     public QueryResult delete(@RequestParam(value = "config", defaultValue = "xcore") String creator) {
 

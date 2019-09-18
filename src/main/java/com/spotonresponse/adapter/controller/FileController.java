@@ -50,7 +50,6 @@ public class FileController {
     @Autowired
     private DynamoDBRepository dynamoDBRepository;
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @PostMapping(path = "/uploadConfig", produces = "application/json")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 
@@ -74,14 +73,14 @@ public class FileController {
         return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @PostMapping("/uploadMultiConfig")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-
+        for (MultipartFile file : files) {
+            logger.error("Uploading file: " + file.getName());
+        }
         return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
     @PostMapping("/uploadCSVFile")
     public UploadFileResponse uploadCSVFile(@RequestParam("file") MultipartFile file, String csvConfiugrationName) {
 
@@ -104,7 +103,7 @@ public class FileController {
         return new UploadFileResponse(csvConfiugrationName, "xyz", "csv", 0);
     }
 
-    @CrossOrigin(origins = "http://localhost:8088")
+
     @PostMapping("/uploadMultiCSVFile")
     public List<UploadFileResponse> uploadMultipleCSVFiles(@RequestParam("files") MultipartFile[] files,
             @RequestParam("config_name") String csvConfiugrationName) {
