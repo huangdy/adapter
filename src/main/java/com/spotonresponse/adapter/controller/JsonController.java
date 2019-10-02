@@ -47,6 +47,19 @@ public class JsonController {
         return configurationRepository.findById(name).get();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/deleteConfiguration/{name}", produces = "application/json")
+    public String deleteConfiguration(@PathVariable String name) {
+
+        configurationRepository.deleteById(name);
+
+        JSONObject status = new JSONObject();
+        status.put("Configuration", name);
+        status.put("Remove", configurationRepository.findById(name).isPresent() ? "Failure" : "Success");
+        return status.toString();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/listConfiguration", produces = "application/json")
     public List<Configuration> listConfiguration() {
 

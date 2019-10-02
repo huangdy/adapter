@@ -5,8 +5,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.AbstractMap;
 import java.util.Map;
 
@@ -14,6 +12,7 @@ public class MappedRecordJson extends JSONObject {
 
     private static final String S_Creator = "creator";
     private static final String S_MD5HASH = "md5hash";
+    private static final String S_INDEX = "index";
     private static final String[] removeEntries = { "longitude", "latitude" };
     private static Logger logger = LoggerFactory.getLogger(MappedRecordJson.class);
 
@@ -25,6 +24,10 @@ public class MappedRecordJson extends JSONObject {
 
         super(new GsonBuilder().setPrettyPrinting().create().toJson(record));
 
+        // per Jim's request to rename the index to uuid
+        Object uuid = this.get(S_INDEX);
+        this.remove(S_INDEX);
+        this.put("uuid", uuid);
         setWhere(record.getLatitude(), record.getLongitude());
         clearUp();
     }

@@ -1,7 +1,6 @@
 package com.spotonresponse.adapter.config;
 
 import com.google.cloud.datastore.*;
-import com.spotonresponse.adapter.controller.FileController;
 import com.spotonresponse.adapter.repo.DynamoDBRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,12 +31,16 @@ public class JsonAdapterConfiguration {
     @Value("${DynamoDbUUID}")
     private String DynamoDbUUID;
 
+    @Value("${aws.access.key.id}")
     private String aws_access_key_id;
+    @Value("${aws.secret.access.key}")
     private String aws_secret_access_key;
+    @Value("${amazon.endpoint}")
     private String amazon_endpoint;
+    @Value("${amazon.region}")
     private String amazon_region;
+    @Value("${db.table.name}")
     private String db_table_name;
-
 
     @Bean
     public com.spotonresponse.adapter.model.Configuration configuration() {

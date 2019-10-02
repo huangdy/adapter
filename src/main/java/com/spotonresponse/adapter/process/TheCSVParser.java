@@ -37,10 +37,13 @@ public class TheCSVParser {
     private final List<MappedRecord> mappedRecordList = new ArrayList<MappedRecord>();
 
     private Configuration configuration;
+    private Map<String, String> mappingColumns;
 
     public TheCSVParser(Configuration configuration, List<Map<String, String>> rows) {
 
         this.configuration = configuration;
+        mappingColumns = ConfigurationHelper.getMappingColumns(configuration.getMappingColumns());
+
         List<MappedRecord> recordList = new ArrayList<MappedRecord>();
         for (int i = 0; i < rows.size(); i++) {
             MappedRecord record = toRecord(rows.get(i));
@@ -112,13 +115,26 @@ public class TheCSVParser {
             StringBuffer sb = new StringBuffer();
             List<String> columns = ConfigurationHelper.getMap(configuration).get(columnName);
             if (columnName.equalsIgnoreCase(ConfigurationHelper.FN_Description) && !isFullDescription) {
+                StringBuffer emptyString = new StringBuffer();
                 for (String column : columns) {
                     String newKeyName = getMappedName(column);
-                    sb.append("<br/>");
-                    sb.append("<b>");
-                    sb.append(newKeyName + ": ");
-                    sb.append("</b>");
-                    sb.append(row.get(column));
+                    String value = row.get(column);
+                    if (value != null) {
+                        sb.append("<br/>");
+                        sb.append("<b>");
+                        sb.append(newKeyName + ": ");
+                        sb.append("</b>");
+                        sb.append(row.get(column));
+                    } else {
+                        emptyString.append("<br/>");
+                        emptyString.append("<b>");
+                        emptyString.append(newKeyName + ": ");
+                        emptyString.append("</b>");
+                        emptyString.append("N/A");
+                    }
+                }
+                if (emptyString.length() > 0) {
+                    sb.append(emptyString);
                 }
             } else {
                 int isFirstColumn = 0;
@@ -232,7 +248,6 @@ public class TheCSVParser {
 
     private String getMappedName(String name) {
 
-        Map<String, String> mappingColumns = ConfigurationHelper.getMappingColumns(name);
         if (mappingColumns == null) {
             return name;
         }

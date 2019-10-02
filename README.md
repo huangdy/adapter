@@ -18,13 +18,24 @@ for example, 'test.landslide.config' then this configuration will be run only on
 
 To upload a configuration, you can use browser to access http://localhost/. You can use 'Configuration File Upload' tab to upload the configuration file into adapter.
 
-Currently, you can use browser to VIEW the content for the configuration file, xcore.config by
+Couple utilities for configuration management and upload content management:
+
+list of the all the Configuration uploaded:
+http://hostname/api/listConfiguration
+
+you can see the uploaded configuration, for example cvs.config, using browser by
+http://hostname/api/configuratiion/cvs
+
+you can see the specific configuration file, for example cvs
+http://hostname/api/configuration/cvs
+
+you can delete a specific configuration file, for example cvs
+http://hostname/api/deleteConfiguration/cvs
+
+you can use browser to VIEW the content for the configuration file, xcore.config
 http://hostname/api/query?config=xcore
 
-you can use browser to DELETE the content for the configuration file: xcore.config by
+you can use browser to DELETE the content for the configuration file: xcore.config
 http://hostname/api/delete?config=xcore
-
-you can see the uploaded configuration using browser by
-http://hostname/api/configurations
 
 Only the file upload is coded as web application, will integrate the rest into the web application later.
