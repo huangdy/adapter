@@ -1,6 +1,5 @@
 package com.spotonresponse.adapter.process;
 
-import com.spotonresponse.adapter.model.ConfigurationHelper;
 import com.spotonresponse.adapter.model.Configuration;
 import com.spotonresponse.adapter.model.MappedRecord;
 import com.spotonresponse.adapter.model.MappedRecordJson;
@@ -10,12 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class CSVParser {
 

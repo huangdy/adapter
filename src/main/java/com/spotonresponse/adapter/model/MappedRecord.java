@@ -13,32 +13,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Hashtable;
 
 import com.spotonresponse.adapter.model.ConfigurationHelper;
 
 @Data
 @NoArgsConstructor
-@Entity
-@Table(name = "mapped_record")
 public class MappedRecord {
 
     static Logger logger = LoggerFactory.getLogger(MappedRecord.class);
 
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String creator;
 
-    @Column(columnDefinition = "VARCHAR(4096)")
     private String title = "N/A";
-    @Column(columnDefinition = "VARCHAR(4096)")
     private String category = "N/A";
-    @Column(columnDefinition = "VARCHAR(65536)")
     private String content = "N/A";
-    @Column(columnDefinition = "VARCHAR(65536)")
     private String description = "N/A";
-    @Column(columnDefinition = "VARCHAR(4096)")
     private String index = "N/A";
     private String latitude;
     private String longitude;
@@ -68,6 +59,8 @@ public class MappedRecord {
     private String sourceEmail;
 
     private Date lastUpdated;
+
+    private Hashtable<String, String> descMap = new Hashtable<String, String>();
 
     public void put(String key, String value) {
 

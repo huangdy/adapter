@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -115,26 +117,20 @@ public class TheCSVParser {
             StringBuffer sb = new StringBuffer();
             List<String> columns = ConfigurationHelper.getMap(configuration).get(columnName);
             if (columnName.equalsIgnoreCase(ConfigurationHelper.FN_Description) && !isFullDescription) {
-                StringBuffer emptyString = new StringBuffer();
+                Set<String> emptySet = new HashSet<String>();
                 for (String column : columns) {
                     String newKeyName = getMappedName(column);
                     String value = row.get(column);
                     if (value != null) {
-                        sb.append("<br/>");
-                        sb.append("<b>");
-                        sb.append(newKeyName + ": ");
-                        sb.append("</b>");
-                        sb.append(row.get(column));
+                        record.getDescMap().put(newKeyName, value);
                     } else {
-                        emptyString.append("<br/>");
-                        emptyString.append("<b>");
-                        emptyString.append(newKeyName + ": ");
-                        emptyString.append("</b>");
-                        emptyString.append("N/A");
+                        emptySet.add(newKeyName);
                     }
                 }
-                if (emptyString.length() > 0) {
-                    sb.append(emptyString);
+                if (emptySet.size() > 0) {
+                    for (String key : emptySet) {
+                        record.getDescMap().put(key, "N/A");
+                    }
                 }
             } else {
                 int isFirstColumn = 0;
@@ -173,17 +169,10 @@ public class TheCSVParser {
         record.setContent(sb.toString());
 
         if (isFullDescription) {
-            sb = new StringBuffer();
             columnNames = row.keySet();
             for (String key : columnNames) {
-                String theKey = getMappedName(key);
-                sb.append("<br/>");
-                sb.append("<b>");
-                sb.append(theKey + ": ");
-                sb.append("</b>");
-                sb.append(row.get(key));
+                record.getDescMap().put(getMappedName(key), row.get(key));
             }
-            record.setDescription(sb.toString());
         }
 
         // TO DO to perform the prefix, suffix, distance, filter, ...
