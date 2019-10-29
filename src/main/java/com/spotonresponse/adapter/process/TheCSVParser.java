@@ -171,6 +171,8 @@ public class TheCSVParser {
         if (isFullDescription) {
             columnNames = row.keySet();
             for (String key : columnNames) {
+                if (key.length() == 0)
+                    continue;
                 record.getDescMap().put(getMappedName(key), row.get(key));
             }
         }
