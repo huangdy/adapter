@@ -183,7 +183,7 @@ public class TheCSVParser {
             record.setCategory(configuration.getCategoryFixed());
         } else {
             if (configuration.getCategoryPrefix() != null || configuration.getCategorySuffix() != null) {
-                String category = record.get(ConfigurationHelper.FN_FilterName);
+                String category = record.getCategory();
                 if (configuration.getCategoryPrefix() != null) {
                     category = configuration.getCategoryPrefix() + category;
                 }
