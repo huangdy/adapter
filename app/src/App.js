@@ -1,26 +1,29 @@
 import React from "react";
-import Tabs from "./features/tab/Tabs";
-import FileUpload from "./components/FileUpload";
-import Query from "./components/Query";
-import './features/tab/Tab.css'
+import { Link } from "react-router-dom";
+import { Navbar, NavItem, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import Routes from "./Routes";
+import "./App.css";
 
-function App() {
-  return (
-    <div>
-      <h1>Saber Adapter</h1>
-      <Tabs>
-        <div label="Configuration File Upload">
-          <FileUpload />
+export default function App(props) {
+    return (
+        <div className="App container">
+            <Navbar fluid collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <Link to="/">Saber</Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav pullRight>
+                        <LinkContainer to="/login">
+                            <NavItem>Login</NavItem>
+                        </LinkContainer>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+            <Routes />
         </div>
-        <div label="CSV File Upload">
-          <FileUpload type="csv" />
-        </div>
-        <div label="Query">
-          Under Construction
-        </div>
-      </Tabs>
-    </div>
-  );
+    );
 }
-
-export default App;

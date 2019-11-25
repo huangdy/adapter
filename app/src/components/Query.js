@@ -20,7 +20,7 @@ class Query extends Component {
     }
 
     getConfigurationName() {
-        axios.get("/api/listConfigurationName").then(res => {
+        axios.get("http://localhost:8088/api/listConfigurationName").then(res => {
             var list = [];
             for (var i = 0; i < res.data.length; i++) {
                 console.log("Configuration: ", res.data[i]);
