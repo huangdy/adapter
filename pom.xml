@@ -15,8 +15,9 @@
     <description>SpotOnReponse XCBD Adapter</description>
     <properties>
         <java.version>1.8</java.version>
+        <!-- 1.6 -->
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
-        <node.version>v12.7.0</node.version>
+        <node.version>v12.13.1</node.version>
         <yarn.version>v1.19.1</yarn.version>
         <jackson.version>2.9.4</jackson.version>
         <!-- XCore
